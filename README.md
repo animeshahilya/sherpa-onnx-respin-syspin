@@ -17,13 +17,23 @@ Each voice has been INT8-quantized to ~36MB (well within mobile memory constrain
 | **Hindi** | `hi` | Female | `vits-syspin-hi-female` | ~36 MB |
 | **Hindi** | `hi` | Male | `vits-syspin-hi-male` | ~36 MB |
 | **Bengali** | `bn` | Female | `vits-syspin-bn-female` | ~36 MB |
+| **Bengali** | `bn` | Male | `vits-syspin-bn-male` | ~36 MB |
 | **Telugu** | `te` | Female | `vits-syspin-te-female` | ~36 MB |
+| **Telugu** | `te` | Male | `vits-syspin-te-male` | ~36 MB |
 | **Kannada** | `kn` | Female | `vits-syspin-kn-female` | ~36 MB |
+| **Kannada** | `kn` | Male | `vits-syspin-kn-male` | ~36 MB |
 | **Marathi** | `mr` | Female | `vits-syspin-mr-female` | ~36 MB |
+| **Marathi** | `mr` | Male | `vits-syspin-mr-male` | ~36 MB |
 | **Bhojpuri** | `bho` | Female | `vits-syspin-bho-female` | ~36 MB |
+| **Bhojpuri** | `bho` | Male | `vits-syspin-bho-male` | ~36 MB |
 | **Chhattisgarhi** | `hne` | Female | `vits-syspin-hne-female` | ~36 MB |
+| **Chhattisgarhi** | `hne` | Male | `vits-syspin-hne-male` | ~36 MB |
 | **Maithili** | `mai` | Female | `vits-syspin-mai-female` | ~36 MB |
+| **Maithili** | `mai` | Male | `vits-syspin-mai-male` | ~36 MB |
 | **Magahi** | `mag` | Female | `vits-syspin-mag-female` | ~36 MB |
+| **Magahi** | `mag` | Male | `vits-syspin-mag-male` | ~36 MB |
+| **English (India)** | `en` | Female | `vits-syspin-en-female` | ~36 MB |
+| **English (India)** | `en` | Male | `vits-syspin-en-male` | ~36 MB |
 
 ## Using with SherpaVoices Android App
 
