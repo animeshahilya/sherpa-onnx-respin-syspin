@@ -295,6 +295,13 @@ def export_single_model(
 
     print(f"\n[{model_key}] Processing {info['lang_name']} ({info['gender']}) from {info['repo']}...")
 
+    if release_assets_dir:
+        target_model = release_assets_dir / f"{model_key}-model.onnx"
+        target_tokens = release_assets_dir / f"{model_key}-tokens.txt"
+        if target_model.exists() and target_model.stat().st_size > 100_000_000 and target_tokens.exists():
+            print(f"[{model_key}] Already exported to {target_model.name} ({target_model.stat().st_size/1024/1024:.1f} MB), skipping.")
+            return out_path
+
     try:
         from huggingface_hub import hf_hub_download
     except ImportError:
