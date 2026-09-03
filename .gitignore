@@ -1,7 +1,10 @@
 *.pth
 *.pt
+*.onnx
 .cache/
 __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+release_assets/
+exported_respin_syspin_models/

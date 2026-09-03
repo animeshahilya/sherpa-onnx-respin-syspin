@@ -231,6 +231,25 @@ RESPIN_SYSPIN_MODELS = {
         "gender": "Male",
         "sample_rate": 22050,
     },
+    # Gujarati
+    "vits-syspin-gu-female": {
+        "repo": "SYSPIN/vits_Gujarati_Female",
+        "alt_repo": "SYSPIN/tts_vits_coquiai_GujaratiFemale",
+        "lang": "gu",
+        "lang_iso3": "guj",
+        "lang_name": "Gujarati",
+        "gender": "Female",
+        "sample_rate": 22050,
+    },
+    "vits-syspin-gu-male": {
+        "repo": "SYSPIN/vits_Gujarati_Male",
+        "alt_repo": "SYSPIN/tts_vits_coquiai_GujaratiMale",
+        "lang": "gu",
+        "lang_iso3": "guj",
+        "lang_name": "Gujarati",
+        "gender": "Male",
+        "sample_rate": 22050,
+    },
 }
 
 
@@ -262,7 +281,13 @@ def generate_tokens_file(tokenizer, output_path: str) -> None:
             f.write(f"{char} {idx}\n")
 
 
-def export_single_model(model_key: str, output_dir: Path, hf_token: Optional[str] = None) -> Path:
+def export_single_model(
+    model_key: str,
+    output_dir: Path,
+    hf_token: Optional[str] = None,
+    quantize: bool = False,
+    release_assets_dir: Optional[Path] = None,
+) -> Path:
     """Exports one RESPIN / SYSPIN model to sherpa-onnx ONNX format."""
     info = RESPIN_SYSPIN_MODELS[model_key]
     out_path = output_dir / model_key
@@ -335,16 +360,24 @@ def export_single_model(model_key: str, output_dir: Path, hf_token: Optional[str
     }
     add_metadata_to_onnx(str(onnx_file), metadata)
 
-    # Dynamic INT8 quantization to reduce model size from ~114MB to ~36MB
-    # so it complies with GitHub's 100MB file limit and speeds up on-device inference
-    print(f"[{model_key}] Quantizing ONNX model to INT8...")
-    from onnxruntime.quantization import quantize_dynamic, QuantType
-    temp_quant = out_path / "model.quant.onnx"
-    quantize_dynamic(str(onnx_file), str(temp_quant), weight_type=QuantType.QUInt8)
-    add_metadata_to_onnx(str(temp_quant), metadata)
-    
-    # Replace unquantized with quantized model
-    os.replace(str(temp_quant), str(onnx_file))
+    # Optional dynamic INT8 quantization (default: False, full precision real voice)
+    if quantize:
+        print(f"[{model_key}] Quantizing ONNX model to INT8...")
+        from onnxruntime.quantization import quantize_dynamic, QuantType
+        temp_quant = out_path / "model.quant.onnx"
+        quantize_dynamic(str(onnx_file), str(temp_quant), weight_type=QuantType.QUInt8)
+        add_metadata_to_onnx(str(temp_quant), metadata)
+        os.replace(str(temp_quant), str(onnx_file))
+
+    # Stage flat assets for GitHub Releases if requested
+    if release_assets_dir:
+        import shutil
+        release_assets_dir.mkdir(parents=True, exist_ok=True)
+        target_model = release_assets_dir / f"{model_key}-model.onnx"
+        target_tokens = release_assets_dir / f"{model_key}-tokens.txt"
+        print(f"[{model_key}] Staging release asset: {target_model.name}...")
+        shutil.copy2(str(onnx_file), str(target_model))
+        shutil.copy2(str(tokens_file), str(target_tokens))
 
     # Clean up large training checkpoints and cache files
     try:
@@ -359,7 +392,8 @@ def export_single_model(model_key: str, output_dir: Path, hf_token: Optional[str
     except Exception as e:
         print(f"[{model_key}] Warning cleaning temp files: {e}")
 
-    print(f"[{model_key}] Successfully exported and quantized to {out_path} ({os.path.getsize(onnx_file)/1024/1024:.1f} MB)!")
+    mode_label = "quantized (INT8)" if quantize else "full-precision FP32 (real voice)"
+    print(f"[{model_key}] Successfully exported {mode_label} to {out_path} ({os.path.getsize(onnx_file)/1024/1024:.1f} MB)!")
     return out_path
 
 
@@ -372,13 +406,25 @@ def main():
         type=str,
         choices=list(RESPIN_SYSPIN_MODELS.keys()) + ["all"],
         default="all",
-        help="Which model to export, or 'all' to export all 20 models",
+        help="Which model to export, or 'all' to export all models",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("exported_respin_syspin_models"),
+        default=Path("."),
         help="Directory to store exported ONNX models and tokens",
+    )
+    parser.add_argument(
+        "--release-assets-dir",
+        type=Path,
+        default=None,
+        help="Optional directory to stage flat release assets ({model}-model.onnx and {model}-tokens.txt)",
+    )
+    parser.add_argument(
+        "--quantize",
+        action="store_true",
+        default=False,
+        help="Whether to dynamically quantize the model to INT8 (default: False, exports full-precision FP32 real voices)",
     )
     parser.add_argument(
         "--hf-token",
@@ -408,7 +454,13 @@ def main():
 
     for m in models_to_export:
         try:
-            export_single_model(m, args.output_dir, args.hf_token)
+            export_single_model(
+                m,
+                args.output_dir,
+                hf_token=args.hf_token,
+                quantize=args.quantize,
+                release_assets_dir=args.release_assets_dir,
+            )
         except Exception as e:
             print(f"Error exporting {m}: {e}", file=sys.stderr)
 
