@@ -5,15 +5,16 @@ import sherpa_onnx
 import soundfile as sf
 from test_samples_validator import samples
 
-base_dir = r"C:\Users\alex\.gemini\antigravity\scratch\sherpa-onnx-respin-syspin\release_assets_int8"
-out_dir = r"C:\Users\alex\.gemini\antigravity\scratch\sherpa-onnx-respin-syspin\samples"
+base_dir = os.path.join(os.path.dirname(__file__), "release_assets_fp16")
+out_dir = os.path.join(os.path.dirname(__file__), "samples")
 os.makedirs(out_dir, exist_ok=True)
+os.makedirs(base_dir, exist_ok=True)
 
 langs = ["hi", "en", "bn", "te", "kn", "mr", "gu", "bho", "hne", "mai", "mag"]
 
-print("Starting generation for all 11 languages...")
+print("Starting generation for all 11 languages (FP16)...")
 for lang in langs:
-    # Generate Female
+    # Generate Female and Male
     for gender in ["female", "male"]:
         m_name = f"vits-syspin-{lang}-{gender}"
         m_path = os.path.join(base_dir, f"{m_name}-model.onnx")
@@ -26,8 +27,12 @@ for lang in langs:
             continue
 
         if not os.path.exists(m_path):
-            print(f"Model missing: {m_path}")
-            continue
+            import urllib.request
+            print(f"Downloading FP16 model: {m_name}...")
+            url = f"https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/{m_name}-model.onnx"
+            urllib.request.urlretrieve(url, m_path)
+            tok_url = f"https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/{m_name}-tokens.txt"
+            urllib.request.urlretrieve(tok_url, t_path)
 
         t0 = time.time()
         config = sherpa_onnx.OfflineTtsConfig(

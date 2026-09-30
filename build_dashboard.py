@@ -220,8 +220,8 @@ html_template = """<!DOCTYPE html>
 
         <div class="flex flex-wrap gap-2 text-xs">
           <div class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700">
-            <div class="text-slate-400">Available Tiers</div>
-            <div class="font-bold text-slate-200">INT8 (~28MB) • FP16 • FP32</div>
+            <div class="text-slate-400">Standard Precision</div>
+            <div class="font-bold text-slate-200">Weight-only FP16 (~55 MB)</div>
           </div>
           <div class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700">
             <div class="text-slate-400">Sample Rate</div>
@@ -254,9 +254,9 @@ html_template = """<!DOCTYPE html>
           <div class="font-bold text-slate-200 font-sans text-sm">Command-Line Interface (CLI)</div>
           <p class="text-slate-400 font-sans text-xs">Run offline synthesis directly using the pre-built CLI:</p>
           <pre class="overflow-x-auto p-3 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
-# 1. Download model and tokens (INT8 ~28.5MB)
-curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.2.0-int8/vits-syspin-hi-female-model.onnx
-curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.2.0-int8/vits-syspin-hi-female-tokens.txt
+# 1. Download model and tokens (FP16 ~55MB)
+curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-female-model.onnx
+curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-female-tokens.txt
 
 # 2. Synthesize audio
 sherpa-onnx-offline-tts \\
@@ -426,36 +426,22 @@ sf.write("output.wav", audio.samples, tts.sample_rate)</pre>
                     <!-- Direct Model Downloads -->
                     <div class="pt-2 border-t border-slate-800/80 space-y-1.5">
                       <div class="text-[10px] uppercase font-mono tracking-wider text-slate-500">
-                        Download ONNX Checkpoints:
+                        Download FP16 Checkpoint & Tokens:
                       </div>
 
-                      <div class="grid grid-cols-2 gap-1.5 text-xs font-mono">
-                        <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.2.0-int8/${m}-model.onnx" 
-                           target="_blank"
-                           class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-emerald-500 text-emerald-400 flex items-center justify-between transition-colors">
-                          <span>INT8</span>
-                          <span class="text-[10px] text-slate-400">~28.5 MB</span>
-                        </a>
-
+                      <div class="grid grid-cols-2 gap-2 text-xs font-mono">
                         <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/${m}-model.onnx" 
                            target="_blank"
-                           class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-blue-500 text-blue-400 flex items-center justify-between transition-colors">
-                          <span>FP16</span>
-                          <span class="text-[10px] text-slate-400">~55 MB</span>
+                           class="px-3 py-2 rounded-lg bg-blue-600/10 border border-blue-500/30 hover:border-blue-400 text-blue-300 flex items-center justify-between transition-colors">
+                          <span class="font-semibold">FP16 Model</span>
+                          <span class="text-[10px] text-blue-400 font-normal">~55 MB</span>
                         </a>
 
-                        <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.0.0/${m}-model.onnx" 
+                        <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/${m}-tokens.txt" 
                            target="_blank"
-                           class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-purple-500 text-purple-400 flex items-center justify-between transition-colors">
-                          <span>FP32</span>
-                          <span class="text-[10px] text-slate-400">~109 MB</span>
-                        </a>
-
-                        <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.0.0/${m}-tokens.txt" 
-                           target="_blank"
-                           class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-600 text-slate-300 flex items-center justify-between transition-colors">
-                          <span>tokens</span>
-                          <span class="text-[10px] text-slate-500">Vocab</span>
+                           class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-600 text-slate-300 flex items-center justify-between transition-colors">
+                          <span class="font-semibold">tokens.txt</span>
+                          <span class="text-[10px] text-slate-500 font-normal">Vocab</span>
                         </a>
                       </div>
                     </div>
