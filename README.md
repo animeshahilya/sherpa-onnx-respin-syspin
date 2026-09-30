@@ -95,6 +95,22 @@ sherpa-onnx-offline-tts \
   "नमस्ते आप कैसे हैं"
 ```
 
+## Ultra-light ~28MB weight-INT8 voices (v1.2.0-int8)
+
+[Release v1.2.0-int8](https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/tag/v1.2.0-int8)
+ships all 22 voices at **~28.5MB each** with no compute change:
+
+- Only large weight tensors (Conv/MatMul, ≥1024 elems, ndim≥2) are stored as
+  symmetric per-channel INT8 with a `DequantizeLinear` back to FP32, so **all
+  graph math stays FP32** (unlike dynamic INT8 quant, which rewrites compute
+  to INT8 and audibly alters durations — rejected at ~38MB).
+- Same identifiers, tokens and sherpa-onnx metadata as v1.0.0/v1.1.0-fp16.
+- Measured global weight SNR is **40–41dB per voice** (transparent rounding);
+  every voice is ORT smoke-tested (finite, non-silent output, 2 runs).
+- Built with `python build_weight_int8.py --verify`. Prefer this release when
+  download size / on-device cache matters; prefer v1.0.0 FP32 when you want
+  bit-closest-to-training weights.
+
 ## Credits & Licensing
 
 - **Original Models & Checkpoints**: Developed by [SPIRE Lab, IISc Bengaluru](https://spire.ee.iisc.ac.in/) under the RESPIN and SYSPIN initiatives funded by Pratiksha Trust. Original checkpoints are available on Hugging Face at [huggingface.co/SYSPIN](https://huggingface.co/SYSPIN).

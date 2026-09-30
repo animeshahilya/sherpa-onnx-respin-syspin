@@ -8,4 +8,5 @@ __pycache__/
 Thumbs.db
 release_assets/
 release_assets_fp16/
+release_assets_int8/
 exported_respin_syspin_models/
