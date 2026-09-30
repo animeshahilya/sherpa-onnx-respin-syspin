@@ -111,6 +111,33 @@ ships all 22 voices at **~28.5MB each** with no compute change:
   download size / on-device cache matters; prefer v1.0.0 FP32 when you want
   bit-closest-to-training weights.
 
+## Hindi text frontend (hindi_frontend.py)
+
+Character VITS voices must guess the unwritten inherent schwa. This frontend
+makes it explicit before tokenization (verified against all 116 hi-female
+tokens — zero dropped characters on the test set):
+
+- **Schwa deletion → explicit halant**: final schwa deletes iff the preceding
+  vowel is full (`राम`→`राम्`, `देव`→`देव्`, `पास`→`पास्`; `कमल`, `मतलब`,
+  `औरत`, `घर`, `वह`/`यह` keep it); medial schwa deletes only in categorical
+  VCəCV with a light preceding rhyme, no CCC cluster, no glide
+  (`कमरा`→`कम्रा`, `करना`→`कर्ना`, `जनता`→`जन्ता`; `लड़का`, `सहायता`,
+  `नमस्ते`, `रुपये`, `दरवाज़ा` keep it). Retroflex-adjacent schwas are never
+  touched.
+- **Numerals** (ASCII + Devanagari) → Hindi words, Indian system
+  (`125`→`एक सौ पच्चीस`, `2026`→`दो हज़ार छब्बीस`).
+- **Punctuation**: `।`/`॥`→`.`, quotes/dashes mapped to the supported set,
+  unsupported characters dropped (reported, not silent).
+
+```bash
+python hindi_frontend.py --text "राम कमरे में है। मेरे पास 125 रुपये हैं।" \
+  --tokens vits-syspin-hi-female/tokens.txt --ids
+```
+
+Design rule: when in doubt the frontend does nothing — frequent words are
+usually already right in the model, and a wrong halant is worse than none.
+Rare/OOV words (the ELAICHI low-frequency-bigram cases) are where it helps.
+
 ## Credits & Licensing
 
 - **Original Models & Checkpoints**: Developed by [SPIRE Lab, IISc Bengaluru](https://spire.ee.iisc.ac.in/) under the RESPIN and SYSPIN initiatives funded by Pratiksha Trust. Original checkpoints are available on Hugging Face at [huggingface.co/SYSPIN](https://huggingface.co/SYSPIN).
