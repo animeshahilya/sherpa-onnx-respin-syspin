@@ -231,6 +231,31 @@ html_template = """<!DOCTYPE html>
       </div>
     </div>
 
+    <!-- Master All-Voices Showcase Bar -->
+    <div class="bg-gradient-to-r from-blue-950/60 via-slate-900 to-indigo-950/60 border border-blue-800/40 rounded-2xl p-5 shadow-xl space-y-3">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              🎙️ Unified Master Showcase
+            </span>
+            <span class="text-xs text-slate-400">Duration: 3m 48s • All 22 Speakers</span>
+          </div>
+          <p class="text-xs text-slate-300">
+            Hear all 22 voices in a single continuous stream introducing themselves in their native tongue and announcing integration into Animesh's eSpeak NG.
+          </p>
+        </div>
+        <a href="samples/all_22_voices_showcase.mp3" download class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap shadow-lg shadow-blue-500/20">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          Download Master Audio (3.5MB)
+        </a>
+      </div>
+      <audio controls preload="none" class="w-full h-10 rounded-xl bg-slate-950 border border-slate-800">
+        <source src="samples/all_22_voices_showcase.mp3" type="audio/mpeg">
+        Your browser does not support audio playback.
+      </audio>
+    </div>
+
     <!-- Language Selector Tabs -->
     <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-800 scrollbar-thin" id="langTabs">
       <!-- Injected by JS -->
