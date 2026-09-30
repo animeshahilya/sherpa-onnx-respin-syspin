@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SYSPIN / RESPIN Voice Samples & Evaluation Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .pulse-indicator { animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased p-4 md:p-8 min-h-screen">
+  <div class="max-w-6xl mx-auto space-y-6">
+
+    <!-- Header -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              Verified 100% Token Match
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              22 Real Voices • 11 Indian Languages
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">
+              sherpa-onnx VITS
+            </span>
+          </div>
+          <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
+            SYSPIN / RESPIN Voice Evaluation Suite
+          </h1>
+          <p class="text-sm text-slate-400 mt-1.5">
+            Full-length, phonetically rich speech samples for IISc Bengaluru's open-source character VITS models hosted at
+            <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin" target="_blank" class="text-blue-400 hover:text-blue-300 underline font-mono">
+              animeshahilya/sherpa-onnx-respin-syspin
+            </a>
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 text-xs">
+          <div class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700">
+            <div class="text-slate-400">Available Tiers</div>
+            <div class="font-bold text-slate-200">INT8 (~28MB) • FP16 • FP32</div>
+          </div>
+          <div class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700">
+            <div class="text-slate-400">Sample Rate</div>
+            <div class="font-bold text-slate-200">22,050 Hz Mono</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Language Selector Tabs -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-800 scrollbar-thin" id="langTabs">
+      <!-- Injected by JS -->
+    </div>
+
+    <!-- Active Language Card Container -->
+    <div id="activeVoiceContainer" class="space-y-6">
+      <!-- Injected by JS -->
+    </div>
+
+    <!-- Quick Run CLI Reference -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <h3 class="text-lg font-bold text-white flex items-center gap-2">
+        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        How to Synthesize Locally with sherpa-onnx
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <div class="font-bold text-slate-200 font-sans text-sm">Command-Line Interface (CLI)</div>
+          <p class="text-slate-400 font-sans text-xs">Run offline synthesis directly using the pre-built CLI:</p>
+          <pre class="overflow-x-auto p-3 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
+# 1. Download model and tokens (INT8 ~28.5MB)
+curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.2.0-int8/vits-syspin-hi-female-model.onnx
+curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.2.0-int8/vits-syspin-hi-female-tokens.txt
+
+# 2. Synthesize audio
+sherpa-onnx-offline-tts \
+  --vits-model=./vits-syspin-hi-female-model.onnx \
+  --vits-tokens=./vits-syspin-hi-female-tokens.txt \
+  --vits-data-dir="" \
+  --output-filename=./output.wav \
+  "भारत एक विशाल और सुंदर देश है..."</pre>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <div class="font-bold text-slate-200 font-sans text-sm">Python Integration</div>
+          <p class="text-slate-400 font-sans text-xs">Full Python API via <code class="text-blue-400">pip install sherpa-onnx soundfile</code>:</p>
+          <pre class="overflow-x-auto p-3 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
+import sherpa_onnx, soundfile as sf
+
+config = sherpa_onnx.OfflineTtsConfig(
+    model=sherpa_onnx.OfflineTtsModelConfig(
+        vits=sherpa_onnx.OfflineTtsVitsModelConfig(
+            model="./vits-syspin-hi-female-model.onnx",
+            tokens="./vits-syspin-hi-female-tokens.txt",
+            noise_scale=0.667, noise_scale_w=0.8, length_scale=1.0
+        ),
+        provider="cpu"
+    )
+)
+tts = sherpa_onnx.OfflineTts(config)
+audio = tts.generate("your text here...", sid=0, speed=1.0)
+sf.write("output.wav", audio.samples, tts.sample_rate)</pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const VOICES_DATA = [
+  {
+    "id": "hi",
+    "name": "Hindi",
+    "nativeName": "हिन्दी",
+    "script": "Devanagari",
+    "models": [
+      "vits-syspin-hi-female",
+      "vits-syspin-hi-male"
+    ],
+    "text": "भारत एक विशाल और सुंदर देश है, जहां अनेक संस्कृतियों और भाषाओं का अनूठा संगम देखने को मिलता है. यहां के लोग अपनी परंपराओं, कला और इतिहास पर गर्व करते हैं. सुबह के समय ठंडी हवा और पक्षियों की चहचहाहट मन को शांति और ताजगी से भर देती है.",
+    "transliteration": "Bharat ek vishal aur sundar desh hai, jahan anek sanskritiyon aur bhashaon ka anootha sangam dekhne ko milta hai. Yahan ke log apni paramparaon, kala aur itihas par garv karte hain. Subah ke samay thandi hawa aur pakshiyon ki chahchahahat man ko shanti aur tazgi se bhar deti hai.",
+    "translation": "India is a vast and beautiful country where a unique confluence of diverse cultures and languages can be seen. The people here take immense pride in their traditions, arts, and history. In the morning hours, the cool breeze and the chirping of birds fill the heart with tranquil peace and freshness.",
+    "rubric": [
+      "Evaluate conjunct clusters (संस्कृतियों, पक्षियों, इतिहास).",
+      "Listen for unwritten schwa cadence and natural sentence pauses ('.').",
+      "Observe pitch transitions between male and female models."
+    ]
+  },
+  {
+    "id": "en",
+    "name": "English (India)",
+    "nativeName": "Indian English",
+    "script": "Latin",
+    "models": [
+      "vits-syspin-en-female",
+      "vits-syspin-en-male"
+    ],
+    "text": "Technology continues to transform the way we communicate, learn, and collaborate across borders. Through dedicated research and open source innovation, high quality speech synthesis is now accessible on everyday devices. Listening to natural prosody and balanced articulation makes digital interactions feel truly seamless.",
+    "transliteration": "Technology continues to transform the way we communicate, learn, and collaborate across borders. Through dedicated research and open source innovation, high quality speech synthesis is now accessible on everyday devices. Listening to natural prosody and balanced articulation makes digital interactions feel truly seamless.",
+    "translation": "Long-form narrative testing multi-syllabic vocabulary, professional tone, comma breathing pauses, and characteristic Indian English rhotic/alveolar articulation.",
+    "rubric": [
+      "Check rhythm and timing over polysyllabic words ('collaborate', 'accessible').",
+      "Evaluate naturalness of pauses at commas and sentence stops.",
+      "Examine acoustic warmth and absence of robotic artifacts."
+    ]
+  },
+  {
+    "id": "bn",
+    "name": "Bengali",
+    "nativeName": "বাংলা",
+    "script": "Bengali",
+    "models": [
+      "vits-syspin-bn-female",
+      "vits-syspin-bn-male"
+    ],
+    "text": "আমাদের এই সুন্দর পৃথিবীতে প্রকৃতির অপরূপ রূপ ছড়িয়ে রয়েছে চারিপাশে. সকালের মিষ্টি রোদ আর পাখির কলকাকলি মনকে অনাবিল শান্তিতে ভরিয়ে তোলে. নদী, পাহাড় আর সবুজ মাঠের মেলবন্ধন যেন এক জীবন্ত শিল্পকর্ম.",
+    "transliteration": "Amader ei sundor prithibite prokritir oporup rup chhoriye royechhe charipashe. Sokaler mishti rod aar pakhir kolokakoli monke onabil shantite bhoriye tole. Nodi, pahar aar sobuj mather melbandhon jeno ek jibonto shilpokormo.",
+    "translation": "In our wonderful world, nature's sublime beauty is spread all around us. The sweet morning sunshine and the melodic twittering of birds fill the soul with pure serenity. The harmony of rivers, hills, and lush green fields resembles a vibrant, living work of art.",
+    "rubric": [
+      "Verify authentic Bengali rounded vowel coloring (অ/ও-কার).",
+      "Test complex conjuncts (পৃথিবীতে, শান্তিতে, শিল্পকর্ম).",
+      "Listen for gentle, lyrical sentence cadence."
+    ]
+  },
+  {
+    "id": "te",
+    "name": "Telugu",
+    "nativeName": "తెలుగు",
+    "script": "Telugu",
+    "models": [
+      "vits-syspin-te-female",
+      "vits-syspin-te-male"
+    ],
+    "text": "మన భారతదేశం ఎంతో వైవిధ్యభరితమైన సంస్కృతి మరియు చరిత్ర కలిగిన అద్భుతమైన దేశం. ప్రతి ఉదయం సూర్యుని లేలేత కిరణాలు ప్రకృతిని ఎంతో అందంగా తీర్చిదిద్దుతాయి. మానవ జీవనంలో శాంతి, సహనం మరియు పట్టుదల అత్యంత ముఖ్యమైన గుణాలు.",
+    "transliteration": "Mana Bharatadesham entho vaividhyabharitamaina sanskruthi mariyu charithra kaligina adbhutamaina desham. Prathi udayam sooryuni leletha kiranaalu prakruthini entho andamgaa theerchididduthaayi. Maanava jeevanamlo shaanthi, sahanam mariyu pattudala atyantha mukhyamaina gunaalu.",
+    "translation": "Our India is a wonderful country endowed with an immensely diverse culture and grand history. Every morning, the gentle rays of the sun sculpt nature with breathtaking beauty. In human life, peace, patience, and perseverance are the most vital virtues.",
+    "rubric": [
+      "Test characteristic Ajanta (vowel-ending) syllable flow.",
+      "Check retroflex consonant articulation (ణ, ళ, ట).",
+      "Evaluate prosody over complex compound words."
+    ]
+  },
+  {
+    "id": "kn",
+    "name": "Kannada",
+    "nativeName": "ಕನ್ನಡ",
+    "script": "Kannada",
+    "models": [
+      "vits-syspin-kn-female",
+      "vits-syspin-kn-male"
+    ],
+    "text": "ನಮ್ಮ ನಾಡು ಅತ್ಯಂತ ಶ್ರೀಮಂತ ಸಾಂಸ್ಕೃತಿಕ ಪರಂಪರೆ ಮತ್ತು ಸುಂದರ ಪ್ರಾಕೃತಿಕ ಸೌಂದರ್ಯವನ್ನು ಹೊಂದಿದೆ. ಬೆಳಗಿನ ತಂಗಾಳಿ ಮತ್ತು ಪಕ್ಷಿಗಳ ಮಧುರ ಧ್ವನಿ ಮನಸ್ಸಿಗೆ ಹೊಸ ಚೈತನ್ಯ ಮತ್ತು ನೆಮ್ಮದಿಯನ್ನು ನೀಡುತ್ತದೆ. ನಾವೆಲ್ಲರೂ ಪರಸ್ಪರ ಪ್ರೀತಿ ಮತ್ತು ಸೌಹಾರ್ದತೆಯಿಂದ ಬಾಳೋಣ.",
+    "transliteration": "Namma naadu atyanta shreemanta saamskrutika paramapare mattu sundara praakrutika soundaryavannu hondide. Belagina tangaali mattu pakshigala madhura dhwani manassige hosa chaitanya mattu nemmadiyannu needuttade. Naavellaroo paraspara preeti mattu souhaardateyinda baalona.",
+    "translation": "Our land possesses an extraordinarily rich cultural heritage and captivating natural splendor. The gentle morning breeze and sweet songs of birds bring renewed vitality and peaceful solace to the mind. Let us all live together in mutual love and harmony.",
+    "rubric": [
+      "Evaluate gemination (ದ್ವಿತ್ವ: ನಮ್ಮ, ಮನಸ್ಸಿಗೆ, ನೀಡುತ್ತದೆ).",
+      "Check melodic rise-and-fall contour typical of Kannada speech.",
+      "Listen for vowel elongation clarity."
+    ]
+  },
+  {
+    "id": "mr",
+    "name": "Marathi",
+    "nativeName": "मराठी",
+    "script": "Devanagari",
+    "models": [
+      "vits-syspin-mr-female",
+      "vits-syspin-mr-male"
+    ],
+    "text": "महाराष्ट्र ही संतांची आणि शूरवीरांची पावन भूमी आहे, जिथे संस्कृती आणि निसर्गाचा सुंदर संगम पाहायला मिळतो. सकाळी उगवणारा सूर्य आणि मंद वाहणारा वारा मनाला नवी ऊर्जा देतो. जीवनात सतत प्रयत्नशील राहणे आणि सकारात्मक विचार करणे हीच खरी प्रगतीची गुरुकिल्ली आहे.",
+    "transliteration": "Maharashtra hee santanchi aani shoorveeranchi paavan bhoomi aahe, jithe sanskruti aani nisargacha sundar sangam paahayla milto. Sakaali ugavnara soorya aani mand vaahnara vaara manala navi oorja deto. Jeevanat satat prayatnasheel raahne aani sakaratmak vichar karne heech khari pragatichi gurukilli aahe.",
+    "translation": "Maharashtra is the sacred land of saints and valorous heroes, where a magnificent harmony of culture and nature is witnessed. The rising morning sun and the gentle breeze instill fresh energy into the soul. Striving continuously and maintaining positive thought is the true key to progress in life.",
+    "rubric": [
+      "Assess retroflex consonants and typical Marathi nasalizations (संतांची).",
+      "Check rhythm in long compound sentences with relative clauses (जिथे, हीच).",
+      "Evaluate tone authority in male vs. female speakers."
+    ]
+  },
+  {
+    "id": "gu",
+    "name": "Gujarati",
+    "nativeName": "ગુજરાતી",
+    "script": "Gujarati",
+    "models": [
+      "vits-syspin-gu-female",
+      "vits-syspin-gu-male"
+    ],
+    "text": "આપણો દેશ વિવિધ સંસ્કૃતિઓ, તહેવારો અને સુંદર પરંપરાઓનો સંગમ છે. વહેલી સવારનો શીતળ પવન અને પક્ષીઓનો મીઠો કલરવ મનને શાંતિ આપે છે. જીવનમાં મહેનત અને સદ્ભાવના હંમેશાં આગળ વધવાની સાચી દિશા બતાવે છે.",
+    "transliteration": "Aapno desh vividh sanskrutio, tahevaro ane sundar paramparaono sangam chhe. Vaheli savaarno sheetal pavan ane pakshiono meetho kalrav manne shaanti aape chhe. Jeevanma mahenat ane sadbhavna hamesha aagad vadhavani saachi disha bataave chhe.",
+    "translation": "Our country is a grand confluence of diverse cultures, vibrant festivals, and cherished traditions. The cool breeze of early dawn and the sweet chirping of birds bring serene calmness to the mind. Hard work and goodwill in life always illuminate the true path forward.",
+    "rubric": [
+      "Test characteristic Gujarati vowel distinctions (મુક્ત સ્વર).",
+      "Check conjunct rendering (સંસ્કૃતિઓ, સદ્ભાવના).",
+      "Observe warm, gentle conversational inflection."
+    ]
+  },
+  {
+    "id": "bho",
+    "name": "Bhojpuri",
+    "nativeName": "भोजपुरी",
+    "script": "Devanagari",
+    "models": [
+      "vits-syspin-bho-female",
+      "vits-syspin-bho-male"
+    ],
+    "text": "हमार गांव के सुबह बहुत सुहावन होला, जब पूरब से सुरुज देव के किरण फूटेला. खेतन में हरियर फसल लहराए लागेला आ चिड़ियन के चहचहाहट से पूरा माहौल गूंज उठेेला. सब लोग मिलजुल के आपन काम करे निकल पड़ेला.",
+    "transliteration": "Hamaar gaanv ke subah bahut suhaawan hola, jab poorab se suruj dev ke kiran phootela. Khetan mein hariyar phasal lahraaye laagela aa chiriyan ke chahchahaahat se poora maahol goonj uthela. Sab log miljool ke aapan kaam kare nikal padela.",
+    "translation": "The morning in our village is immensely pleasant when the first rays of the Sun God burst from the east. The lush green crops begin swaying gently in the fields and the chirping of birds makes the entire air resonate. Everyone heads out together in good spirits to begin their daily work.",
+    "rubric": [
+      "Evaluate authentic regional verbal markers (होला, फूटेला, लागेला, पड़ेला).",
+      "Listen for rustic warmth and natural village narrative prosody.",
+      "Check nasal vowels (गांव, खेतन)."
+    ]
+  },
+  {
+    "id": "hne",
+    "name": "Chhattisgarhi",
+    "nativeName": "छत्तीसगढ़ी",
+    "script": "Devanagari",
+    "models": [
+      "vits-syspin-hne-female",
+      "vits-syspin-hne-male"
+    ],
+    "text": "हमार छत्तीसगढ़ महतारी के पावन भुइयां म चारों कोति हरियर रुख-राई अउ सुग्घर पहाड़ हे. बिहनिया के बेरा म जब चिरई-चिरगुन मन चहचहाथे, त मन म भारी आनंद भर जाथे. सब झन मया-पिरीत के संग मिलजुल के जिनगी बितोथे.",
+    "transliteration": "Hamaar Chhattisgadh mahtaari ke paavan bhuiyaan ma chaaro koti hariyar rukh-raai au sugghar pahaad he. Bihaniya ke bera ma jab chirai-chirgun man chahchahaathe, ta man ma bhaari aanand bhar jaathe. Sab jhan maya-pirit ke sang miljool ke jingi bitothe.",
+    "translation": "On the sacred soil of our Mother Chhattisgarh, lush green trees and scenic mountains stretch in all directions. In the quiet dawn, when the little birds start chirping, the heart fills with deep joy. Everyone leads their lives harmoniously together with mutual love and affection.",
+    "rubric": [
+      "Evaluate dialectal vocabulary (रुख-राई, सुग्घर, बिहनिया, मया-पिरीत).",
+      "Check postpositions (म, हे) and verb endings (चहचहाथे, जाथे, बितोथे).",
+      "Observe gentle, musical eastern-central cadence."
+    ]
+  },
+  {
+    "id": "mai",
+    "name": "Maithili",
+    "nativeName": "मैथिली",
+    "script": "Devanagari",
+    "models": [
+      "vits-syspin-mai-female",
+      "vits-syspin-mai-male"
+    ],
+    "text": "हमर मिथिलाक पावन धरती पर संस्कृति, विद्या आ कलाक अनुपम संगम देखय लेल भेटैत अछि. प्रात:कालक शीतल बयार आ मन्दिरक शंखनाद सं सम्पूर्ण वातावरण पवित्र भऽ जाइत अछि. अपन भाषा आ मातृभूमिक सेवा करब हमर परम कर्तव्य अछि.",
+    "transliteration": "Hamar Mithilaak paavan dhartee par sanskriti, vidya aa kalaak anupam sangam dekhay lel bhetait achhi. Praatahkaalak sheetal bayaar aa mandirak shankhnaad san sampoorna vaataavaran pavitra bha jaait achhi. Apan bhaasha aa maatribhoomik seva karab hamar param kartavya achhi.",
+    "translation": "Upon the sacred soil of Mithila, a peerless confluence of culture, learning, and fine arts is witnessed. The cool dawn breeze and the sounding of temple conches make the entire atmosphere deeply sanctified. Serving our mother tongue and homeland is our highest duty.",
+    "rubric": [
+      "Check genitive nominal affix -क (मिथिलाक, कलाक, प्रात:कालक).",
+      "Evaluate verbal copulas (भेटैत अछि, भऽ जाइत अछि).",
+      "Listen for classic, scholarly Mithila diction."
+    ]
+  },
+  {
+    "id": "mag",
+    "name": "Magahi",
+    "nativeName": "मगही",
+    "script": "Devanagari",
+    "models": [
+      "vits-syspin-mag-female",
+      "vits-syspin-mag-male"
+    ],
+    "text": "मगध के ई ऐतिहासिक धरती पर ज्ञान आ तपस्या के बड़ा महत्व रहल हई. सबेरे-सबेरे जब सुरुज भगवान निकले हथ, त गांवे-घर के लोग आपन-आपन काम में लग जा हथ. आपस में प्रेम आ सद्भाव से रहे में ही जिनगी के असली सुख मिलो हई.",
+    "transliteration": "Magadh ke ee aitihasik dhartee par gyaan aa tapasya ke bada mahatva rahal hayi. Sabere-sabere jab suruj bhagwaan nikle hath, ta gaanve-ghar ke log aapan-aapan kaam mein lag ja hath. Aapas mein prem aa sadbhaav se rahe mein hee jingi ke asli sukh milo hayi.",
+    "translation": "On this historic soil of Magadha, knowledge and dedication have always held immense importance. In the early morning as the Sun God ascends, people across every household set out to their chores. Living together in peace and goodwill is the true joy of life.",
+    "rubric": [
+      "Assess Magahi honorific verbal agreement (निकले हथ, लग जा हथ).",
+      "Listen for regional markers (हई, मिलो हई).",
+      "Evaluate lively colloquial flow."
+    ]
+  }
+];
+
+    let currentLangIdx = 0;
+
+    function renderTabs() {
+      const container = document.getElementById("langTabs");
+      container.innerHTML = "";
+      VOICES_DATA.forEach((v, idx) => {
+        const btn = document.createElement("button");
+        const isActive = idx === currentLangIdx;
+        btn.className = `px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+          isActive 
+            ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25 ring-2 ring-blue-400/50" 
+            : "bg-slate-900 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800"
+        }`;
+        btn.innerText = `${v.name} (${v.nativeName})`;
+        btn.onclick = () => {
+          currentLangIdx = idx;
+          renderTabs();
+          renderActiveVoice();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function renderActiveVoice() {
+      const v = VOICES_DATA[currentLangIdx];
+      const container = document.getElementById("activeVoiceContainer");
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Left: Sample Text, Transliteration, and Rubric (Span 2) -->
+          <div class="lg:col-span-2 space-y-4">
+            
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                  Comprehensive Test Passage (${v.text.length} Characters)
+                </span>
+                <span class="text-xs text-slate-400">Duration: ~18 - 25s</span>
+              </div>
+
+              <!-- Native Script -->
+              <div class="p-5 rounded-xl bg-slate-950 border border-slate-800">
+                <div class="text-[11px] uppercase font-mono tracking-wider text-slate-400 mb-2 flex items-center justify-between">
+                  <span>Native Script (${v.name} - ${v.script})</span>
+                  <button onclick="navigator.clipboard.writeText('${v.text.replace(/'/g, "\'")}')" class="text-xs text-blue-400 hover:text-blue-300 transition-colors">
+                    Copy Text
+                  </button>
+                </div>
+                <div class="text-lg md:text-xl font-medium text-slate-100 leading-relaxed select-all">
+                  ${v.text}
+                </div>
+              </div>
+
+              <!-- Transliteration -->
+              <div class="p-5 rounded-xl bg-slate-950 border border-slate-800">
+                <div class="text-[11px] uppercase font-mono tracking-wider text-slate-400 mb-2">
+                  Pronunciation & Transliteration (Roman Script)
+                </div>
+                <div class="text-sm font-sans italic text-slate-300 leading-relaxed select-all">
+                  "${v.transliteration}"
+                </div>
+              </div>
+
+              <!-- Translation -->
+              <div class="p-5 rounded-xl bg-slate-950 border border-slate-800">
+                <div class="text-[11px] uppercase font-mono tracking-wider text-slate-400 mb-2">
+                  English Meaning & Context
+                </div>
+                <div class="text-xs font-sans text-slate-400 leading-relaxed">
+                  ${v.translation}
+                </div>
+              </div>
+            </div>
+
+            <!-- Phonetic Evaluation Rubric -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+              <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Phonetic & Acoustic Evaluation Rubric
+              </h4>
+              <ul class="space-y-2 text-xs text-slate-300">
+                ${v.rubric.map(r => `<li class="flex items-start gap-2.5"><span class="text-emerald-400 font-bold">•</span><span>${r}</span></li>`).join("")}
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Right: Voice Models, Audio Players & Download Links (Span 1) -->
+          <div class="space-y-4">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+              <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"></path>
+                </svg>
+                Audio Playback & Models (${v.name})
+              </h4>
+
+              ${v.models.map(m => {
+                const isFemale = m.includes("female");
+                const mp3Url = `samples/${m}.mp3`;
+                return `
+                  <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+                    <div class="flex items-center justify-between">
+                      <span class="font-mono text-xs font-bold text-white">${m}</span>
+                      <span class="text-xs px-2 py-0.5 rounded font-semibold ${isFemale ? 'bg-pink-500/10 text-pink-400 border border-pink-500/20' : 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'}">
+                        ${isFemale ? 'Female' : 'Male'}
+                      </span>
+                    </div>
+
+                    <!-- Audio Player -->
+                    <div class="space-y-1.5">
+                      <div class="text-[11px] text-slate-400 flex items-center justify-between">
+                        <span class="flex items-center gap-1.5">
+                          <span class="w-2 h-2 rounded-full ${isFemale ? 'bg-pink-400' : 'bg-cyan-400'}"></span>
+                          Synthesized Voice Sample
+                        </span>
+                        <a href="${mp3Url}" download class="text-[11px] text-blue-400 hover:text-blue-300">Download MP3</a>
+                      </div>
+                      <audio controls preload="metadata" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+                        <source src="${mp3Url}" type="audio/mp3">
+                        <source src="${mp3Url.replace('.mp3', '.wav')}" type="audio/wav">
+                        Your browser does not support audio playback.
+                      </audio>
+                    </div>
+
+                    <!-- Direct Model Downloads -->
+                    <div class="pt-2 border-t border-slate-800/80 space-y-1.5">
+                      <div class="text-[10px] uppercase font-mono tracking-wider text-slate-500">
+                        Download ONNX Checkpoints:
+                      </div>
+
+                      <div class="grid grid-cols-2 gap-1.5 text-xs font-mono">
+                        <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.2.0-int8/${m}-model.onnx" 
+                           target="_blank"
+                           class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-emerald-500 text-emerald-400 flex items-center justify-between transition-colors">
+                          <span>INT8</span>
+                          <span class="text-[10px] text-slate-400">~28.5 MB</span>
+                        </a>
+
+                        <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/${m}-model.onnx" 
+                           target="_blank"
+                           class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-blue-500 text-blue-400 flex items-center justify-between transition-colors">
+                          <span>FP16</span>
+                          <span class="text-[10px] text-slate-400">~55 MB</span>
+                        </a>
+
+                        <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.0.0/${m}-model.onnx" 
+                           target="_blank"
+                           class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-purple-500 text-purple-400 flex items-center justify-between transition-colors">
+                          <span>FP32</span>
+                          <span class="text-[10px] text-slate-400">~109 MB</span>
+                        </a>
+
+                        <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.0.0/${m}-tokens.txt" 
+                           target="_blank"
+                           class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-600 text-slate-300 flex items-center justify-between transition-colors">
+                          <span>tokens</span>
+                          <span class="text-[10px] text-slate-500">Vocab</span>
+                        </a>
+                      </div>
+                    </div>
+
+                  </div>
+                `;
+              }).join("")}
+
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    renderTabs();
+    renderActiveVoice();
+  </script>
+</body>
+</html>

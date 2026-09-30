@@ -2,6 +2,16 @@
 
 Full-precision (FP32) authentic offline TTS models for [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) and [SherpaVoices](https://github.com/animeshahilya/SherpaVoices), derived from the **RESPIN** and **SYSPIN** initiatives by **IISc Bengaluru (SPIRE Lab)**.
 
+## 🌐 Live Interactive Voice Samples & Evaluation Dashboard
+
+Listen to long-form, phonetically rich speech samples (~15–25s each) for all 22 voices across 11 Indian languages directly in your browser:
+
+👉 **[Live Voice Samples & Audio Evaluation Dashboard](https://animeshahilya.github.io/sherpa-onnx-respin-syspin/)**
+
+- **Audio Playback**: Full-length samples for all 22 voices (Male & Female) testing prosody, commas, and conjunct articulation.
+- **Phonetically Balanced Texts**: Tested in native scripts (Devanagari, Bengali, Telugu, Kannada, Gujarati, Latin) with Romanized transliterations and English translations.
+- **Direct Checkpoint Links**: Fast downloads for INT8 (~28.5 MB), FP16 (~55 MB), and FP32 (~109 MB) tiers.
+
 ## Overview
 
 The SPIRE Lab at the Indian Institute of Science (IISc Bengaluru) created the **RESPIN** (*REcognizing SPeech in INdian languages*) and **SYSPIN** (*SYnthesizing SPeech in INdian languages*) projects to support speech technology for diverse Indian languages and dialects.
