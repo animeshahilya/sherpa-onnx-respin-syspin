@@ -10,6 +10,38 @@ These models provide **authentic, full-precision (FP32) real voices** without IN
 
 Pre-converted ONNX models are hosted under [GitHub Releases (v1.0.0)](https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/tag/v1.0.0). Each model is injected with `sherpa-onnx` metadata tags (`model_type=vits`, `comment=coqui`, `frontend=characters`, `sample_rate=22050`).
 
+## Lightweight ~60MB FP16-weight voices (v1.1.0-fp16)
+
+All 22 upstream SYSPIN VITS voices are already covered above — there are no
+additional VITS checkpoints upstream (remaining SYSPIN/RESPIN repos are
+GlowTTS/Tacotron/ASR, not sherpa-onnx VITS compatible). To make the voices
+cheaper to download and cache on-device, [Release v1.1.0-fp16](https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/tag/v1.1.0-fp16)
+ships **weight-only FP16 variants at ~55MB each ("around 60MB")** with identical
+voice coverage:
+
+- Same 22 model identifiers, same `tokens.txt`, same sherpa-onnx metadata
+  (`model_type=vits`, `comment=coqui`, `frontend=characters`, `sample_rate=22050`).
+- Only large weight initializers (Conv/MatMul, ≥1024 elems) are stored as FP16
+  with a Cast back to FP32, so **all graph compute stays FP32** and the model
+  loads on plain onnxruntime CPU. Naive full-FP16 conversion was rejected
+  (breaks `Cast` type inference), and dynamic INT8 (∼38MB) was rejected
+  (audibly alters durations).
+- Built locally with `python build_fp16_60mb.py --verify` (every voice
+  smoke-tested in onnxruntime: finite, non-silent output).
+
+```bash
+# Download a lightweight voice instead of the 109MB FP32 one
+curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-female-model.onnx
+curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-female-tokens.txt
+
+sherpa-onnx-offline-tts \
+  --vits-model=./vits-syspin-hi-female-model.onnx \
+  --vits-tokens=./vits-syspin-hi-female-tokens.txt \
+  --vits-data-dir="" \
+  --output-filename=./output.wav \
+  "नमस्ते आप कैसे हैं"
+```
+
 ## Models in this Repository
 
 | Language | Code | Gender | Model Identifier | Precision | Model Size |

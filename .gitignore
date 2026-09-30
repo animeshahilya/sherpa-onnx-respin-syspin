@@ -7,4 +7,5 @@ __pycache__/
 .DS_Store
 Thumbs.db
 release_assets/
+release_assets_fp16/
 exported_respin_syspin_models/
