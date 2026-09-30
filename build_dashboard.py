@@ -340,7 +340,7 @@ sf.write("output.wav", audio.samples, tts.sample_rate)</pre>
               <div class="p-5 rounded-xl bg-slate-950 border border-slate-800">
                 <div class="text-[11px] uppercase font-mono tracking-wider text-slate-400 mb-2 flex items-center justify-between">
                   <span>Native Script (${v.name} - ${v.script})</span>
-                  <button onclick="navigator.clipboard.writeText('${v.text.replace(/'/g, "\\'")}')" class="text-xs text-blue-400 hover:text-blue-300 transition-colors">
+                  <button onclick="navigator.clipboard.writeText('${v.text.replace(/'/g, "\\'")}'); const b = this; b.innerText='Copied!'; setTimeout(() => b.innerText='Copy Text', 1500)" class="text-xs text-blue-400 hover:text-blue-300 transition-colors font-medium">
                     Copy Text
                   </button>
                 </div>
@@ -417,8 +417,8 @@ sf.write("output.wav", audio.samples, tts.sample_rate)</pre>
                         <a href="${mp3Url}" download class="text-[11px] text-blue-400 hover:text-blue-300">Download MP3</a>
                       </div>
                       <audio controls preload="metadata" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+                        <source src="${mp3Url}" type="audio/mpeg">
                         <source src="${mp3Url}" type="audio/mp3">
-                        <source src="${mp3Url.replace('.mp3', '.wav')}" type="audio/wav">
                         Your browser does not support audio playback.
                       </audio>
                     </div>
@@ -457,6 +457,14 @@ sf.write("output.wav", audio.samples, tts.sample_rate)</pre>
       `;
     }
 
+    // Ensure only one audio plays at a time
+    document.addEventListener("play", function(e) {
+      const audios = document.querySelectorAll("audio");
+      audios.forEach(a => {
+        if (a !== e.target) a.pause();
+      });
+    }, true);
+
     renderTabs();
     renderActiveVoice();
   </script>
@@ -464,7 +472,8 @@ sf.write("output.wav", audio.samples, tts.sample_rate)</pre>
 </html>
 """
 
-output_path = r"C:\Users\alex\.gemini\antigravity\scratch\sherpa-onnx-respin-syspin\index.html"
-with open(output_path, "w", encoding="utf-8") as f:
-    f.write(html_template)
-print(f"Generated {output_path}")
+if __name__ == "__main__":
+    output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(html_template)
+    print(f"Generated {output_path}")

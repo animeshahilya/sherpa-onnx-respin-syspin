@@ -3,7 +3,9 @@ import subprocess
 import time
 import sherpa_onnx
 import soundfile as sf
-from test_samples_validator import samples
+from build_dashboard import VOICES_DATA
+
+samples = {v["id"]: v["text"] for v in VOICES_DATA}
 
 base_dir = os.path.join(os.path.dirname(__file__), "release_assets_fp16")
 out_dir = os.path.join(os.path.dirname(__file__), "samples")

@@ -278,6 +278,12 @@ def generate_tokens_file(tokenizer, output_path: str) -> None:
     char_to_id = tokenizer.characters._char_to_id
     with open(output_path, "w", encoding="utf-8") as f:
         for char, idx in sorted(char_to_id.items(), key=lambda x: x[1]):
+            # Sherpa-onnx C++ ReadTokens uses `iss >> sym >> id`, skipping whitespace.
+            # Replace raw horizontal tabs with zero-width space to avoid token parsing collisions.
+            if char == "\t":
+                char = "\u200b"
+            elif char in ("\r", "\n"):
+                continue
             f.write(f"{char} {idx}\n")
 
 

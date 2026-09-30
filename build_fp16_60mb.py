@@ -117,6 +117,8 @@ def main() -> int:
     ap.add_argument("--assets-dir", type=Path, default=Path("release_assets_fp16"))
     ap.add_argument("--verify", action="store_true")
     ap.add_argument("--skip-existing", action="store_true", default=True)
+    ap.add_argument("--force", action="store_true", help="Force rebuild even if target already exists")
+    ap.add_argument("--download-upstream", action="store_true", help="Auto-download upstream FP32 checkpoint from v1.0.0 if not found locally")
     args = ap.parse_args()
 
     models = MODELS if args.model == "all" else [args.model]
@@ -126,12 +128,19 @@ def main() -> int:
         src = args.base_dir / m / "model.onnx"
         tok = args.base_dir / m / "tokens.txt"
         if not src.exists():
-            print(f"[{m}] MISSING {src}, skipping")
-            failures.append(m)
-            continue
+            if args.download_upstream:
+                import urllib.request
+                src.parent.mkdir(parents=True, exist_ok=True)
+                url = f"https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.0.0/{m}-model.onnx"
+                print(f"[{m}] Downloading upstream FP32 model from {url}...")
+                urllib.request.urlretrieve(url, str(src))
+            else:
+                print(f"[{m}] MISSING {src} (pass --download-upstream to auto-fetch from v1.0.0), skipping")
+                failures.append(m)
+                continue
         dst = args.assets_dir / f"{m}-model.onnx"
         dst_tok = args.assets_dir / f"{m}-tokens.txt"
-        if args.skip_existing and dst.exists() and dst.stat().st_size > 50_000_000:
+        if not args.force and args.skip_existing and dst.exists() and dst.stat().st_size > 50_000_000:
             print(f"[{m}] exists ({dst.stat().st_size/1024/1024:.1f} MB), skipping")
         else:
             print(f"[{m}] converting {src.stat().st_size/1024/1024:.1f} MB FP32 -> FP16 weights...")
