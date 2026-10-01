@@ -40,8 +40,15 @@ def cmd_download():
 
 
 def cmd_surgery():
+    """Freeze emotion_id and fix metadata; keep sherpa's native multi-speaker
+    VITS signature (x, x_length, noise_scale, length_scale, noise_scale_w, sid).
+
+    The comment is not "coqui"/"piper", so sherpa feeds this model through
+    RunVits(): five positional inputs + sid. Renaming/packing inputs into the
+    coqui `scales` layout makes sherpa segfault (5 tensors vs 4 names).
+    """
     import onnx
-    from onnx import helper, numpy_helper
+    from onnx import numpy_helper
     import numpy as np
 
     src = SRC_DIR / "model.onnx"
@@ -59,41 +66,30 @@ def cmd_surgery():
     del g.input[:]
     g.input.extend(keep)
 
-    g.input.append(helper.make_tensor_value_info("scales", onnx.TensorProto.FLOAT, [3]))
-    for k, scalar in enumerate(["noise_scale", "length_scale", "noise_scale_w"]):
-        idx = numpy_helper.from_array(np.array(k, dtype=np.int64), name=f"scales_idx_{k}")
-        g.initializer.append(idx)
-        pack = helper.make_node("Gather", ["scales", f"scales_idx_{k}"], [scalar + "__packed"], name=f"PackScales_{scalar}")
-        g.node.insert(0, pack)
-        for n in g.node:
-            if n.name == f"PackScales_{scalar}":
-                continue
-            for j, s in enumerate(n.input):
-                if s == scalar:
-                    n.input[j] = scalar + "__packed"
-    keep = [i for i in g.input if i.name not in ("noise_scale", "length_scale", "noise_scale_w")]
-    del g.input[:]
-    g.input.extend(keep)
-
-    ren = {"x": "input", "x_length": "input_lengths"}
+    # sherpa passes the three scales as shape [1], the export declares them rank-0.
     for i in g.input:
-        if i.name in ren:
-            i.name = ren[i.name]
-    for n in g.node:
-        for j, s in enumerate(n.input):
-            if s in ren:
-                n.input[j] = ren[s]
+        if i.name in ("noise_scale", "length_scale", "noise_scale_w"):
+            i.type.tensor_type.shape.Clear()
+            i.type.tensor_type.shape.dim.add().dim_value = 1
 
-    if "emotion_frozen" not in {p.key for p in m.metadata_props}:
+    # use_eos_bos=0: sherpa otherwise wraps every sentence in extra 0s and turns
+    # a trailing "." into a [0, 0, 0] stub that renders as noise. With it off,
+    # the token stream is exactly HF's add_blank output (blank = 0).
+    meta = {"emotion_frozen": str(EMOTION_NEUTRAL), "use_eos_bos": "0", "blank_id": "0"}
+    props = [p for p in m.metadata_props if p.key not in meta and p.key != "num_emotions"]
+    del m.metadata_props[:]
+    m.metadata_props.extend(props)
+    for k, v in meta.items():
         p = m.metadata_props.add()
-        p.key, p.value = "emotion_frozen", str(EMOTION_NEUTRAL)
+        p.key, p.value = k, v
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     dst = OUT_DIR / "model.onnx"
     onnx.save(m, str(dst))
     shutil.copy2(str(SRC_DIR / "tokens.txt"), str(OUT_DIR / "tokens.txt"))
     onnx.checker.check_model(str(dst))
-    assert {i.name for i in onnx.load(str(dst)).graph.input} == {"input", "input_lengths", "scales", "sid"}
+    names = [i.name for i in onnx.load(str(dst)).graph.input]
+    assert names == ["x", "x_length", "noise_scale", "length_scale", "noise_scale_w", "sid"], names
     print(f"stock model: {dst} ({dst.stat().st_size / 1024 / 1024:.1f} MB), checker OK")
 
 
@@ -109,36 +105,32 @@ def cmd_fp16():
 
 
 def cmd_verify():
+    """Smoke test through sherpa-onnx itself, the runtime the app uses.
+
+    Raw-ORT checks missed both a sherpa input-layout segfault and the add_blank
+    interspersal, so verify with the real frontend. Each text ends in "." to
+    also catch the trailing-stub regression (stub adds ~0.5 s of noise).
+    """
     import numpy as np
-    import onnxruntime as ort
+    import sherpa_onnx
     fp16 = ASSETS / "vits-rasa-13-model.onnx"
     model = str(fp16 if fp16.exists() else OUT_DIR / "model.onnx")
-    sess = ort.InferenceSession(model, providers=["CPUExecutionProvider"])
-    vocab = {}
-    for line in (OUT_DIR / "tokens.txt").read_text(encoding="utf-8").splitlines():
-        if " " in line:
-            s, i = line.rsplit(" ", 1)
-            try:
-                vocab[s] = int(i)
-            except ValueError:
-                pass
-    texts = {18: "\u0bb5\u0ba3\u0b95\u0bcd\u0b95\u0bae\u0bcd", 11: "\u0d28\u0d2e\u0d38\u0d4d\u0d15\u0d3e\u0d30\u0d02",
-             15: "\u0a38\u0a24\u0a3f \u0a38\u0a4d\u0a30\u0a40 \u0a05\u0a15\u0a3e\u0a32", 16: "\u0a38\u0a24\u0a3f \u0a38\u0a4d\u0a30\u0a40 \u0a05\u0a15\u0a3e\u0a32",
-             0: "\u09a8\u09ae\u09b8\u09cd\u0995\u09be\u09f0", 1: "\u09a8\u09ae\u09b8\u09cd\u0995\u09be\u09f0",
-             14: "\u0928\u092e\u0938\u094d\u0915\u093e\u0930", 17: "\u0928\u092e\u0938\u094d\u0915\u093e\u0930",
-             4: "\u0928\u092e\u0938\u094d\u0915\u093e\u0930", 5: "\u0928\u092e\u0938\u094d\u0915\u093e\u0930",
-             6: "\u0928\u092e\u0938\u094d\u0915\u093e\u0930", 7: "\u0928\u092e\u0938\u094d\u0915\u093e\u0930"}
+    tts = sherpa_onnx.OfflineTts(sherpa_onnx.OfflineTtsConfig(model=sherpa_onnx.OfflineTtsModelConfig(
+        vits=sherpa_onnx.OfflineTtsVitsModelConfig(model=model, tokens=str(OUT_DIR / "tokens.txt")),
+        num_threads=4)))
+    texts = {18: "வணக்கம்", 11: "നമസ്കാരം",
+             15: "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ", 16: "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ",
+             0: "নমস্কাৰ", 1: "নমস্কাৰ",
+             14: "नमस्कार", 17: "नमस्कार",
+             4: "नमस्कार", 5: "नमस्कार",
+             6: "नमस्कार", 7: "नमस्कार"}
     bad = 0
     for sid, text in texts.items():
-        ids = [vocab[c] for c in text if c in vocab]
-        feed = {"input": np.array([ids], dtype=np.int64),
-                "input_lengths": np.array([len(ids)], dtype=np.int64),
-                "scales": np.array([0.667, 1.0, 0.8], dtype=np.float32),
-                "sid": np.array([sid], dtype=np.int64)}
-        wav = sess.run(None, feed)[0]
-        ok = bool(np.isfinite(wav).all()) and wav.size > 1000 and float(abs(wav).max()) > 1e-4
+        wav = np.array(tts.generate(text, sid=sid).samples)
+        stub = len(tts.generate(text + ".", sid=sid).samples) - len(wav)
+        ok = bool(np.isfinite(wav).all()) and wav.size > 1000 and float(abs(wav).max()) > 1e-4 and stub < 0.2 * tts.sample_rate
         bad += not ok
-        print(f"  sid={sid:2d} {PRIORITY_SIDS[sid]:10s} -> {'OK' if ok else 'FAIL'}")
+        print(f"  sid={sid:2d} {PRIORITY_SIDS[sid]:10s} -> {'OK' if ok else 'FAIL'} (trailing '.' adds {stub / tts.sample_rate:.2f}s)")
     sys.exit(1 if bad else 0)
 
 

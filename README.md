@@ -24,7 +24,7 @@ Machine IDs stay stable (`vits-syspin-<lang>-<female|male>`, e.g. `vits-syspin-h
 
 ## Rasa engine — 20 more voices, one 59.5 MB file (`v2.0.0-rasa-fp16`)
 
-[AI4Bharat VITS](https://huggingface.co/ai4bharat/vits_rasa_13) (Rasa conversational data), converted via an ungated sherpa-onnx export + repo-side surgery: `emotion_id` frozen to neutral, inputs normalized to stock `{input, input_lengths, scales, sid}`, weight-only FP16. One shared `vits-rasa-13-model.onnx` serves all 20 speakers; per-language download cost is zero.
+[AI4Bharat VITS](https://huggingface.co/ai4bharat/vits_rasa_13) (Rasa conversational data), converted via an ungated sherpa-onnx export + repo-side surgery: `emotion_id` frozen to neutral, sherpa's native multi-speaker VITS inputs `{x, x_length, noise_scale, length_scale, noise_scale_w, sid}` kept, `use_eos_bos=0`, weight-only FP16. One shared `vits-rasa-13-model.onnx` serves all 20 speakers; per-language download cost is zero.
 
 | sid | Voice | Language | Gender | New / Alternate |
 |---|---|---|---|---|
@@ -61,7 +61,7 @@ sherpa-onnx-offline-tts \
   "வணக்கம்"
 ```
 
-Notes: `sid` selects the voice (Tamil Kaveri = 18); emotion is baked to neutral; strip trailing `.?!` (sherpa splits it into a noise-prone stub); page samples are full-length conversational test passages (~11–22s each) synthesized sentence-by-sentence with natural 350ms breathing pauses and authentic regional vocabulary. QA: 20/20 render, FP16 SNR 41.7 dB vs FP32, `onnx.checker` clean.
+Notes: `sid` selects the voice (Tamil Kaveri = 18); emotion is baked to neutral; `length_scale=1.0` is the trained pace; trailing `.?!` is safe (`use_eos_bos=0` stops sherpa emitting a noise stub). Page samples are full-length conversational passages (~17–27s each) rendered through sherpa-onnx itself, sentence-by-sentence with 350ms pauses. QA: `build_rasa_stock.py --verify` runs 12 voices through sherpa-onnx, FP16 SNR 41.7 dB vs FP32, `onnx.checker` clean.
 
 ## Quickstart
 
@@ -135,7 +135,7 @@ If a voice sounds wrong, check in order: (1) `tokens.txt` paired with the right 
 | `build_fp16_60mb.py` | FP32 → weight-only FP16 converter (+ `--verify` ORT smoke test) |
 | `export_respin_syspin_to_onnx.py` | HF Coqui checkpoint → sherpa-onnx ONNX + `tokens.txt` + metadata |
 | `hindi_frontend.py` | Optional Hindi schwa/numeral/punctuation normalizer |
-| `build_rasa_stock.py` | Rasa pipeline: download ungated export → stock-compat surgery → FP16 → verify |
+| `build_rasa_stock.py` | Rasa pipeline: download ungated export → freeze emotion + metadata fix → FP16 → sherpa-onnx verify |
 | `export_rasa_to_onnx.py` | From-scratch Rasa exporter (needs gated HF access; normally not needed) |
 | `samples/` | 22 × `.mp3` + `all_22_voices_showcase.mp3` |
 

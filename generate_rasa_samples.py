@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Generate high-quality, long-form conversational speech samples for all 20 Rasa voices.
 
-Uses ONNX Runtime with vits-rasa-13/model.onnx (or release_assets_rasa/vits-rasa-13-model.onnx).
+Renders through sherpa-onnx itself (blank interspersal, sentence split) so samples
+match what the app produces, from release_assets_rasa/vits-rasa-13-model.onnx.
 Sentence-by-sentence synthesis with 350ms natural breathing pauses guarantees:
   1. Crisp, unhurried articulation (~13-19s per voice)
   2. Zero attention diffusion or rushed words
@@ -18,7 +19,7 @@ import sys
 import time
 from pathlib import Path
 import numpy as np
-import onnxruntime as ort
+import sherpa_onnx
 import soundfile as sf
 
 BASE = Path(__file__).parent
@@ -166,28 +167,28 @@ RASA_TEXTS = {
 }
 
 # The 20 Rasa voices: (sid, mp3_id, name, lang_key, gender, custom_length_scale)
-# Default length_scale is 1.35; Sheetal (sid 6) has naturally fast cadence so uses 1.55
+# length_scale 1.0 = the model's trained pace (sherpa adds the add_blank interspersal).
 RASA_VOICE_CONFIGS = [
-    (0, "vits-rasa-asm-female", "Bornali", "asm", "female", 1.35),
-    (1, "vits-rasa-asm-male", "Rituraj", "asm", "male", 1.35),
-    (2, "vits-rasa-bn-female-alt", "Tithi", "bn", "female", 1.35),
-    (3, "vits-rasa-bn-male-alt", "Anirban", "bn", "male", 1.35),
-    (4, "vits-rasa-brx-female", "Mainao", "brx", "female", 1.35),
-    (5, "vits-rasa-brx-male", "Sansuma", "brx", "male", 1.35),
-    (6, "vits-rasa-doi-female", "Sheetal", "doi", "female", 1.55),
-    (7, "vits-rasa-doi-male", "Vijay", "doi", "male", 1.35),
-    (8, "vits-rasa-kn-female-alt", "Spoorthi", "kn", "female", 1.35),
-    (9, "vits-rasa-kn-male-alt", "Chetan", "kn", "male", 1.35),
-    (10, "vits-rasa-mai-male-alt", "Shravan", "mai", "male", 1.35),
-    (11, "vits-rasa-mal-female", "Aparna", "mal", "female", 1.35),
-    (12, "vits-rasa-mr-female-alt", "Mrunal", "mr", "female", 1.35),
-    (13, "vits-rasa-mr-male-alt", "Tejas", "mr", "male", 1.35),
-    (14, "vits-rasa-ne-female", "Prerana", "ne", "female", 1.35),
-    (15, "vits-rasa-pan-female", "Simran", "pan", "female", 1.35),
-    (16, "vits-rasa-pan-male", "Harpreet", "pan", "male", 1.40),
-    (17, "vits-rasa-san-male", "Vedant", "san", "male", 1.35),
-    (18, "vits-rasa-tam-female", "Kaveri", "tam", "female", 1.35),
-    (19, "vits-rasa-te-female-alt", "Harini", "te", "female", 1.35),
+    (0, "vits-rasa-asm-female", "Bornali", "asm", "female", 1.0),
+    (1, "vits-rasa-asm-male", "Rituraj", "asm", "male", 1.0),
+    (2, "vits-rasa-bn-female-alt", "Tithi", "bn", "female", 1.0),
+    (3, "vits-rasa-bn-male-alt", "Anirban", "bn", "male", 1.0),
+    (4, "vits-rasa-brx-female", "Mainao", "brx", "female", 1.0),
+    (5, "vits-rasa-brx-male", "Sansuma", "brx", "male", 1.0),
+    (6, "vits-rasa-doi-female", "Sheetal", "doi", "female", 1.0),
+    (7, "vits-rasa-doi-male", "Vijay", "doi", "male", 1.0),
+    (8, "vits-rasa-kn-female-alt", "Spoorthi", "kn", "female", 1.0),
+    (9, "vits-rasa-kn-male-alt", "Chetan", "kn", "male", 1.0),
+    (10, "vits-rasa-mai-male-alt", "Shravan", "mai", "male", 1.0),
+    (11, "vits-rasa-mal-female", "Aparna", "mal", "female", 1.0),
+    (12, "vits-rasa-mr-female-alt", "Mrunal", "mr", "female", 1.0),
+    (13, "vits-rasa-mr-male-alt", "Tejas", "mr", "male", 1.0),
+    (14, "vits-rasa-ne-female", "Prerana", "ne", "female", 1.0),
+    (15, "vits-rasa-pan-female", "Simran", "pan", "female", 1.0),
+    (16, "vits-rasa-pan-male", "Harpreet", "pan", "male", 1.0),
+    (17, "vits-rasa-san-male", "Vedant", "san", "male", 1.0),
+    (18, "vits-rasa-tam-female", "Kaveri", "tam", "female", 1.0),
+    (19, "vits-rasa-te-female-alt", "Harini", "te", "female", 1.0),
 ]
 
 
@@ -203,7 +204,7 @@ def load_vocab(tokens_file: Path):
     return vocab
 
 
-def synthesize_voice(sess, vocab, sid, text, length_scale=1.35, sample_rate=24000):
+def synthesize_voice(tts, sid, text, length_scale=1.0, sample_rate=24000):
     # Split text into natural sentences
     sents = [s.strip() for s in re.split(r"[.।\n]+", text) if s.strip()]
     pause_samples = int(sample_rate * 0.35)  # 350 ms breathing silence
@@ -213,16 +214,9 @@ def synthesize_voice(sess, vocab, sid, text, length_scale=1.35, sample_rate=2400
     for idx, s in enumerate(sents):
         # Strip trailing punctuation that might cause click
         clean = s.rstrip(".?!:;, ")
-        ids = [vocab[c] for c in clean if c in vocab]
-        if not ids:
+        if not clean:
             continue
-        feed = {
-            "input": np.array([ids], dtype=np.int64),
-            "input_lengths": np.array([len(ids)], dtype=np.int64),
-            "scales": np.array([0.667, length_scale, 0.8], dtype=np.float32),
-            "sid": np.array([sid], dtype=np.int64)
-        }
-        w = sess.run(None, feed)[0].squeeze()
+        w = np.array(tts.generate(clean, sid=sid, speed=1.0 / length_scale).samples, dtype=np.float32)
         parts.append(w)
         if idx < len(sents) - 1:
             parts.append(pause)
@@ -239,8 +233,10 @@ def synthesize_voice(sess, vocab, sid, text, length_scale=1.35, sample_rate=2400
 
 
 def main():
-    print(f"Loading ONNX session from {MODEL_PATH}...")
-    sess = ort.InferenceSession(str(MODEL_PATH), providers=["CPUExecutionProvider"])
+    print(f"Loading sherpa-onnx TTS from {MODEL_PATH}...")
+    tts = sherpa_onnx.OfflineTts(sherpa_onnx.OfflineTtsConfig(model=sherpa_onnx.OfflineTtsModelConfig(
+        vits=sherpa_onnx.OfflineTtsVitsModelConfig(model=str(MODEL_PATH), tokens=str(TOKENS_PATH)),
+        num_threads=4)))
     vocab = load_vocab(TOKENS_PATH)
     print(f"Loaded {len(vocab)} tokens from {TOKENS_PATH}")
 
@@ -256,7 +252,7 @@ def main():
     for sid, mp3_id, name, lang_key, gender, ls in RASA_VOICE_CONFIGS:
         t0 = time.time()
         text = RASA_TEXTS[lang_key]["text"]
-        wav = synthesize_voice(sess, vocab, sid, text, length_scale=ls)
+        wav = synthesize_voice(tts, sid, text, length_scale=ls)
         dur = len(wav) / 24000.0
 
         wav_path = OUT_DIR / f"{mp3_id}.wav"

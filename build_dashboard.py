@@ -91,7 +91,7 @@ def build_rasa_cards():
     <div class="text-[11px] text-slate-400 flex items-center justify-between">
       <span class="flex items-center gap-1.5">
         <span class="w-2 h-2 rounded-full {dot_color}"></span>
-        <span>Synthesized Voice Sample (~11–22s)</span>
+        <span>Synthesized Voice Sample (~17–27s)</span>
       </span>
       <a href="samples/{mp3}.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
     </div>
@@ -422,7 +422,7 @@ BODY_TOP = """<body class="bg-slate-950 text-slate-100 antialiased p-4 md:p-8 mi
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
           <h2 class="text-lg font-bold text-white">Rasa engine — 20 more voices, one 59.5 MB file</h2>
-          <p class="text-xs text-slate-400 mt-1">AI4Bharat VITS (multi-speaker, <span class="font-mono">sid</span> 0–19) with stock sherpa-onnx inputs, emotion frozen to neutral, weight-only FP16. Tamil, Malayalam, Punjabi, Assamese, Nepali, Sanskrit, Bodo, Dogri — plus alternate Bengali, Kannada, Maithili, Marathi, Telugu voices. 24 kHz. Full-length conversational test passages (~11–22s each) with native scripts, Romanized transliterations, English meanings, and phonetic rubrics (sentence-synthesized with natural breathing pauses). Release <span class="font-mono">v2.0.0-rasa-fp16</span>.</p>
+          <p class="text-xs text-slate-400 mt-1">AI4Bharat VITS (multi-speaker, <span class="font-mono">sid</span> 0–19) with stock sherpa-onnx inputs, emotion frozen to neutral, weight-only FP16. Tamil, Malayalam, Punjabi, Assamese, Nepali, Sanskrit, Bodo, Dogri — plus alternate Bengali, Kannada, Maithili, Marathi, Telugu voices. 24 kHz. Full-length conversational test passages (~17–27s each) with native scripts, Romanized transliterations, English meanings, and phonetic rubrics (sentence-synthesized with natural breathing pauses). Release <span class="font-mono">v2.0.0-rasa-fp16</span>.</p>
         </div>
         <div class="flex gap-2 text-xs font-mono whitespace-nowrap">
           <a class="px-3 py-2 rounded-lg bg-blue-600/10 border border-blue-500/30 text-blue-300" target="_blank" rel="noopener" href="https://github.com/REPO/releases/download/RASATAG/vits-rasa-13-model.onnx">model.onnx 59.5MB</a>
