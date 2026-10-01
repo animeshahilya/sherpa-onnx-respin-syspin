@@ -1,0 +1,1072 @@
+[
+  {
+    "langCode": "hi",
+    "language": "Hindi",
+    "nativeName": "हिन्दी",
+    "script": "Devanagari",
+    "family": "Indo-Aryan (Central)",
+    "region": "North / Central India",
+    "voices": [
+      {
+        "id": "vits-syspin-hi-female",
+        "displayName": "Kavya",
+        "fullName": "Kavya — Hindi Female",
+        "gender": "female",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-hi-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-female-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-female-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-syspin-hi-male",
+        "displayName": "Vihaan",
+        "fullName": "Vihaan — Hindi Male",
+        "gender": "male",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-hi-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-male-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-male-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      }
+    ]
+  },
+  {
+    "langCode": "bn",
+    "language": "Bengali",
+    "nativeName": "বাংলা",
+    "script": "Bengali",
+    "family": "Indo-Aryan (Eastern)",
+    "region": "West Bengal / Bangladesh",
+    "voices": [
+      {
+        "id": "vits-syspin-bn-female",
+        "displayName": "Riya",
+        "fullName": "Riya — Bengali Female",
+        "gender": "female",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-bn-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-bn-female-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-bn-female-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-syspin-bn-male",
+        "displayName": "Sourav",
+        "fullName": "Sourav — Bengali Male",
+        "gender": "male",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-bn-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-bn-male-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-bn-male-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-rasa-bn-female-alt",
+        "displayName": "Tithi",
+        "fullName": "Tithi — Bengali Female (Rasa)",
+        "gender": "female",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 2,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-bn-female-alt.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      },
+      {
+        "id": "vits-rasa-bn-male-alt",
+        "displayName": "Anirban",
+        "fullName": "Anirban — Bengali Male (Rasa)",
+        "gender": "male",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 3,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-bn-male-alt.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "te",
+    "language": "Telugu",
+    "nativeName": "తెలుగు",
+    "script": "Telugu",
+    "family": "Dravidian (South-Central)",
+    "region": "Andhra Pradesh / Telangana",
+    "voices": [
+      {
+        "id": "vits-syspin-te-female",
+        "displayName": "Sireesha",
+        "fullName": "Sireesha — Telugu Female",
+        "gender": "female",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-te-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-te-female-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-te-female-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-syspin-te-male",
+        "displayName": "Aditya",
+        "fullName": "Aditya — Telugu Male",
+        "gender": "male",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-te-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-te-male-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-te-male-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-rasa-te-female-alt",
+        "displayName": "Harini",
+        "fullName": "Harini — Telugu Female (Rasa)",
+        "gender": "female",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 19,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-te-female-alt.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "kn",
+    "language": "Kannada",
+    "nativeName": "ಕನ್ನಡ",
+    "script": "Kannada",
+    "family": "Dravidian (Southern)",
+    "region": "Karnataka",
+    "voices": [
+      {
+        "id": "vits-syspin-kn-female",
+        "displayName": "Ananya",
+        "fullName": "Ananya — Kannada Female",
+        "gender": "female",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-kn-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-kn-female-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-kn-female-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-syspin-kn-male",
+        "displayName": "Vikram",
+        "fullName": "Vikram — Kannada Male",
+        "gender": "male",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-kn-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-kn-male-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-kn-male-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-rasa-kn-female-alt",
+        "displayName": "Spoorthi",
+        "fullName": "Spoorthi — Kannada Female (Rasa)",
+        "gender": "female",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 8,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-kn-female-alt.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      },
+      {
+        "id": "vits-rasa-kn-male-alt",
+        "displayName": "Chetan",
+        "fullName": "Chetan — Kannada Male (Rasa)",
+        "gender": "male",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 9,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-kn-male-alt.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "mr",
+    "language": "Marathi",
+    "nativeName": "मराठी",
+    "script": "Devanagari",
+    "family": "Indo-Aryan (Southern)",
+    "region": "Maharashtra",
+    "voices": [
+      {
+        "id": "vits-syspin-mr-female",
+        "displayName": "Sneha",
+        "fullName": "Sneha — Marathi Female",
+        "gender": "female",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-mr-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mr-female-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mr-female-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-syspin-mr-male",
+        "displayName": "Omkar",
+        "fullName": "Omkar — Marathi Male",
+        "gender": "male",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-mr-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mr-male-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mr-male-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-rasa-mr-female-alt",
+        "displayName": "Mrunal",
+        "fullName": "Mrunal — Marathi Female (Rasa)",
+        "gender": "female",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 12,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-mr-female-alt.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      },
+      {
+        "id": "vits-rasa-mr-male-alt",
+        "displayName": "Tejas",
+        "fullName": "Tejas — Marathi Male (Rasa)",
+        "gender": "male",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 13,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-mr-male-alt.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "gu",
+    "language": "Gujarati",
+    "nativeName": "ગુજરાતી",
+    "script": "Gujarati",
+    "family": "Indo-Aryan (Western)",
+    "region": "Gujarat",
+    "voices": [
+      {
+        "id": "vits-syspin-gu-female",
+        "displayName": "Hetal",
+        "fullName": "Hetal — Gujarati Female",
+        "gender": "female",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-gu-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-gu-female-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-gu-female-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-syspin-gu-male",
+        "displayName": "Jay",
+        "fullName": "Jay — Gujarati Male",
+        "gender": "male",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-gu-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-gu-male-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-gu-male-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      }
+    ]
+  },
+  {
+    "langCode": "bho",
+    "language": "Bhojpuri",
+    "nativeName": "भोजपुरी",
+    "script": "Devanagari",
+    "family": "Indo-Aryan (Eastern)",
+    "region": "Bihar / E. UP",
+    "voices": [
+      {
+        "id": "vits-syspin-bho-female",
+        "displayName": "Kajal",
+        "fullName": "Kajal — Bhojpuri Female",
+        "gender": "female",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-bho-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-bho-female-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-bho-female-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-syspin-bho-male",
+        "displayName": "Ranjit",
+        "fullName": "Ranjit — Bhojpuri Male",
+        "gender": "male",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-bho-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-bho-male-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-bho-male-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      }
+    ]
+  },
+  {
+    "langCode": "hne",
+    "language": "Chhattisgarhi",
+    "nativeName": "छत्तीसगढ़ी",
+    "script": "Devanagari",
+    "family": "Indo-Aryan (East-Central)",
+    "region": "Chhattisgarh",
+    "voices": [
+      {
+        "id": "vits-syspin-hne-female",
+        "displayName": "Mamta",
+        "fullName": "Mamta — Chhattisgarhi Female",
+        "gender": "female",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-hne-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hne-female-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hne-female-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-syspin-hne-male",
+        "displayName": "Bhupesh",
+        "fullName": "Bhupesh — Chhattisgarhi Male",
+        "gender": "male",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-hne-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hne-male-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hne-male-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      }
+    ]
+  },
+  {
+    "langCode": "mai",
+    "language": "Maithili",
+    "nativeName": "मैथिली",
+    "script": "Devanagari",
+    "family": "Indo-Aryan (Eastern)",
+    "region": "Mithila (Bihar / Nepal)",
+    "voices": [
+      {
+        "id": "vits-syspin-mai-female",
+        "displayName": "Janaki",
+        "fullName": "Janaki — Maithili Female",
+        "gender": "female",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-mai-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mai-female-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mai-female-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-syspin-mai-male",
+        "displayName": "Mithilesh",
+        "fullName": "Mithilesh — Maithili Male",
+        "gender": "male",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-mai-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mai-male-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mai-male-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-rasa-mai-male-alt",
+        "displayName": "Shravan",
+        "fullName": "Shravan — Maithili Male (Rasa)",
+        "gender": "male",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 10,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-mai-male-alt.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "mag",
+    "language": "Magahi",
+    "nativeName": "मगही",
+    "script": "Devanagari",
+    "family": "Indo-Aryan (Eastern)",
+    "region": "Magadh (Bihar)",
+    "voices": [
+      {
+        "id": "vits-syspin-mag-female",
+        "displayName": "Poonam",
+        "fullName": "Poonam — Magahi Female",
+        "gender": "female",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-mag-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mag-female-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mag-female-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-syspin-mag-male",
+        "displayName": "Rakesh",
+        "fullName": "Rakesh — Magahi Male",
+        "gender": "male",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-mag-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mag-male-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-mag-male-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      }
+    ]
+  },
+  {
+    "langCode": "en",
+    "language": "English (India)",
+    "nativeName": "Indian English",
+    "script": "Latin",
+    "family": "Germanic (Indian variety)",
+    "region": "Pan-India",
+    "voices": [
+      {
+        "id": "vits-syspin-en-female",
+        "displayName": "Priya",
+        "fullName": "Priya — Indian English Female",
+        "gender": "female",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-en-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-en-female-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-en-female-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      },
+      {
+        "id": "vits-syspin-en-male",
+        "displayName": "Rahul",
+        "fullName": "Rahul — Indian English Male",
+        "gender": "male",
+        "sampleRate": 22050,
+        "precision": "weight-only FP16",
+        "sizeMB": 55,
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-syspin-en-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-en-male-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-en-male-tokens.txt",
+        "engine": "syspin",
+        "sid": 0
+      }
+    ]
+  },
+  {
+    "langCode": "asm",
+    "language": "Assamese",
+    "nativeName": "অসমীয়া",
+    "script": "Bengali-Assamese",
+    "family": "Indo-Aryan (Eastern)",
+    "region": "Assam",
+    "voices": [
+      {
+        "id": "vits-rasa-asm-female",
+        "displayName": "Bornali",
+        "fullName": "Bornali — Assamese Female (Rasa)",
+        "gender": "female",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 0,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-asm-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      },
+      {
+        "id": "vits-rasa-asm-male",
+        "displayName": "Rituraj",
+        "fullName": "Rituraj — Assamese Male (Rasa)",
+        "gender": "male",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 1,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-asm-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "brx",
+    "language": "Bodo",
+    "nativeName": "बड़ो",
+    "script": "Devanagari",
+    "family": "Tibeto-Burman (Bodo)",
+    "region": "Bodoland / Assam",
+    "voices": [
+      {
+        "id": "vits-rasa-brx-female",
+        "displayName": "Mainao",
+        "fullName": "Mainao — Bodo Female (Rasa)",
+        "gender": "female",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 4,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-brx-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      },
+      {
+        "id": "vits-rasa-brx-male",
+        "displayName": "Sansuma",
+        "fullName": "Sansuma — Bodo Male (Rasa)",
+        "gender": "male",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 5,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-brx-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "doi",
+    "language": "Dogri",
+    "nativeName": "डोगरी",
+    "script": "Devanagari",
+    "family": "Indo-Aryan (Northern)",
+    "region": "Jammu",
+    "voices": [
+      {
+        "id": "vits-rasa-doi-female",
+        "displayName": "Sheetal",
+        "fullName": "Sheetal — Dogri Female (Rasa)",
+        "gender": "female",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 6,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-doi-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      },
+      {
+        "id": "vits-rasa-doi-male",
+        "displayName": "Vijay",
+        "fullName": "Vijay — Dogri Male (Rasa)",
+        "gender": "male",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 7,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-doi-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "mal",
+    "language": "Malayalam",
+    "nativeName": "മലയാളം",
+    "script": "Malayalam",
+    "family": "Dravidian (Southern)",
+    "region": "Kerala",
+    "voices": [
+      {
+        "id": "vits-rasa-mal-female",
+        "displayName": "Aparna",
+        "fullName": "Aparna — Malayalam Female (Rasa)",
+        "gender": "female",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 11,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-mal-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "ne",
+    "language": "Nepali",
+    "nativeName": "नेपाली",
+    "script": "Devanagari",
+    "family": "Indo-Aryan (Northern)",
+    "region": "Nepal / India",
+    "voices": [
+      {
+        "id": "vits-rasa-ne-female",
+        "displayName": "Prerana",
+        "fullName": "Prerana — Nepali Female (Rasa)",
+        "gender": "female",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 14,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-ne-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "pan",
+    "language": "Punjabi",
+    "nativeName": "ਪੰਜਾਬੀ",
+    "script": "Gurmukhi",
+    "family": "Indo-Aryan (Northwestern)",
+    "region": "Punjab",
+    "voices": [
+      {
+        "id": "vits-rasa-pan-female",
+        "displayName": "Simran",
+        "fullName": "Simran — Punjabi Female (Rasa)",
+        "gender": "female",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 15,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-pan-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      },
+      {
+        "id": "vits-rasa-pan-male",
+        "displayName": "Harpreet",
+        "fullName": "Harpreet — Punjabi Male (Rasa)",
+        "gender": "male",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 16,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-pan-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "san",
+    "language": "Sanskrit",
+    "nativeName": "संस्कृतम्",
+    "script": "Devanagari",
+    "family": "Indo-Aryan (Classical)",
+    "region": "Pan-India",
+    "voices": [
+      {
+        "id": "vits-rasa-san-male",
+        "displayName": "Vedant",
+        "fullName": "Vedant — Sanskrit Male (Rasa)",
+        "gender": "male",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 17,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-san-male.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  },
+  {
+    "langCode": "tam",
+    "language": "Tamil",
+    "nativeName": "தமிழ்",
+    "script": "Tamil",
+    "family": "Dravidian (Southern)",
+    "region": "Tamil Nadu",
+    "voices": [
+      {
+        "id": "vits-rasa-tam-female",
+        "displayName": "Kaveri",
+        "fullName": "Kaveri — Tamil Female (Rasa)",
+        "gender": "female",
+        "engine": "rasa",
+        "modelId": "vits-rasa-13",
+        "sid": 18,
+        "sampleRate": 24000,
+        "precision": "weight-only FP16",
+        "sizeMB": 59.5,
+        "sizeNote": "shared single-file model for all 20 Rasa voices",
+        "recommended": {
+          "noise_scale": 0.667,
+          "noise_scale_w": 0.8,
+          "length_scale": 1.0,
+          "speed": 1.0
+        },
+        "sample": "samples/vits-rasa-tam-female.mp3",
+        "model": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx",
+        "tokens": "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt"
+      }
+    ]
+  }
+]

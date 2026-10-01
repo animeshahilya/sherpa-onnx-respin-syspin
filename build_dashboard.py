@@ -1,10 +1,100 @@
 #!/usr/bin/env python3
-"""
-Generates index.html for sherpa-onnx-respin-syspin GitHub Pages dashboard.
+"""Generates index.html for sherpa-onnx-respin-syspin GitHub Pages dashboard.
+
+Source of truth for speaker display names is voices.json.
+Sample passages (text/transliteration/translation/rubric) live in VOICES_DATA below.
+Run:  python build_dashboard.py
 """
 
 import json
 import os
+
+BASE = os.path.dirname(os.path.abspath(__file__))
+RELEASE_TAG = "v1.1.0-fp16"
+RASA_TAG = "v2.0.0-rasa-fp16"
+REPO = "animeshahilya/sherpa-onnx-respin-syspin"
+
+# Rasa engine voices: (sid, sample mp3, display, lang, native, gender, alt?)
+RASA_VOICES = [
+    (0, "vits-rasa-asm-female", "Bornali", "Assamese", "অসমীয়া", "female", False),
+    (1, "vits-rasa-asm-male", "Rituraj", "Assamese", "অসমীয়া", "male", False),
+    (2, "vits-rasa-bn-female-alt", "Tithi", "Bengali", "বাংলা", "female", True),
+    (3, "vits-rasa-bn-male-alt", "Anirban", "Bengali", "বাংলা", "male", True),
+    (4, "vits-rasa-brx-female", "Mainao", "Bodo", "बड़ो", "female", False),
+    (5, "vits-rasa-brx-male", "Sansuma", "Bodo", "बड़ो", "male", False),
+    (6, "vits-rasa-doi-female", "Sheetal", "Dogri", "डोगरी", "female", False),
+    (7, "vits-rasa-doi-male", "Vijay", "Dogri", "डोगरी", "male", False),
+    (8, "vits-rasa-kn-female-alt", "Spoorthi", "Kannada", "ಕನ್ನಡ", "female", True),
+    (9, "vits-rasa-kn-male-alt", "Chetan", "Kannada", "ಕನ್ನಡ", "male", True),
+    (10, "vits-rasa-mai-male-alt", "Shravan", "Maithili", "मैथिली", "male", True),
+    (11, "vits-rasa-mal-female", "Aparna", "Malayalam", "മലയാളം", "female", False),
+    (12, "vits-rasa-mr-female-alt", "Mrunal", "Marathi", "मराठी", "female", True),
+    (13, "vits-rasa-mr-male-alt", "Tejas", "Marathi", "मराठी", "male", True),
+    (14, "vits-rasa-ne-female", "Prerana", "Nepali", "नेपाली", "female", False),
+    (15, "vits-rasa-pan-female", "Simran", "Punjabi", "ਪੰਜਾਬੀ", "female", False),
+    (16, "vits-rasa-pan-male", "Harpreet", "Punjabi", "ਪੰਜਾਬੀ", "male", False),
+    (17, "vits-rasa-san-male", "Vedant", "Sanskrit", "संस्कृतम्", "male", False),
+    (18, "vits-rasa-tam-female", "Kaveri", "Tamil", "தமிழ்", "female", False),
+    (19, "vits-rasa-te-female-alt", "Harini", "Telugu", "తెలుగు", "female", True),
+]
+
+
+def build_rasa_cards():
+    cards = []
+    for sid, mp3, name, lang, native, gender, alt in RASA_VOICES:
+        gc = "text-pink-400" if gender == "female" else "text-cyan-400"
+        alt_badge = ' <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span>' if alt else ""
+        cards.append(
+            f'<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="{name} {lang} {native} {gender} sid{sid}">'
+            f'<div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">{name} <span class="text-xs font-medium {gc}">{gender}</span>{alt_badge}</div>'
+            f'<span class="text-[11px] text-slate-500 font-mono">sid={sid}</span></div>'
+            f'<div class="text-[11px] text-slate-400">{lang} ({native}) · 24 kHz</div>'
+            f'<audio controls preload="none" class="w-full h-9"><source src="samples/{mp3}.mp3" type="audio/mpeg">No audio.</audio>'
+            f'<a href="samples/{mp3}.mp3" download class="text-[11px] text-blue-400 underline">Preview MP3</a></div>'
+        )
+    return "\n".join(cards)
+
+
+def build_rasa_table_rows():
+    rows = []
+    for sid, mp3, name, lang, native, gender, alt in RASA_VOICES:
+        g = "Female" if gender == "female" else "Male"
+        tag = "alternate" if alt else "new"
+        rows.append(
+            f'<tr class="border-b border-slate-800/60"><td class="py-2 pr-3 font-semibold text-slate-200">{name} <span class="font-mono font-normal text-slate-500">vits-rasa-13 sid={sid} ({tag})</span></td>'
+            f'<td class="py-2 pr-3">{lang} ({native})</td><td class="py-2 pr-3">{g}</td>'
+            f'<td class="py-2 pr-3"><a class="text-blue-400 underline" href="samples/{mp3}.mp3">mp3</a></td>'
+            f'<td class="py-2 pr-3"><a class="text-blue-400 underline" href="https://github.com/{REPO}/releases/download/{RASA_TAG}/vits-rasa-13-model.onnx">onnx 59.5MB shared</a></td>'
+            f'<td class="py-2"><a class="text-blue-400 underline" href="https://github.com/{REPO}/releases/download/{RASA_TAG}/vits-rasa-13-tokens.txt">tokens</a></td></tr>'
+        )
+    return "\n".join(rows)
+
+# Human-friendly speaker names (replaces bare "Voice 1 / Voice 2").
+# Also mirrored in voices.json for app / API consumers.
+SPEAKERS = {
+    "vits-syspin-hi-female": "Kavya",
+    "vits-syspin-hi-male": "Vihaan",
+    "vits-syspin-bn-female": "Riya",
+    "vits-syspin-bn-male": "Sourav",
+    "vits-syspin-te-female": "Sireesha",
+    "vits-syspin-te-male": "Aditya",
+    "vits-syspin-kn-female": "Ananya",
+    "vits-syspin-kn-male": "Vikram",
+    "vits-syspin-mr-female": "Sneha",
+    "vits-syspin-mr-male": "Omkar",
+    "vits-syspin-gu-female": "Hetal",
+    "vits-syspin-gu-male": "Jay",
+    "vits-syspin-bho-female": "Kajal",
+    "vits-syspin-bho-male": "Ranjit",
+    "vits-syspin-hne-female": "Mamta",
+    "vits-syspin-hne-male": "Bhupesh",
+    "vits-syspin-mai-female": "Janaki",
+    "vits-syspin-mai-male": "Mithilesh",
+    "vits-syspin-mag-female": "Poonam",
+    "vits-syspin-mag-male": "Rakesh",
+    "vits-syspin-en-female": "Priya",
+    "vits-syspin-en-male": "Rahul",
+}
 
 VOICES_DATA = [
     {
@@ -174,331 +264,259 @@ VOICES_DATA = [
     }
 ]
 
-html_template = """<!DOCTYPE html>
+HTML_HEAD = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SYSPIN / RESPIN Voice Samples & Evaluation Dashboard</title>
+  <title>SYSPIN / RESPIN Indian Voices — 22 Offline TTS Voices for sherpa-onnx</title>
+  <meta name="description" content="42 lightweight offline VITS voices (22 SYSPIN + 20 Rasa, 19 language entries) for sherpa-onnx. Named voices, FP16, listen and download.">
+  <meta property="og:title" content="SYSPIN / RESPIN Indian Voices — Listen & Download">
+  <meta property="og:description" content="Hindi, Bengali, Telugu, Kannada, Marathi, Gujarati, Bhojpuri, Chhattisgarhi, Maithili, Magahi + Indian English. Named voices, 22050 Hz, ~55 MB FP16 each.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#020617">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    @keyframes pulse-slow {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-    .pulse-indicator { animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    @keyframes pulse-slow { 0%,100% {opacity:1} 50% {opacity:.4} }
+    .pulse-indicator { animation: pulse-slow 2s cubic-bezier(.4,0,.6,1) infinite; }
+    :focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }
+    audio::-webkit-media-controls-panel { background: #020617; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased p-4 md:p-8 min-h-screen">
+"""
+
+BODY_TOP = """<body class="bg-slate-950 text-slate-100 antialiased p-4 md:p-8 min-h-screen">
+  <a href="#voices" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-blue-600 focus:text-white focus:px-3 focus:py-1 focus:rounded-lg focus:text-xs">Skip to voices</a>
   <div class="max-w-6xl mx-auto space-y-6">
 
-    <!-- Header -->
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+    <header class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              Verified 100% Token Match
-            </span>
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">
-              22 Real Voices • 11 Indian Languages
-            </span>
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">
-              sherpa-onnx VITS
-            </span>
+        <div class="space-y-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">42 named voices</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">19 language entries &bull; 2 engines</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">sherpa-onnx VITS &bull; 22050 Hz</span>
           </div>
-          <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
-            SYSPIN / RESPIN Voice Evaluation Suite
-          </h1>
-          <p class="text-sm text-slate-400 mt-1.5">
-            Full-length, phonetically rich speech samples for IISc Bengaluru's open-source character VITS models hosted at
-            <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin" target="_blank" class="text-blue-400 hover:text-blue-300 underline font-mono">
-              animeshahilya/sherpa-onnx-respin-syspin
-            </a>
-          </p>
+          <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">SYSPIN / RESPIN Indian Voices</h1>
+          <p class="text-sm text-slate-400 max-w-3xl">Lightweight offline TTS from IISc Bengaluru SPIRE Lab, converted to <span class="text-slate-200 font-medium">weight-only FP16 (~55 MB each)</span> for <a class="text-blue-400 underline" href="https://github.com/k2-fsa/sherpa-onnx">sherpa-onnx</a> and <a class="text-blue-400 underline" href="https://github.com/animeshahilya/SherpaVoices">SherpaVoices</a>. Each voice now has a proper name — e.g. <span class="text-slate-200">Kavya (Hindi Female)</span>, <span class="text-slate-200">Vihaan (Hindi Male)</span> — instead of Voice 1 / Voice 2.</p>
+          <p class="text-xs text-slate-500">Source repo: <a href="https://github.com/REPO" class="font-mono text-blue-400 underline">REPO</a> &middot; Release <span class="font-mono">TAG</span> &middot; <a href="#about" class="underline">About this project</a> &middot; <a href="#all-voices" class="underline">All-voices table</a></p>
         </div>
-
         <div class="flex flex-wrap gap-2 text-xs">
-          <div class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700">
-            <div class="text-slate-400">Standard Precision</div>
-            <div class="font-bold text-slate-200">Weight-only FP16 (~55 MB)</div>
-          </div>
-          <div class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700">
-            <div class="text-slate-400">Sample Rate</div>
-            <div class="font-bold text-slate-200">22,050 Hz Mono</div>
-          </div>
+          <div class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700"><div class="text-slate-400">Precision</div><div class="font-bold text-slate-200">FP16 weights, FP32 compute</div></div>
+          <div class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700"><div class="text-slate-400">Runtime</div><div class="font-bold text-slate-200">Fully offline on CPU</div></div>
         </div>
       </div>
-    </div>
+      <div class="mt-4 flex flex-col sm:flex-row gap-2">
+        <label for="voiceSearch" class="sr-only">Search voices or languages</label>
+        <input id="voiceSearch" type="search" placeholder="Search: e.g. hindi, Kavya, telugu, female…" autocomplete="off" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm placeholder:text-slate-600 focus:border-blue-500">
+      </div>
+    </header>
 
-    <!-- Master All-Voices Showcase Bar -->
-    <div class="bg-gradient-to-r from-blue-950/60 via-slate-900 to-indigo-950/60 border border-blue-800/40 rounded-2xl p-5 shadow-xl space-y-3">
+    <section aria-label="Master showcase" class="bg-gradient-to-r from-blue-950/60 via-slate-900 to-indigo-950/60 border border-blue-800/40 rounded-2xl p-5 shadow-xl space-y-3">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div class="space-y-1">
           <div class="flex items-center gap-2">
-            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
-              🎙️ Unified Master Showcase
-            </span>
-            <span class="text-xs text-slate-400">Duration: 3m 48s • All 22 Speakers</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">🎙️ Master showcase — all 22 voices</span>
+            <span class="text-xs text-slate-400">~3m 48s &middot; one continuous stream</span>
           </div>
-          <p class="text-xs text-slate-300">
-            Hear all 22 voices in a single continuous stream introducing themselves in their native tongue and announcing integration into Animesh's eSpeak NG.
-          </p>
+          <p class="text-xs text-slate-300">Each speaker introduces themselves in their native script for sherpa-onnx offline synthesis. One file, quick comparison.</p>
         </div>
-        <a href="samples/all_22_voices_showcase.mp3" download class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap shadow-lg shadow-blue-500/20">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-          Download Master Audio (3.5MB)
-        </a>
+        <a href="samples/all_22_voices_showcase.mp3" download class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white flex items-center gap-1.5 whitespace-nowrap">Download master MP3 (3.5 MB)</a>
       </div>
-      <audio controls preload="none" class="w-full h-10 rounded-xl bg-slate-950 border border-slate-800">
-        <source src="samples/all_22_voices_showcase.mp3" type="audio/mpeg">
-        Your browser does not support audio playback.
-      </audio>
-    </div>
+      <audio controls preload="none" class="w-full h-10 rounded-xl bg-slate-950 border border-slate-800"><source src="samples/all_22_voices_showcase.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio>
+    </section>
 
-    <!-- Language Selector Tabs -->
-    <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-800 scrollbar-thin" id="langTabs">
-      <!-- Injected by JS -->
-    </div>
+    <nav aria-label="Languages"><div id="langTabs" role="tablist" aria-label="Choose language" class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-800"></div></nav>
+    <main id="voices"><div id="activeVoiceContainer" class="space-y-6" role="tabpanel" aria-live="polite"></div></main>
 
-    <!-- Active Language Card Container -->
-    <div id="activeVoiceContainer" class="space-y-6">
-      <!-- Injected by JS -->
-    </div>
+    <section id="rasa" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div>
+          <h2 class="text-lg font-bold text-white">Rasa engine — 20 more voices, one 59.5 MB file</h2>
+          <p class="text-xs text-slate-400 mt-1">AI4Bharat VITS (multi-speaker, <span class="font-mono">sid</span> 0–19) with stock sherpa-onnx inputs, emotion frozen to neutral, weight-only FP16. Tamil, Malayalam, Punjabi, Assamese, Nepali, Sanskrit, Bodo, Dogri — plus alternate Bengali, Kannada, Maithili, Marathi, Telugu voices. 24 kHz. Preview greeting samples below; full passages coming. Release <span class="font-mono">v2.0.0-rasa-fp16</span>.</p>
+        </div>
+        <div class="flex gap-2 text-xs font-mono whitespace-nowrap">
+          <a class="px-3 py-2 rounded-lg bg-blue-600/10 border border-blue-500/30 text-blue-300" target="_blank" rel="noopener" href="https://github.com/REPO/releases/download/RASATAG/vits-rasa-13-model.onnx">model.onnx 59.5MB</a>
+          <a class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-300" target="_blank" rel="noopener" href="https://github.com/REPO/releases/download/RASATAG/vits-rasa-13-tokens.txt">tokens.txt</a>
+        </div>
+      </div>
+      <div id="rasaGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+__RASA_CARDS__
+      </div>
+      <p class="text-[11px] text-slate-500">Tip: search above filters these cards too. CLI needs <code class="font-mono">--sid=&lt;id&gt;</code> (e.g. Tamil Kaveri is <code class="font-mono">sid=18</code>). Full sid table in <code class="font-mono">voices.json</code> and the README.</p>
+    </section>
+""".replace("REPO", REPO).replace("TAG", RELEASE_TAG).replace("RASATAG", RASA_TAG)
 
-    <!-- Quick Run CLI Reference -->
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-      <h3 class="text-lg font-bold text-white flex items-center gap-2">
-        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-        </svg>
-        How to Synthesize Locally with sherpa-onnx
-      </h3>
+BODY_MID = """
+    <section id="about" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <h2 class="text-lg font-bold text-white">About this project</h2>
+      <div class="grid md:grid-cols-2 gap-4 text-sm text-slate-300 leading-relaxed">
+        <div class="space-y-2">
+          <p><strong class="text-white">What it is.</strong> RESPIN (REcognizing SPeech in INdian languages) and SYSPIN (SYnthesizing SPeech in INdian languages) are open speech corpora by <a class="text-blue-400 underline" href="https://spire.ee.iisc.ac.in/">SPIRE Lab, IISc Bengaluru</a>. This repo converts their Coqui VITS checkpoints to sherpa-onnx ONNX + <code class="font-mono text-xs">tokens.txt</code>.</p>
+          <p><strong class="text-white">Why FP16 weights.</strong> Only large Conv/MatMul initializers (&ge;1024 elems) are stored as FP16 with a Cast back to FP32, so graph compute stays FP32 on CPU. ~109 MB &rarr; ~55 MB with no INT8 duration shift or robotic artifacts.</p>
+        </div>
+        <div class="space-y-2">
+          <p><strong class="text-white">How to use.</strong> Download <code class="font-mono text-xs">*-model.onnx</code> + <code class="font-mono text-xs">*-tokens.txt</code> from <a class="text-blue-400 underline" href="https://github.com/REPO/releases/tag/TAG">Release TAG</a>. CLI: <code class="font-mono text-xs">sherpa-onnx-offline-tts --vits-model=… --vits-tokens=…</code>. Python: <code class="font-mono text-xs">pip install sherpa-onnx soundfile</code>. Android: SherpaVoices with <code class="font-mono text-xs">source=github_release, repo=REPO, tag=TAG, rawTokensFile=true</code>.</p>
+          <p><strong class="text-white">Recommended config.</strong> <code class="font-mono text-xs">noise_scale=0.667, noise_scale_w=0.8, length_scale=1.0, sid=0, speed=1.0, provider=cpu</code>. Single-speaker per file, so keep <code class="font-mono text-xs">sid=0</code>. See <code class="font-mono text-xs">voices.json</code> for per-voice names, links, and defaults.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <h2 class="text-lg font-bold text-white">Synthesize locally</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
         <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-          <div class="font-bold text-slate-200 font-sans text-sm">Command-Line Interface (CLI)</div>
-          <p class="text-slate-400 font-sans text-xs">Run offline synthesis directly using the pre-built CLI:</p>
-          <pre class="overflow-x-auto p-3 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
-# 1. Download model and tokens (FP16 ~55MB)
-curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-female-model.onnx
-curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-female-tokens.txt
+          <div class="font-bold text-slate-200 font-sans text-sm">CLI</div>
+          <pre class="overflow-x-auto p-3 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-300 leading-relaxed"># 1. Download (FP16 ~55 MB each)
+curl -LO https://github.com/REPO/releases/download/TAG/vits-syspin-hi-female-model.onnx
+curl -LO https://github.com/REPO/releases/download/TAG/vits-syspin-hi-female-tokens.txt
 
-# 2. Synthesize audio
-sherpa-onnx-offline-tts \\
-  --vits-model=./vits-syspin-hi-female-model.onnx \\
-  --vits-tokens=./vits-syspin-hi-female-tokens.txt \\
-  --vits-data-dir="" \\
-  --output-filename=./output.wav \\
-  "भारत एक विशाल और सुंदर देश है..."</pre>
+# 2. Synthesize
+sherpa-onnx-offline-tts --vits-model=./vits-syspin-hi-female-model.onnx --vits-tokens=./vits-syspin-hi-female-tokens.txt --output-filename=./out.wav "नमस्ते आप कैसे हैं"</pre>
         </div>
-
         <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-          <div class="font-bold text-slate-200 font-sans text-sm">Python Integration</div>
-          <p class="text-slate-400 font-sans text-xs">Full Python API via <code class="text-blue-400">pip install sherpa-onnx soundfile</code>:</p>
-          <pre class="overflow-x-auto p-3 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
-import sherpa_onnx, soundfile as sf
-
-config = sherpa_onnx.OfflineTtsConfig(
-    model=sherpa_onnx.OfflineTtsModelConfig(
-        vits=sherpa_onnx.OfflineTtsVitsModelConfig(
-            model="./vits-syspin-hi-female-model.onnx",
-            tokens="./vits-syspin-hi-female-tokens.txt",
-            noise_scale=0.667, noise_scale_w=0.8, length_scale=1.0
-        ),
-        provider="cpu"
-    )
-)
-tts = sherpa_onnx.OfflineTts(config)
-audio = tts.generate("your text here...", sid=0, speed=1.0)
-sf.write("output.wav", audio.samples, tts.sample_rate)</pre>
+          <div class="font-bold text-slate-200 font-sans text-sm">Python</div>
+          <pre class="overflow-x-auto p-3 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-300 leading-relaxed">import sherpa_onnx, soundfile as sf
+cfg = sherpa_onnx.OfflineTtsConfig(model=sherpa_onnx.OfflineTtsModelConfig(
+  vits=sherpa_onnx.OfflineTtsVitsModelConfig(model="./vits-syspin-hi-female-model.onnx",
+    tokens="./vits-syspin-hi-female-tokens.txt", noise_scale=0.667, noise_scale_w=0.8, length_scale=1.0),
+  provider="cpu"))
+tts = sherpa_onnx.OfflineTts(cfg)
+a = tts.generate("your text here", sid=0, speed=1.0)
+sf.write("out.wav", a.samples, tts.sample_rate)</pre>
         </div>
       </div>
-    </div>
+    </section>
 
+    <section id="all-voices" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3">
+      <h2 class="text-lg font-bold text-white">All voices (no-JS index + SEO)</h2>
+      <p class="text-xs text-slate-400">Every named voice, sample, model, and vocabulary. Works without JavaScript; the tabs above are a faster filter for the same files.</p>
+      <div class="overflow-x-auto"><table class="w-full text-xs">
+        <thead><tr class="text-left text-slate-400 border-b border-slate-800"><th class="py-2 pr-3">Voice</th><th class="py-2 pr-3">Language</th><th class="py-2 pr-3">Gender</th><th class="py-2 pr-3">Sample</th><th class="py-2 pr-3">Model</th><th class="py-2">Tokens</th></tr></thead>
+        <tbody>
+""".replace("REPO", REPO).replace("TAG", RELEASE_TAG)
+
+BODY_END = """
+        </tbody>
+      </table></div>
+      <noscript><p class="text-xs text-amber-300">JavaScript is off — use the table above; all MP3 / ONNX / tokens links work directly.</p></noscript>
+    </section>
+
+    <footer class="text-xs text-slate-500 flex flex-col md:flex-row justify-between gap-2 pb-6">
+      <span>Voices: SPIRE Lab, IISc Bengaluru (RESPIN/SYSPIN, via HuggingFace SYSPIN). Runtime: k2-fsa/sherpa-onnx (Apache-2.0). Converter: this repo (see export + FP16 scripts).</span>
+      <span><a class="underline" href="https://github.com/REPO">Repo</a> &middot; <a class="underline" href="https://github.com/REPO/releases/tag/TAG">Release TAG</a> &middot; <a class="underline" href="voices.json">voices.json</a></span>
+    </footer>
   </div>
+""".replace("REPO", REPO).replace("TAG", RELEASE_TAG)
 
-  <script>
-    const VOICES_DATA = """ + json.dumps(VOICES_DATA, ensure_ascii=False, indent=2) + """;
 
+def build_table_rows():
+    rows = []
+    for v in VOICES_DATA:
+        for m in v["models"]:
+            sp = SPEAKERS.get(m, m)
+            female = "female" in m
+            g = "Female" if female else "Male"
+            rows.append(
+                f'<tr class="border-b border-slate-800/60"><td class="py-2 pr-3 font-semibold text-slate-200">{sp} <span class="font-mono font-normal text-slate-500">{m}</span></td>'
+                f'<td class="py-2 pr-3">{v["name"]} ({v["nativeName"]})</td><td class="py-2 pr-3">{g}</td>'
+                f'<td class="py-2 pr-3"><a class="text-blue-400 underline" href="samples/{m}.mp3">mp3</a></td>'
+                f'<td class="py-2 pr-3"><a class="text-blue-400 underline" href="https://github.com/{REPO}/releases/download/{RELEASE_TAG}/{m}-model.onnx">onnx ~55MB</a></td>'
+                f'<td class="py-2"><a class="text-blue-400 underline" href="https://github.com/{REPO}/releases/download/{RELEASE_TAG}/{m}-tokens.txt">tokens</a></td></tr>'
+            )
+    return "\n".join(rows) + "\n" + build_rasa_table_rows()
+
+
+def build_html():
+    data_json = json.dumps(VOICES_DATA, ensure_ascii=False)
+    spk_json = json.dumps(SPEAKERS, ensure_ascii=False)
+    top = BODY_TOP.replace("__RASA_CARDS__", build_rasa_cards())
+    js = """<script>
+    const VOICES_DATA = __DATA__;
+    const SPEAKERS = __SPK__;
+    const RELEASE = { repo: "__REPO__", tag: "__TAG__" };
     let currentLangIdx = 0;
+    const q = new URLSearchParams(location.search).get("lang");
+    if (q) { const i = VOICES_DATA.findIndex(v => v.id === q); if (i >= 0) currentLangIdx = i; }
 
-    function renderTabs() {
-      const container = document.getElementById("langTabs");
-      container.innerHTML = "";
+    function modelUrl(m, ext) { return `https://github.com/${RELEASE.repo}/releases/download/${RELEASE.tag}/${m}-${ext}`; }
+    function esc(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+    function renderTabs(filter="") {
+      const box = document.getElementById("langTabs"); box.innerHTML = "";
       VOICES_DATA.forEach((v, idx) => {
-        const btn = document.createElement("button");
-        const isActive = idx === currentLangIdx;
-        btn.className = `px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
-          isActive 
-            ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25 ring-2 ring-blue-400/50" 
-            : "bg-slate-900 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800"
-        }`;
-        btn.innerText = `${v.name} (${v.nativeName})`;
-        btn.onclick = () => {
-          currentLangIdx = idx;
-          renderTabs();
-          renderActiveVoice();
-        };
-        container.appendChild(btn);
+        const hay = (v.name + " " + v.nativeName + " " + v.id + " " + v.models.map(m => SPEAKERS[m]||m).join(" ")).toLowerCase();
+        if (filter && !hay.includes(filter.toLowerCase())) return;
+        const b = document.createElement("button");
+        b.type = "button"; b.setAttribute("role","tab");
+        b.setAttribute("aria-selected", idx === currentLangIdx ? "true" : "false");
+        b.className = "px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all " + (idx === currentLangIdx ? "bg-blue-600 text-white shadow-lg ring-2 ring-blue-400/50" : "bg-slate-900 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800");
+        b.textContent = `${v.name} (${v.nativeName})`;
+        b.onclick = () => { currentLangIdx = idx; history.replaceState(null,"","?lang="+v.id); renderTabs(document.getElementById("voiceSearch").value); renderActive(); };
+        box.appendChild(b);
       });
+      if (!box.children.length) box.innerHTML = '<span class="text-xs text-slate-500 px-2 py-2">No match — clear search.</span>';
     }
 
-    function renderActiveVoice() {
+    function copyText(btn) {
+      const t = decodeURIComponent(btn.getAttribute("data-copy") || "");
+      navigator.clipboard.writeText(t).then(() => { const o = btn.textContent; btn.textContent = "Copied!"; setTimeout(() => btn.textContent = o, 1200); });
+    }
+    window.copyText = copyText;
+
+    function renderActive() {
       const v = VOICES_DATA[currentLangIdx];
-      const container = document.getElementById("activeVoiceContainer");
-
-      container.innerHTML = `
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          <!-- Left: Sample Text, Transliteration, and Rubric (Span 2) -->
-          <div class="lg:col-span-2 space-y-4">
-            
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
-              <div class="flex items-center justify-between">
-                <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                  Comprehensive Test Passage (${v.text.length} Characters)
-                </span>
-                <span class="text-xs text-slate-400">Duration: ~18 - 25s</span>
-              </div>
-
-              <!-- Native Script -->
-              <div class="p-5 rounded-xl bg-slate-950 border border-slate-800">
-                <div class="text-[11px] uppercase font-mono tracking-wider text-slate-400 mb-2 flex items-center justify-between">
-                  <span>Native Script (${v.name} - ${v.script})</span>
-                  <button onclick="navigator.clipboard.writeText('${v.text.replace(/'/g, "\\'")}'); const b = this; b.innerText='Copied!'; setTimeout(() => b.innerText='Copy Text', 1500)" class="text-xs text-blue-400 hover:text-blue-300 transition-colors font-medium">
-                    Copy Text
-                  </button>
-                </div>
-                <div class="text-lg md:text-xl font-medium text-slate-100 leading-relaxed select-all">
-                  ${v.text}
-                </div>
-              </div>
-
-              <!-- Transliteration -->
-              <div class="p-5 rounded-xl bg-slate-950 border border-slate-800">
-                <div class="text-[11px] uppercase font-mono tracking-wider text-slate-400 mb-2">
-                  Pronunciation & Transliteration (Roman Script)
-                </div>
-                <div class="text-sm font-sans italic text-slate-300 leading-relaxed select-all">
-                  "${v.transliteration}"
-                </div>
-              </div>
-
-              <!-- Translation -->
-              <div class="p-5 rounded-xl bg-slate-950 border border-slate-800">
-                <div class="text-[11px] uppercase font-mono tracking-wider text-slate-400 mb-2">
-                  English Meaning & Context
-                </div>
-                <div class="text-xs font-sans text-slate-400 leading-relaxed">
-                  ${v.translation}
-                </div>
-              </div>
-            </div>
-
-            <!-- Phonetic Evaluation Rubric -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-              <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
-                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                Phonetic & Acoustic Evaluation Rubric
-              </h4>
-              <ul class="space-y-2 text-xs text-slate-300">
-                ${v.rubric.map(r => `<li class="flex items-start gap-2.5"><span class="text-emerald-400 font-bold">•</span><span>${r}</span></li>`).join("")}
-              </ul>
-            </div>
-
+      const c = document.getElementById("activeVoiceContainer");
+      const cards = v.models.map(m => {
+        const sp = SPEAKERS[m] || m, female = m.includes("female");
+        return `<div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
+          <div class="flex items-start justify-between gap-2">
+            <div><div class="text-base font-bold text-white">${esc(sp)} <span class="text-xs font-medium ${female ? "text-pink-400" : "text-cyan-400"}">${female ? "Female" : "Male"}</span></div>
+            <div class="font-mono text-[11px] text-slate-500">${m}</div></div>
+            <span class="text-[11px] px-2 py-0.5 rounded font-semibold ${female ? "bg-pink-500/10 text-pink-400 border border-pink-500/20" : "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"}">${esc(v.name)}</span>
           </div>
-
-          <!-- Right: Voice Models, Audio Players & Download Links (Span 1) -->
-          <div class="space-y-4">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
-              <h4 class="text-sm font-bold text-white flex items-center gap-2">
-                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"></path>
-                </svg>
-                Audio Playback & Models (${v.name})
-              </h4>
-
-              ${v.models.map(m => {
-                const isFemale = m.includes("female");
-                const mp3Url = `samples/${m}.mp3`;
-                return `
-                  <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
-                    <div class="flex items-center justify-between">
-                      <span class="font-mono text-xs font-bold text-white">${m}</span>
-                      <span class="text-xs px-2 py-0.5 rounded font-semibold ${isFemale ? 'bg-pink-500/10 text-pink-400 border border-pink-500/20' : 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'}">
-                        ${isFemale ? 'Female' : 'Male'}
-                      </span>
-                    </div>
-
-                    <!-- Audio Player -->
-                    <div class="space-y-1.5">
-                      <div class="text-[11px] text-slate-400 flex items-center justify-between">
-                        <span class="flex items-center gap-1.5">
-                          <span class="w-2 h-2 rounded-full ${isFemale ? 'bg-pink-400' : 'bg-cyan-400'}"></span>
-                          Synthesized Voice Sample
-                        </span>
-                        <a href="${mp3Url}" download class="text-[11px] text-blue-400 hover:text-blue-300">Download MP3</a>
-                      </div>
-                      <audio controls preload="metadata" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
-                        <source src="${mp3Url}" type="audio/mpeg">
-                        <source src="${mp3Url}" type="audio/mp3">
-                        Your browser does not support audio playback.
-                      </audio>
-                    </div>
-
-                    <!-- Direct Model Downloads -->
-                    <div class="pt-2 border-t border-slate-800/80 space-y-1.5">
-                      <div class="text-[10px] uppercase font-mono tracking-wider text-slate-500">
-                        Download FP16 Checkpoint & Tokens:
-                      </div>
-
-                      <div class="grid grid-cols-2 gap-2 text-xs font-mono">
-                        <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/${m}-model.onnx" 
-                           target="_blank"
-                           class="px-3 py-2 rounded-lg bg-blue-600/10 border border-blue-500/30 hover:border-blue-400 text-blue-300 flex items-center justify-between transition-colors">
-                          <span class="font-semibold">FP16 Model</span>
-                          <span class="text-[10px] text-blue-400 font-normal">~55 MB</span>
-                        </a>
-
-                        <a href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/${m}-tokens.txt" 
-                           target="_blank"
-                           class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-600 text-slate-300 flex items-center justify-between transition-colors">
-                          <span class="font-semibold">tokens.txt</span>
-                          <span class="text-[10px] text-slate-500 font-normal">Vocab</span>
-                        </a>
-                      </div>
-                    </div>
-
-                  </div>
-                `;
-              }).join("")}
-
-            </div>
+          <audio controls preload="none" class="w-full h-9"><source src="samples/${m}.mp3" type="audio/mpeg">No audio.</audio>
+          <div class="flex gap-2 text-[11px]"><a href="samples/${m}.mp3" download class="text-blue-400 underline">Sample MP3</a><span class="text-slate-600">·</span><a class="text-blue-400 underline" target="_blank" rel="noopener" href="${modelUrl(m,"model.onnx")}">FP16 ONNX ~55MB</a><span class="text-slate-600">·</span><a class="text-blue-400 underline" target="_blank" rel="noopener" href="${modelUrl(m,"tokens.txt")}">tokens.txt</a></div>
+        </div>`;
+      }).join("");
+      c.innerHTML = `<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-5">
+            <div class="flex items-center justify-between gap-2"><span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">Test passage (${v.text.length} chars)</span><span class="text-xs text-slate-400">~18–25s per voice</span></div>
+            <div class="p-5 rounded-xl bg-slate-950 border border-slate-800"><div class="text-[11px] uppercase font-mono text-slate-400 mb-2 flex justify-between"><span>Native (${esc(v.name)} · ${esc(v.script)})</span><button data-copy="${encodeURIComponent(v.text)}" onclick="copyText(this)" class="text-blue-400">Copy</button></div><div class="text-lg leading-relaxed">${esc(v.text)}</div></div>
+            <div class="p-5 rounded-xl bg-slate-950 border border-slate-800"><div class="text-[11px] uppercase font-mono text-slate-400 mb-2">Transliteration</div><div class="text-sm italic text-slate-300">${esc(v.transliteration)}</div></div>
+            <div class="p-5 rounded-xl bg-slate-950 border border-slate-800"><div class="text-[11px] uppercase font-mono text-slate-400 mb-2">English meaning</div><div class="text-xs text-slate-400">${esc(v.translation)}</div></div>
           </div>
-
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6"><h4 class="text-sm font-bold mb-3">What to listen for</h4><ul class="space-y-2 text-xs text-slate-300">${v.rubric.map(r => `<li>• ${esc(r)}</li>`).join("")}</ul></div>
         </div>
-      `;
+        <div class="space-y-4"><div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4"><h4 class="text-sm font-bold">Voices — ${esc(v.name)}</h4>${cards}</div></div>
+      </div>`;
     }
 
-    // Ensure only one audio plays at a time
-    document.addEventListener("play", function(e) {
-      const audios = document.querySelectorAll("audio");
-      audios.forEach(a => {
-        if (a !== e.target) a.pause();
+    document.getElementById("voiceSearch").addEventListener("input", e => { renderTabs(e.target.value); filterRasa(e.target.value); });
+    function filterRasa(f) {
+      f = (f || "").toLowerCase();
+      document.querySelectorAll(".rasa-card").forEach(c => {
+        c.style.display = (!f || (c.getAttribute("data-search") || "").toLowerCase().includes(f)) ? "" : "none";
       });
-    }, true);
+    }
+    document.addEventListener("play", e => document.querySelectorAll("audio").forEach(a => { if (a !== e.target) a.pause(); }), true);
+    document.addEventListener("keydown", e => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      if (document.activeElement && document.activeElement.getAttribute("role") === "tab") {
+        currentLangIdx = (currentLangIdx + (e.key === "ArrowRight" ? 1 : -1) + VOICES_DATA.length) % VOICES_DATA.length;
+        renderTabs(document.getElementById("voiceSearch").value); renderActive();
+      }
+    });
+    renderTabs(); renderActive();
+  </script>""".replace("__DATA__", data_json).replace("__SPK__", spk_json).replace("__REPO__", REPO).replace("__TAG__", RELEASE_TAG)
+    return HTML_HEAD + top + BODY_MID + build_table_rows() + BODY_END + js + "\n</body>\n</html>\n"
 
-    renderTabs();
-    renderActiveVoice();
-  </script>
-</body>
-</html>
-"""
 
 if __name__ == "__main__":
-    output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html")
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write(html_template)
-    print(f"Generated {output_path}")
+    out = os.path.join(BASE, "index.html")
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(build_html())
+    print(f"Generated {out}")

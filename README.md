@@ -1,109 +1,154 @@
-# Sherpa-ONNX RESPIN / SYSPIN Indian Language Voices
+# Sherpa-ONNX RESPIN / SYSPIN + Rasa Indian Language Voices
 
-Lightweight (~55MB) authentic FP16-weight offline TTS models for [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) and [SherpaVoices](https://github.com/animeshahilya/SherpaVoices), derived from the **RESPIN** and **SYSPIN** initiatives by **IISc Bengaluru (SPIRE Lab)**.
+42 lightweight offline VITS voices — 22 SYSPIN (`v1.1.0-fp16`, 22050 Hz, ~55 MB each) + 20 Rasa (`v2.0.0-rasa-fp16`, 24000 Hz, one shared 59.5 MB file) — for [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) and [SherpaVoices](https://github.com/animeshahilya/SherpaVoices).
 
-## 🌐 Live Interactive Voice Samples & Evaluation Dashboard
+> 👉 **[Live demo: listen to all named voices](https://animeshahilya.github.io/sherpa-onnx-respin-syspin/)** — samples, transliterations, evaluation rubrics, and one-click model downloads.
 
-Listen to long-form, phonetically rich speech samples (~15–25s each) for all 22 voices across 11 Indian languages directly in your browser:
+## Named voices (no more “Voice 1 / Voice 2”)
 
-👉 **[Live Voice Samples & Audio Evaluation Dashboard](https://animeshahilya.github.io/sherpa-onnx-respin-syspin/)**
+| Language | Female voice | Male voice | Code |
+|---|---|---|---|
+| Hindi (हिन्दी) | **Kavya** | **Vihaan** | `hi` |
+| Bengali (বাংলা) | **Riya** | **Sourav** | `bn` |
+| Telugu (తెలుగు) | **Sireesha** | **Aditya** | `te` |
+| Kannada (ಕನ್ನಡ) | **Ananya** | **Vikram** | `kn` |
+| Marathi (मराठी) | **Sneha** | **Omkar** | `mr` |
+| Gujarati (ગુજરાતી) | **Hetal** | **Jay** | `gu` |
+| Bhojpuri (भोजपुरी) | **Kajal** | **Ranjit** | `bho` |
+| Chhattisgarhi (छत्तीसगढ़ी) | **Mamta** | **Bhupesh** | `hne` |
+| Maithili (मैथिली) | **Janaki** | **Mithilesh** | `mai` |
+| Magahi (मगही) | **Poonam** | **Rakesh** | `mag` |
+| English, India | **Priya** | **Rahul** | `en` |
 
-- **Audio Playback**: Full-length samples for all 22 voices (Male & Female) testing prosody, commas, and conjunct articulation.
-- **Phonetically Balanced Texts**: Tested in native scripts (Devanagari, Bengali, Telugu, Kannada, Gujarati, Latin) with Romanized transliterations and English translations.
-- **Direct Checkpoint Links**: Instant downloads for weight-only FP16 (~55 MB) checkpoints and vocabularies.
+Machine IDs stay stable (`vits-syspin-<lang>-<female|male>`, e.g. `vits-syspin-hi-female`). Display names live in [`voices.json`](./voices.json) with per-voice sample/model/tokens URLs and recommended inference config. Use `fullName` (“Kavya — Hindi Female”) in any UI. Rasa voices carry `engine: "rasa"` + `sid` (0–19) and run at 24000 Hz — see the Rasa section below.
 
-## Overview
+## Rasa engine — 20 more voices, one 59.5 MB file (`v2.0.0-rasa-fp16`)
 
-The SPIRE Lab at the Indian Institute of Science (IISc Bengaluru) created the **RESPIN** (*REcognizing SPeech in INdian languages*) and **SYSPIN** (*SYnthesizing SPeech in INdian languages*) projects to support speech technology for diverse Indian languages and dialects.
+[AI4Bharat VITS](https://huggingface.co/ai4bharat/vits_rasa_13) (Rasa conversational data), converted via an ungated sherpa-onnx export + repo-side surgery: `emotion_id` frozen to neutral, inputs normalized to stock `{input, input_lengths, scales, sid}`, weight-only FP16. One shared `vits-rasa-13-model.onnx` serves all 20 speakers; per-language download cost is zero.
 
-These models standardize on **lightweight weight-only FP16 (~55 MB)** storage:
-- **Graph compute stays Float32**: Only large Conv/MatMul initializers are cast to FP16 in storage, preserving full Float32 acoustic compute and natural phoneme durations on CPU.
-- **Zero INT8 degradation**: Avoids robotic artifacts, duration shifting, and quantization noise.
-- Pre-converted ONNX models are hosted under [GitHub Releases (v1.1.0-fp16)](https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/tag/v1.1.0-fp16).
-- Each model is injected with `sherpa-onnx` metadata tags (`model_type=vits`, `comment=coqui`, `frontend=characters`, `sample_rate=22050`).
-
-## Models in this Repository
-
-| Language | Code | Gender | Model Identifier | Precision | Model Size |
-|---|---|---|---|---|---|
-| **Hindi** | `hi` | Female | `vits-syspin-hi-female` | Weight-only FP16 | ~55 MB |
-| **Hindi** | `hi` | Male | `vits-syspin-hi-male` | Weight-only FP16 | ~55 MB |
-| **Bengali** | `bn` | Female | `vits-syspin-bn-female` | Weight-only FP16 | ~55 MB |
-| **Bengali** | `bn` | Male | `vits-syspin-bn-male` | Weight-only FP16 | ~55 MB |
-| **Telugu** | `te` | Female | `vits-syspin-te-female` | Weight-only FP16 | ~55 MB |
-| **Telugu** | `te` | Male | `vits-syspin-te-male` | Weight-only FP16 | ~55 MB |
-| **Kannada** | `kn` | Female | `vits-syspin-kn-female` | Weight-only FP16 | ~55 MB |
-| **Kannada** | `kn` | Male | `vits-syspin-kn-male` | Weight-only FP16 | ~55 MB |
-| **Marathi** | `mr` | Female | `vits-syspin-mr-female` | Weight-only FP16 | ~55 MB |
-| **Marathi** | `mr` | Male | `vits-syspin-mr-male` | Weight-only FP16 | ~55 MB |
-| **Gujarati** | `gu` | Female | `vits-syspin-gu-female` | Weight-only FP16 | ~55 MB |
-| **Gujarati** | `gu` | Male | `vits-syspin-gu-male` | Weight-only FP16 | ~55 MB |
-| **Bhojpuri** | `bho` | Female | `vits-syspin-bho-female` | Weight-only FP16 | ~55 MB |
-| **Bhojpuri** | `bho` | Male | `vits-syspin-bho-male` | Weight-only FP16 | ~55 MB |
-| **Chhattisgarhi** | `hne` | Female | `vits-syspin-hne-female` | Weight-only FP16 | ~55 MB |
-| **Chhattisgarhi** | `hne` | Male | `vits-syspin-hne-male` | Weight-only FP16 | ~55 MB |
-| **Maithili** | `mai` | Female | `vits-syspin-mai-female` | Weight-only FP16 | ~55 MB |
-| **Maithili** | `mai` | Male | `vits-syspin-mai-male` | Weight-only FP16 | ~55 MB |
-| **Magahi** | `mag` | Female | `vits-syspin-mag-female` | Weight-only FP16 | ~55 MB |
-| **Magahi** | `mag` | Male | `vits-syspin-mag-male` | Weight-only FP16 | ~55 MB |
-| **English (India)** | `en` | Female | `vits-syspin-en-female` | Weight-only FP16 | ~55 MB |
-| **English (India)** | `en` | Male | `vits-syspin-en-male` | Weight-only FP16 | ~55 MB |
-
-## Using with SherpaVoices Android App
-
-In [SherpaVoices](https://github.com/animeshahilya/SherpaVoices), these voices are defined with:
-- `source`: `"github_release"`
-- `repo`: `"animeshahilya/sherpa-onnx-respin-syspin"`
-- `tag`: `"v1.1.0-fp16"`
-- `pathPrefix`: `<model-identifier>`
-- `rawTokensFile`: `true`
-
-The app downloads `model.onnx` (~55MB) and `tokens.txt` directly from GitHub Releases CDN and caches them locally for fully offline synthesis on-device.
-
-## Using with sherpa-onnx CLI
+| sid | Voice | Language | Gender | New / Alternate |
+|---|---|---|---|---|
+| 18 | **Kaveri** | Tamil (தமிழ்) | Female | NEW |
+| 11 | **Aparna** | Malayalam (മലയാളം) | Female | NEW |
+| 15 | **Simran** | Punjabi (ਪੰਜਾਬੀ) | Female | NEW |
+| 16 | **Harpreet** | Punjabi (ਪੰਜਾਬੀ) | Male | NEW |
+| 0 | **Bornali** | Assamese (অসমীয়া) | Female | NEW |
+| 1 | **Rituraj** | Assamese (অসমীয়া) | Male | NEW |
+| 14 | **Prerana** | Nepali (नेपाली) | Female | NEW |
+| 17 | **Vedant** | Sanskrit (संस्कृतम्) | Male | NEW |
+| 4 | **Mainao** | Bodo (बड़ो) | Female | NEW |
+| 5 | **Sansuma** | Bodo (बड़ो) | Male | NEW |
+| 6 | **Sheetal** | Dogri (डोगरी) | Female | NEW |
+| 7 | **Vijay** | Dogri (डोगरी) | Male | NEW |
+| 2 | **Tithi** | Bengali | Female | Alternate |
+| 3 | **Anirban** | Bengali | Male | Alternate |
+| 8 | **Spoorthi** | Kannada | Female | Alternate |
+| 9 | **Chetan** | Kannada | Male | Alternate |
+| 10 | **Shravan** | Maithili | Male | Alternate |
+| 12 | **Mrunal** | Marathi | Female | Alternate |
+| 13 | **Tejas** | Marathi | Male | Alternate |
+| 19 | **Harini** | Telugu | Female | Alternate |
 
 ```bash
-# Download a voice model and tokens directly from GitHub Releases (v1.1.0-fp16)
+curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx
+curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt
+
+sherpa-onnx-offline-tts \
+  --vits-model=./vits-rasa-13-model.onnx \
+  --vits-tokens=./vits-rasa-13-tokens.txt \
+  --sid=18 \
+  --output-filename=./out.wav \
+  "வணக்கம்"
+```
+
+Notes: `sid` selects the voice (Tamil Kaveri = 18); emotion is baked to neutral; strip trailing `.?!` (sherpa splits it into a noise-prone stub); page samples are short greeting previews (full passages coming). QA: 20/20 render, FP16 SNR 41.7 dB vs FP32, `onnx.checker` clean.
+
+## Quickstart
+
+```bash
+# 1. Download one voice (~55 MB) + vocab
 curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-female-model.onnx
 curl -LO https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v1.1.0-fp16/vits-syspin-hi-female-tokens.txt
 
-# Synthesize with sherpa-onnx-offline-tts
+# 2a. CLI
 sherpa-onnx-offline-tts \
   --vits-model=./vits-syspin-hi-female-model.onnx \
   --vits-tokens=./vits-syspin-hi-female-tokens.txt \
-  --vits-data-dir="" \
-  --output-filename=./output.wav \
+  --output-filename=./out.wav \
   "नमस्ते आप कैसे हैं"
+
+# 2b. Python
+pip install sherpa-onnx soundfile
 ```
 
-## Hindi text frontend (hindi_frontend.py)
-
-Character VITS voices must guess the unwritten inherent schwa. This frontend
-makes it explicit before tokenization (verified against all 116 hi-female
-tokens — zero dropped characters on the test set):
-
-- **Schwa deletion → explicit halant**: final schwa deletes iff the preceding
-  vowel is full (`राम`→`राम्`, `देव`→`देव्`, `पास`→`पास्`; `कमल`, `मतलब`,
-  `औरत`, `घर`, `वह`/`यह` keep it); medial schwa deletes only in categorical
-  VCəCV with a light preceding rhyme, no CCC cluster, no glide
-  (`कमरा`→`कम्रा`, `करना`→`कर्ना`, `जनता`→`जन्ता`; `लड़का`, `सहायता`,
-  `नमस्ते`, `रुपये`, `दरवाज़ा` keep it). Retroflex-adjacent schwas are never
-  touched.
-- **Numerals** (ASCII + Devanagari) → Hindi words, Indian system
-  (`125`→`एक सौ पच्चीस`, `2026`→`दो हज़ार छब्बीस`).
-- **Punctuation**: `।`/`॥`→`.`, quotes/dashes mapped to the supported set,
-  unsupported characters dropped (reported, not silent).
-
-```bash
-python hindi_frontend.py --text "राम कमरे में है। मेरे पास 125 रुपये हैं।" \
-  --tokens vits-syspin-hi-female/tokens.txt --ids
+```python
+import sherpa_onnx, soundfile as sf
+cfg = sherpa_onnx.OfflineTtsConfig(
+    model=sherpa_onnx.OfflineTtsModelConfig(
+        vits=sherpa_onnx.OfflineTtsVitsModelConfig(
+            model="./vits-syspin-hi-female-model.onnx",
+            tokens="./vits-syspin-hi-female-tokens.txt",
+            noise_scale=0.667, noise_scale_w=0.8, length_scale=1.0),
+        provider="cpu"),
+)
+tts = sherpa_onnx.OfflineTts(cfg)
+a = tts.generate("नमस्ते आप कैसे हैं", sid=0, speed=1.0)
+sf.write("out.wav", a.samples, tts.sample_rate)
 ```
 
-Design rule: when in doubt the frontend does nothing — frequent words are
-usually already right in the model, and a wrong halant is worse than none.
-Rare/OOV words (the ELAICHI low-frequency-bigram cases) are where it helps.
+**Recommended config (all 22 voices):** `noise_scale=0.667, noise_scale_w=0.8, length_scale=1.0, sid=0, speed=1.0, provider=cpu, num_threads=2–4`, `sample_rate=22050`. Single-speaker files — always `sid=0`.
 
-## Credits & Licensing
+## SherpaVoices (Android, fully offline)
 
-- **Original Models & Checkpoints**: Developed by [SPIRE Lab, IISc Bengaluru](https://spire.ee.iisc.ac.in/) under the RESPIN and SYSPIN initiatives funded by Pratiksha Trust. Original checkpoints are available on Hugging Face at [huggingface.co/SYSPIN](https://huggingface.co/SYSPIN).
-- **Inference Runtime**: Powered by [k2-fsa/sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) (Apache-2.0).
+```json
+{ "source": "github_release", "repo": "animeshahilya/sherpa-onnx-respin-syspin",
+  "tag": "v1.1.0-fp16", "pathPrefix": "vits-syspin-hi-female",
+  "rawTokensFile": true, "displayName": "Kavya — Hindi Female",
+  "speaker": "Kavya", "language": "Hindi", "gender": "female" }
+```
+
+`rawTokensFile: true` is required (Coqui vocab IDs are non-contiguous — normal, not a bug).
+
+## Why FP16 weights (and what NOT to do)
+
+- **Current:** large Conv/MatMul initializers (≥1024 elems, ~99.8% of params) stored as FP16 + Cast to FP32 at load. Graph math stays FP32 → **~109 MB → ~55 MB** with natural durations. See `build_fp16_60mb.py`.
+- **Don’t use dynamic INT8** for these voices — it shrinks to ~38 MB but audibly shifts durations / adds robotic artifacts.
+- **Don’t do full-FP16 compute** — breaks onnxruntime CPU (Cast/Shape errors).
+- Samples are 64 kbps mono MP3 with `preload="none"`; consider Opus 24 kbps for ~40% further saving (see Optimizations below).
+
+## Config audit (all 22 voices pass)
+
+- ONNX metadata (set in `export_respin_syspin_to_onnx.py`): `model_type=vits, comment=coqui, frontend=characters, language=<Name>, sample_rate=22050` + `add_blank/blank_id/n_speakers/use_eos_bos/bos_id/eos_id/pad_id`. Correct for sherpa-onnx character VITS.
+- `tokens.txt`: every file has `<PAD> 0`, `<BLNK>` last, a space entry, and script coverage (halant + danda for Devanagari langs, language script chars, a–Z + punctuation for `en`). ID gaps (e.g. hi-female 116 lines, max id 121) are **expected** — pruned Coqui vocab, not corruption.
+- Verified: Hindi/Marathi/Bhojpuri/Chhattisgarhi/Maithili/Magahi all contain Devanagari core + halant; Bengali/Telugu/Kannada/Gujarati contain their scripts; English contains a–Z.
+
+If a voice sounds wrong, check in order: (1) `tokens.txt` paired with the right `model.onnx`, (2) `frontend=characters` (not espeak), (3) `sid=0`, (4) text in native script (Hindi schwa helper: `hindi_frontend.py`).
+
+## Files
+
+| File | Purpose |
+|---|---|
+| `index.html` | GitHub Pages demo (generated — don’t hand-edit; edit `build_dashboard.py`) |
+| `build_dashboard.py` | Source of truth for page text + speaker names → regenerates `index.html` |
+| `voices.json` | Machine-readable catalog: names, gender, lang, sample/model/tokens URLs, recommended config |
+| `generate_samples.py` | Renders `samples/*.mp3` from release FP16 models (`noise_scale=0.667`, 64 kbps mono) |
+| `build_fp16_60mb.py` | FP32 → weight-only FP16 converter (+ `--verify` ORT smoke test) |
+| `export_respin_syspin_to_onnx.py` | HF Coqui checkpoint → sherpa-onnx ONNX + `tokens.txt` + metadata |
+| `hindi_frontend.py` | Optional Hindi schwa/numeral/punctuation normalizer |
+| `build_rasa_stock.py` | Rasa pipeline: download ungated export → stock-compat surgery → FP16 → verify |
+| `export_rasa_to_onnx.py` | From-scratch Rasa exporter (needs gated HF access; normally not needed) |
+| `samples/` | 22 × `.mp3` + `all_22_voices_showcase.mp3` |
+
+Regenerate page: `python build_dashboard.py`.
+
+## Optimizations worth doing next
+
+1. **Samples → Opus 24k** (`ffmpeg -c:a libopus -b:a 24k`): same intelligibility, ~40% smaller than 64k MP3.
+2. **Page:** audio `preload="none"` everywhere except active tab (done); add `voices.json` fetch instead of inlining if page exceeds ~100 KB; compile Tailwind instead of Play CDN for production.
+3. **Inference:** keep `length_scale=1.0` default; expose 0.9–1.1 slider per voice; trim leading/trailing silence at synthesis time.
+4. **Tokens:** keep `rawTokensFile=true`; never renumber IDs.
+
+## Credits & license
+
+- Voices/checkpoints: [SPIRE Lab, IISc Bengaluru](https://spire.ee.iisc.ac.in/) (RESPIN/SYSPIN, Pratiksha Trust), via [HuggingFace SYSPIN](https://huggingface.co/SYSPIN).
+- Runtime: [k2-fsa/sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) (Apache-2.0). Conversion scripts here follow the repo’s existing license; original model weights follow their upstream terms — check each HF repo before commercial use.

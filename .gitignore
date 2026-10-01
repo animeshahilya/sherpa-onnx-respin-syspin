@@ -9,4 +9,6 @@ Thumbs.db
 release_assets/
 release_assets_fp16/
 release_assets_int8/
+release_assets_rasa/
+rasa_src/
 exported_respin_syspin_models/
