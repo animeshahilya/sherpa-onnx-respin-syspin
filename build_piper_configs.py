@@ -28,6 +28,23 @@ RELEASES = "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/
 CONFIG_TAG = "piper-v1"
 SYSPIN_TAG = "v1.1.0-fp16"
 RASA_MODEL = BASE / "release_assets_rasa" / "vits-rasa-13-piper-model.onnx"
+# Compact tier (build_compact.py): INT8 decoders, models + configs in their own release.
+COMPACT_TAG = "compact-v1"
+COMPACT_DIR = BASE / "release_assets_compact"
+COMPACT_CONFIGS = COMPACT_DIR / "configs"
+PIPER_SRC = BASE / "piper_src"
+# Piper "high" voices given a Compact version: licence from each MODEL_CARD.
+# Not here: en_US-lessac (Blizzard 2013 licence, no redistribution),
+# en_US-ryan (CC BY-NC-SA), es_MX-claude and en_US-libritts (older exports
+# with unnamed graph nodes: no decoder to find, so nothing to quantize).
+PIPER_COMPACT = {
+    "de_DE-thorsten-high": "CC0", "en_GB-cori-high": "public domain",
+"en_US-ljspeech-high": "public domain",
+    "es_AR-daniela-high": "CC-BY-SA-4.0", "it_IT-serena-high": "CC-BY-4.0",
+    "kk_KZ-issai-high": "CC-BY-4.0", "pl_PL-bass-high": "Apache-2.0",
+    "uk_UA-mykyta-high": "Apache-2.0", "uk_UA-oleksa-high": "Apache-2.0",
+    "uk_UA-tetiana-high": "Apache-2.0",
+}
 
 # voices.json langCode -> (family, region, native name, English name, country)
 LANGS = {
@@ -71,6 +88,7 @@ def file_entry(path):
 def main():
     import onnx
     OUT.mkdir(exist_ok=True)
+    COMPACT_CONFIGS.mkdir(parents=True, exist_ok=True)
     catalog = {}
     for group in json.loads((BASE / "voices.json").read_text(encoding="utf-8")):
         lc = group["langCode"]
@@ -113,19 +131,62 @@ def main():
             cfg_file = OUT / f"{key}.onnx.json"
             cfg_file.write_text(json.dumps(config, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
 
-            catalog[key] = {
+            entry = {
                 "key": key, "name": slug,
                 "language": {"code": code, "family": family, "region": region,
                              "name_native": native, "name_english": english, "country_english": country},
                 "quality": "medium", "num_speakers": 1,
+                # Enhanced-class compute at Standard size: the app labels it by device.
+                "heavy": True,
                 "base_url": RELEASES,
                 "source": "AI4Bharat Rasa" if rasa else "SYSPIN (IISc SPIRE Lab)",
                 "license": "CC-BY-4.0" if rasa else "MIT",
                 "files": {model_path: file_entry(model),
                           f"{CONFIG_TAG}/{cfg_file.name}": file_entry(cfg_file)},
             }
+            catalog[key] = entry
+
+            # Its Compact version: same config but the quality, INT8-decoder model.
+            compact_model = COMPACT_DIR / ("vits-rasa-13-compact.onnx" if rasa else f"{v['id']}-compact.onnx")
+            if compact_model.is_file():
+                ckey = key.replace("-medium", "-compact")
+                ccfg = COMPACT_CONFIGS / f"{ckey}.onnx.json"
+                config["audio"]["quality"] = "compact"
+                ccfg.write_text(json.dumps(config, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
+                catalog[ckey] = dict(entry, key=ckey, quality="compact", files={
+                    f"{COMPACT_TAG}/{compact_model.name}": file_entry(compact_model),
+                    f"{COMPACT_TAG}/{ccfg.name}": file_entry(ccfg)})
+    add_piper_compact(catalog)
     (OUT / "catalog.json").write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
     print(f"{len(catalog)} configs -> {OUT}")
+
+
+def add_piper_compact(catalog):
+    """Compact versions of Piper "high" voices: rhasspy's config with the quality
+    changed, and the INT8-decoder model, both in COMPACT_TAG."""
+    import urllib.request
+    rhasspy = json.loads(urllib.request.urlopen(
+        "https://huggingface.co/rhasspy/piper-voices/resolve/main/voices.json", timeout=60).read())
+    for high, licence in PIPER_COMPACT.items():
+        model = COMPACT_DIR / f"{high[:-len('-high')]}-compact.onnx"
+        if not model.is_file():
+            print(f"  skip {high}: no {model.name}")
+            continue
+        src = rhasspy[high]
+        key = high[:-len("-high")] + "-compact"
+        config = json.loads((PIPER_SRC / f"{high}.onnx.json").read_text(encoding="utf-8"))
+        config["audio"]["quality"] = "compact"
+        cfg = COMPACT_CONFIGS / f"{key}.onnx.json"
+        cfg.write_text(json.dumps(config, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
+        catalog[key] = {
+            "key": key, "name": src["name"], "language": src["language"],
+            "quality": "compact", "num_speakers": src["num_speakers"],
+            "base_url": RELEASES,
+            "source": "rhasspy/piper-voices (Compact: animeshahilya)",
+            "license": licence,
+            "files": {f"{COMPACT_TAG}/{model.name}": file_entry(model),
+                      f"{COMPACT_TAG}/{cfg.name}": file_entry(cfg)},
+        }
 
 
 if __name__ == "__main__":

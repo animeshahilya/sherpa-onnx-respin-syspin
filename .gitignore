@@ -13,3 +13,6 @@ release_assets_rasa/
 rasa_src/
 exported_respin_syspin_models/
 release_assets_piper/
+npu_listen/
+release_assets_compact/
+piper_src/

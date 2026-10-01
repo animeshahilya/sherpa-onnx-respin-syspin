@@ -63,6 +63,18 @@ sherpa-onnx-offline-tts \
 
 Notes: `sid` selects the voice (Tamil Kaveri = 18); emotion is baked to neutral; `length_scale=1.0` is the trained pace; trailing `.?!` is safe (`use_eos_bos=0` stops sherpa emitting a noise stub). Page samples are full-length conversational passages (~17–27s each) rendered through sherpa-onnx itself, sentence-by-sentence with 350ms pauses. QA: `build_rasa_stock.py --verify` runs 12 voices through sherpa-onnx, FP16 SNR 41.7 dB vs FP32, `onnx.checker` clean.
 
+## Compact tier (`compact-v1`)
+
+For phones where the full voices run near real time on the CPU (long text pauses), every SYSPIN/Rasa voice and 10 Piper "high" voices also come as **Compact**: only the HiFi-GAN decoder is INT8 (static QDQ, per-channel), with its last upsampling stage and output conv kept float; the text encoder, durations and flow are untouched, so timing is unchanged. About 2x faster on a CPU, 42-49 MB.
+
+| Voice (Pixel 8 CPU, 4 threads) | Standard | Compact |
+|---|---|---|
+| Kavya (SYSPIN Hindi) | 1.9x real time | 2.9x |
+| Kaveri (Rasa Tamil) | 1.2x | 2.3x |
+| LJSpeech (Piper high) | 1.3x | 2.3x |
+
+`build_compact.py MODEL CONFIG OUT` converts one voice and verifies it against the original decoder (SNR, spectral distance, CPU speed). Not converted: en_US-lessac (Blizzard licence) and en_US-ryan (CC BY-NC-SA); es_MX-claude and en_US-libritts (older exports with unnamed nodes, so the decoder can't be found). Piper Compact voices keep their original licences (see each entry in the catalog).
+
 ## Quickstart
 
 ```bash
@@ -136,6 +148,7 @@ If a voice sounds wrong, check in order: (1) `tokens.txt` paired with the right 
 | `export_respin_syspin_to_onnx.py` | HF Coqui checkpoint → sherpa-onnx ONNX + `tokens.txt` + metadata |
 | `hindi_frontend.py` | Optional Hindi schwa/numeral/punctuation normalizer |
 | `build_rasa_stock.py` | Rasa pipeline: download ungated export → freeze emotion + metadata fix → FP16 → sherpa-onnx verify |
+| `build_compact.py` | Compact tier: INT8 decoder only, last stage float, self-verifying |
 | `build_piper_configs.py` | Piper `.onnx.json` configs (`phoneme_type: text`) for all 42 voices + catalog entries, released as `piper-v1` for the [espeak-ng Android fork](https://github.com/animeshahilya/espeak-ng) |
 | `export_rasa_to_onnx.py` | From-scratch Rasa exporter (needs gated HF access; normally not needed) |
 | `samples/` | 22 × `.mp3` + `all_22_voices_showcase.mp3` |
