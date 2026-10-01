@@ -157,6 +157,7 @@ def main():
                     f"{COMPACT_TAG}/{compact_model.name}": file_entry(compact_model),
                     f"{COMPACT_TAG}/{ccfg.name}": file_entry(ccfg)})
     add_piper_compact(catalog)
+    write_npu_list(catalog)
     (OUT / "catalog.json").write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
     print(f"{len(catalog)} configs -> {OUT}")
 
@@ -187,6 +188,33 @@ def add_piper_compact(catalog):
             "files": {f"{COMPACT_TAG}/{model.name}": file_entry(model),
                       f"{COMPACT_TAG}/{cfg.name}": file_entry(cfg)},
         }
+
+
+NPU_TAG = "npu-v1"
+NPU_DIR = BASE / "release_assets_npu"
+
+
+def write_npu_list(catalog):
+    """npu_decoders.json for the espeak-ng app's Snapdragon build: voice key ->
+    its INT8 NPU decoder (build_npu.py). Standard keys only: the decoder reads
+    the Standard encoder's tensors (a Compact encoder hands over different ones)."""
+    voices = {}
+    for key, entry in catalog.items():
+        if entry["quality"] != "medium":
+            continue
+        model = next(p for p in entry["files"] if p.endswith(".onnx"))
+        name = model.split("/")[-1]
+        npu = NPU_DIR / ("vits-rasa-13-npu.onnx" if name.startswith("vits-rasa-13")
+                         else name.replace("-model.onnx", "-npu.onnx"))
+        if npu.is_file():
+            voices[key] = dict(file_entry(npu), path=f"{NPU_TAG}/{npu.name}")
+    for high in PIPER_COMPACT:
+        npu = NPU_DIR / f"{high[:-len('-high')]}-npu.onnx"
+        if npu.is_file():
+            voices[high] = dict(file_entry(npu), path=f"{NPU_TAG}/{npu.name}")
+    out = {"base_url": RELEASES, "voices": dict(sorted(voices.items()))}
+    (OUT / "npu_decoders.json").write_text(json.dumps(out, indent=1), encoding="utf-8", newline="\n")
+    print(f"{len(voices)} voices with an NPU decoder")
 
 
 if __name__ == "__main__":

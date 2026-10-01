@@ -16,3 +16,5 @@ release_assets_piper/
 npu_listen/
 release_assets_compact/
 piper_src/
+release_assets_npu/
+*.log
