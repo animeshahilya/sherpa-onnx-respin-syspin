@@ -61,7 +61,7 @@ sherpa-onnx-offline-tts \
   "வணக்கம்"
 ```
 
-Notes: `sid` selects the voice (Tamil Kaveri = 18); emotion is baked to neutral; strip trailing `.?!` (sherpa splits it into a noise-prone stub); page samples are full test passages rendered at `length_scale=1.3` (Rasa voices run fast at 1.0); Bodo/Dogri passage texts are machine-drafted and pending native-speaker review. QA: 20/20 render, FP16 SNR 41.7 dB vs FP32, `onnx.checker` clean.
+Notes: `sid` selects the voice (Tamil Kaveri = 18); emotion is baked to neutral; strip trailing `.?!` (sherpa splits it into a noise-prone stub); page samples are full-length conversational test passages (~11–22s each) synthesized sentence-by-sentence with natural 350ms breathing pauses and authentic regional vocabulary. QA: 20/20 render, FP16 SNR 41.7 dB vs FP32, `onnx.checker` clean.
 
 ## Quickstart
 

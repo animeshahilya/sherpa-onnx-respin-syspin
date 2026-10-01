@@ -6,8 +6,11 @@ Sample passages (text/transliteration/translation/rubric) live in VOICES_DATA be
 Run:  python build_dashboard.py
 """
 
+import html
 import json
 import os
+import urllib.parse
+from generate_rasa_samples import RASA_TEXTS
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 RELEASE_TAG = "v1.1.0-fp16"
@@ -38,20 +41,104 @@ RASA_VOICES = [
     (19, "vits-rasa-te-female-alt", "Harini", "Telugu", "తెలుగు", "female", True),
 ]
 
+RASA_LANG_MAP = {
+    "Assamese": "asm",
+    "Bengali": "bn",
+    "Bodo": "brx",
+    "Dogri": "doi",
+    "Kannada": "kn",
+    "Maithili": "mai",
+    "Malayalam": "mal",
+    "Marathi": "mr",
+    "Nepali": "ne",
+    "Punjabi": "pan",
+    "Sanskrit": "san",
+    "Tamil": "tam",
+    "Telugu": "te",
+}
+
 
 def build_rasa_cards():
     cards = []
     for sid, mp3, name, lang, native, gender, alt in RASA_VOICES:
+        lang_key = RASA_LANG_MAP[lang]
+        info = RASA_TEXTS[lang_key]
+        text = info["text"]
+        translit = info["transliteration"]
+        translation = info["translation"]
+        rubric_html = "".join(f'<li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>{html.escape(r)}</span></li>' for r in info["rubric"])
+
         gc = "text-pink-400" if gender == "female" else "text-cyan-400"
-        alt_badge = ' <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span>' if alt else ""
-        cards.append(
-            f'<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="{name} {lang} {native} {gender} sid{sid}">'
-            f'<div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">{name} <span class="text-xs font-medium {gc}">{gender}</span>{alt_badge}</div>'
-            f'<span class="text-[11px] text-slate-500 font-mono">sid={sid}</span></div>'
-            f'<div class="text-[11px] text-slate-400">{lang} ({native}) · 24 kHz</div>'
-            f'<audio controls preload="none" class="w-full h-9"><source src="samples/{mp3}.mp3" type="audio/mpeg">No audio.</audio>'
-            f'<a href="samples/{mp3}.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>'
-        )
+        gbg = "bg-pink-500/10 text-pink-400 border border-pink-500/20" if gender == "female" else "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"
+        dot_color = "bg-pink-400" if gender == "female" else "bg-cyan-400"
+        alt_badge = (' <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span>'
+                     if alt else
+                     ' <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>')
+
+        card_html = f'''<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="{name} {lang} {native} {gender} sid{sid}">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        {name} <span class="text-xs font-semibold px-2 py-0.5 rounded {gbg}">{gender}</span>
+        {alt_badge}
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">{lang} ({native}) · <span class="font-mono text-slate-500">sid={sid}</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid={sid}</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full {dot_color}"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/{mp3}.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/{mp3}.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage ({len(text)} chars)</span>
+      <button data-copy="{urllib.parse.quote(text)}" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">{html.escape(text)}</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">{html.escape(translit)}</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">{html.escape(translation)}</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400">{rubric_html}</ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/{mp3}.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/{REPO}/releases/download/{RASA_TAG}/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/{REPO}/releases/download/{RASA_TAG}/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>'''
+        cards.append(card_html)
     return "\n".join(cards)
 
 
@@ -335,7 +422,7 @@ BODY_TOP = """<body class="bg-slate-950 text-slate-100 antialiased p-4 md:p-8 mi
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
           <h2 class="text-lg font-bold text-white">Rasa engine — 20 more voices, one 59.5 MB file</h2>
-          <p class="text-xs text-slate-400 mt-1">AI4Bharat VITS (multi-speaker, <span class="font-mono">sid</span> 0–19) with stock sherpa-onnx inputs, emotion frozen to neutral, weight-only FP16. Tamil, Malayalam, Punjabi, Assamese, Nepali, Sanskrit, Bodo, Dogri — plus alternate Bengali, Kannada, Maithili, Marathi, Telugu voices. 24 kHz. Full test passages below (rendered at <span class="font-mono">length_scale=1.3</span>; Bodo/Dogri texts are drafts pending native-speaker review). Release <span class="font-mono">v2.0.0-rasa-fp16</span>.</p>
+          <p class="text-xs text-slate-400 mt-1">AI4Bharat VITS (multi-speaker, <span class="font-mono">sid</span> 0–19) with stock sherpa-onnx inputs, emotion frozen to neutral, weight-only FP16. Tamil, Malayalam, Punjabi, Assamese, Nepali, Sanskrit, Bodo, Dogri — plus alternate Bengali, Kannada, Maithili, Marathi, Telugu voices. 24 kHz. Full-length conversational test passages (~11–22s each) with native scripts, Romanized transliterations, English meanings, and phonetic rubrics (sentence-synthesized with natural breathing pauses). Release <span class="font-mono">v2.0.0-rasa-fp16</span>.</p>
         </div>
         <div class="flex gap-2 text-xs font-mono whitespace-nowrap">
           <a class="px-3 py-2 rounded-lg bg-blue-600/10 border border-blue-500/30 text-blue-300" target="_blank" rel="noopener" href="https://github.com/REPO/releases/download/RASATAG/vits-rasa-13-model.onnx">model.onnx 59.5MB</a>

@@ -67,7 +67,7 @@
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
           <h2 class="text-lg font-bold text-white">Rasa engine — 20 more voices, one 59.5 MB file</h2>
-          <p class="text-xs text-slate-400 mt-1">AI4Bharat VITS (multi-speaker, <span class="font-mono">sid</span> 0–19) with stock sherpa-onnx inputs, emotion frozen to neutral, weight-only FP16. Tamil, Malayalam, Punjabi, Assamese, Nepali, Sanskrit, Bodo, Dogri — plus alternate Bengali, Kannada, Maithili, Marathi, Telugu voices. 24 kHz. Full test passages below (rendered at <span class="font-mono">length_scale=1.3</span>; Bodo/Dogri texts are drafts pending native-speaker review). Release <span class="font-mono">v2.0.0-rasa-fp16</span>.</p>
+          <p class="text-xs text-slate-400 mt-1">AI4Bharat VITS (multi-speaker, <span class="font-mono">sid</span> 0–19) with stock sherpa-onnx inputs, emotion frozen to neutral, weight-only FP16. Tamil, Malayalam, Punjabi, Assamese, Nepali, Sanskrit, Bodo, Dogri — plus alternate Bengali, Kannada, Maithili, Marathi, Telugu voices. 24 kHz. Full-length conversational test passages (~11–22s each) with native scripts, Romanized transliterations, English meanings, and phonetic rubrics (sentence-synthesized with natural breathing pauses). Release <span class="font-mono">v2.0.0-rasa-fp16</span>.</p>
         </div>
         <div class="flex gap-2 text-xs font-mono whitespace-nowrap">
           <a class="px-3 py-2 rounded-lg bg-blue-600/10 border border-blue-500/30 text-blue-300" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/RASAv1.1.0-fp16/vits-rasa-13-model.onnx">model.onnx 59.5MB</a>
@@ -75,26 +75,1266 @@
         </div>
       </div>
       <div id="rasaGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Bornali Assamese অসমীয়া female sid0"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Bornali <span class="text-xs font-medium text-pink-400">female</span></div><span class="text-[11px] text-slate-500 font-mono">sid=0</span></div><div class="text-[11px] text-slate-400">Assamese (অসমীয়া) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-asm-female.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-asm-female.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Rituraj Assamese অসমীয়া male sid1"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Rituraj <span class="text-xs font-medium text-cyan-400">male</span></div><span class="text-[11px] text-slate-500 font-mono">sid=1</span></div><div class="text-[11px] text-slate-400">Assamese (অসমীয়া) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-asm-male.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-asm-male.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Tithi Bengali বাংলা female sid2"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Tithi <span class="text-xs font-medium text-pink-400">female</span> <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span></div><span class="text-[11px] text-slate-500 font-mono">sid=2</span></div><div class="text-[11px] text-slate-400">Bengali (বাংলা) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-bn-female-alt.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-bn-female-alt.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Anirban Bengali বাংলা male sid3"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Anirban <span class="text-xs font-medium text-cyan-400">male</span> <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span></div><span class="text-[11px] text-slate-500 font-mono">sid=3</span></div><div class="text-[11px] text-slate-400">Bengali (বাংলা) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-bn-male-alt.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-bn-male-alt.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Mainao Bodo बड़ो female sid4"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Mainao <span class="text-xs font-medium text-pink-400">female</span></div><span class="text-[11px] text-slate-500 font-mono">sid=4</span></div><div class="text-[11px] text-slate-400">Bodo (बड़ो) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-brx-female.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-brx-female.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Sansuma Bodo बड़ो male sid5"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Sansuma <span class="text-xs font-medium text-cyan-400">male</span></div><span class="text-[11px] text-slate-500 font-mono">sid=5</span></div><div class="text-[11px] text-slate-400">Bodo (बड़ो) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-brx-male.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-brx-male.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Sheetal Dogri डोगरी female sid6"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Sheetal <span class="text-xs font-medium text-pink-400">female</span></div><span class="text-[11px] text-slate-500 font-mono">sid=6</span></div><div class="text-[11px] text-slate-400">Dogri (डोगरी) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-doi-female.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-doi-female.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Vijay Dogri डोगरी male sid7"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Vijay <span class="text-xs font-medium text-cyan-400">male</span></div><span class="text-[11px] text-slate-500 font-mono">sid=7</span></div><div class="text-[11px] text-slate-400">Dogri (डोगरी) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-doi-male.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-doi-male.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Spoorthi Kannada ಕನ್ನಡ female sid8"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Spoorthi <span class="text-xs font-medium text-pink-400">female</span> <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span></div><span class="text-[11px] text-slate-500 font-mono">sid=8</span></div><div class="text-[11px] text-slate-400">Kannada (ಕನ್ನಡ) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-kn-female-alt.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-kn-female-alt.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Chetan Kannada ಕನ್ನಡ male sid9"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Chetan <span class="text-xs font-medium text-cyan-400">male</span> <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span></div><span class="text-[11px] text-slate-500 font-mono">sid=9</span></div><div class="text-[11px] text-slate-400">Kannada (ಕನ್ನಡ) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-kn-male-alt.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-kn-male-alt.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Shravan Maithili मैथिली male sid10"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Shravan <span class="text-xs font-medium text-cyan-400">male</span> <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span></div><span class="text-[11px] text-slate-500 font-mono">sid=10</span></div><div class="text-[11px] text-slate-400">Maithili (मैथिली) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-mai-male-alt.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-mai-male-alt.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Aparna Malayalam മലയാളം female sid11"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Aparna <span class="text-xs font-medium text-pink-400">female</span></div><span class="text-[11px] text-slate-500 font-mono">sid=11</span></div><div class="text-[11px] text-slate-400">Malayalam (മലയാളം) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-mal-female.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-mal-female.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Mrunal Marathi मराठी female sid12"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Mrunal <span class="text-xs font-medium text-pink-400">female</span> <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span></div><span class="text-[11px] text-slate-500 font-mono">sid=12</span></div><div class="text-[11px] text-slate-400">Marathi (मराठी) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-mr-female-alt.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-mr-female-alt.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Tejas Marathi मराठी male sid13"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Tejas <span class="text-xs font-medium text-cyan-400">male</span> <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span></div><span class="text-[11px] text-slate-500 font-mono">sid=13</span></div><div class="text-[11px] text-slate-400">Marathi (मराठी) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-mr-male-alt.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-mr-male-alt.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Prerana Nepali नेपाली female sid14"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Prerana <span class="text-xs font-medium text-pink-400">female</span></div><span class="text-[11px] text-slate-500 font-mono">sid=14</span></div><div class="text-[11px] text-slate-400">Nepali (नेपाली) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-ne-female.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-ne-female.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Simran Punjabi ਪੰਜਾਬੀ female sid15"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Simran <span class="text-xs font-medium text-pink-400">female</span></div><span class="text-[11px] text-slate-500 font-mono">sid=15</span></div><div class="text-[11px] text-slate-400">Punjabi (ਪੰਜਾਬੀ) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-pan-female.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-pan-female.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Harpreet Punjabi ਪੰਜਾਬੀ male sid16"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Harpreet <span class="text-xs font-medium text-cyan-400">male</span></div><span class="text-[11px] text-slate-500 font-mono">sid=16</span></div><div class="text-[11px] text-slate-400">Punjabi (ਪੰਜਾਬੀ) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-pan-male.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-pan-male.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Vedant Sanskrit संस्कृतम् male sid17"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Vedant <span class="text-xs font-medium text-cyan-400">male</span></div><span class="text-[11px] text-slate-500 font-mono">sid=17</span></div><div class="text-[11px] text-slate-400">Sanskrit (संस्कृतम्) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-san-male.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-san-male.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Kaveri Tamil தமிழ் female sid18"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Kaveri <span class="text-xs font-medium text-pink-400">female</span></div><span class="text-[11px] text-slate-500 font-mono">sid=18</span></div><div class="text-[11px] text-slate-400">Tamil (தமிழ்) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-tam-female.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-tam-female.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
-<div class="rasa-card p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2" data-search="Harini Telugu తెలుగు female sid19"><div class="flex items-center justify-between gap-2"><div class="font-bold text-white text-sm">Harini <span class="text-xs font-medium text-pink-400">female</span> <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span></div><span class="text-[11px] text-slate-500 font-mono">sid=19</span></div><div class="text-[11px] text-slate-400">Telugu (తెలుగు) · 24 kHz</div><audio controls preload="none" class="w-full h-9"><source src="samples/vits-rasa-te-female-alt.mp3" type="audio/mpeg">No audio.</audio><a href="samples/vits-rasa-te-female-alt.mp3" download class="text-[11px] text-blue-400 underline">Sample MP3</a></div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Bornali Assamese অসমীয়া female sid0">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Bornali <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">female</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Assamese (অসমীয়া) · <span class="font-mono text-slate-500">sid=0</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=0</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-asm-female.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-asm-female.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (325 chars)</span>
+      <button data-copy="%E0%A6%AC%E0%A7%8D%E0%A7%B0%E0%A6%B9%E0%A7%8D%E0%A6%AE%E0%A6%AA%E0%A7%81%E0%A6%A4%E0%A7%8D%E0%A7%B0%E0%A7%B0%20%E0%A6%A6%E0%A7%81%E0%A6%AF%E0%A6%BC%E0%A7%8B%E0%A6%AA%E0%A6%BE%E0%A7%B0%E0%A7%B0%20%E0%A6%B8%E0%A7%87%E0%A6%89%E0%A6%9C%E0%A7%80%E0%A6%AF%E0%A6%BC%E0%A6%BE%20%E0%A6%AA%E0%A7%8D%E0%A7%B0%E0%A6%95%E0%A7%83%E0%A6%A4%E0%A6%BF%20%E0%A6%86%E0%A7%B0%E0%A7%81%20%E0%A6%9A%E0%A6%BE%E0%A6%B9%20%E0%A6%AC%E0%A6%BE%E0%A6%97%E0%A6%BF%E0%A6%9A%E0%A6%BE%E0%A6%AC%E0%A7%8B%E0%A7%B0%E0%A7%87%20%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A7%B0%20%E0%A6%85%E0%A6%B8%E0%A6%AE%E0%A6%96%E0%A6%A8%E0%A6%95%20%E0%A6%85%E0%A6%AA%E0%A7%82%E0%A7%B0%E0%A7%8D%E0%A6%AC%20%E0%A6%B8%E0%A7%8C%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%B0%E0%A7%8D%E0%A6%AF%E0%A7%B0%E0%A7%87%20%E0%A6%B8%E0%A6%9C%E0%A6%BE%E0%A6%87%20%E0%A6%A4%E0%A7%81%E0%A6%B2%E0%A6%BF%E0%A6%9B%E0%A7%87.%20%E0%A7%B0%E0%A6%BE%E0%A6%A4%E0%A6%BF%E0%A6%AA%E0%A7%81%E0%A7%B1%E0%A6%BE%E0%A7%B0%20%E0%A6%B6%E0%A7%80%E0%A6%A4%E0%A6%B2%20%E0%A6%AC%E0%A6%A4%E0%A6%BE%E0%A6%B9%20%E0%A6%86%E0%A7%B0%E0%A7%81%20%E0%A6%AC%E0%A6%BF%E0%A6%B9%E0%A7%81%E0%A6%97%E0%A7%80%E0%A6%A4%E0%A7%B0%20%E0%A6%AE%E0%A6%A7%E0%A7%81%E0%A7%B0%20%E0%A6%B8%E0%A7%81%E0%A7%B0%E0%A7%87%20%E0%A6%B8%E0%A6%95%E0%A6%B2%E0%A7%8B%E0%A7%B0%E0%A7%87%20%E0%A6%AE%E0%A6%A8%20%E0%A6%86%E0%A6%A8%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%B0%E0%A7%87%20%E0%A6%AD%E0%A7%B0%E0%A6%BE%E0%A6%87%20%E0%A6%A4%E0%A7%8B%E0%A6%B2%E0%A7%87.%20%E0%A6%95%E0%A6%BE%E0%A6%9C%E0%A6%BF%E0%A7%B0%E0%A6%99%E0%A6%BE%E0%A7%B0%20%E0%A6%AE%E0%A6%A8%E0%A7%8B%E0%A7%B0%E0%A6%AE%20%E0%A6%AC%E0%A6%A8%E0%A6%A8%E0%A6%BF%20%E0%A6%86%E0%A7%B0%E0%A7%81%20%E0%A6%B8%E0%A7%8B%E0%A6%A3%E0%A6%BE%E0%A6%B2%E0%A7%80%20%E0%A6%A7%E0%A6%BE%E0%A6%A8%E0%A6%A8%E0%A6%BF%20%E0%A6%AA%E0%A6%A5%E0%A6%BE%E0%A7%B0%E0%A7%87%20%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A7%B0%20%E0%A6%90%E0%A6%A4%E0%A6%BF%E0%A6%B9%E0%A7%8D%E0%A6%AF%E0%A6%95%20%E0%A6%85%E0%A6%A7%E0%A6%BF%E0%A6%95%20%E0%A6%9A%E0%A6%B9%E0%A6%95%E0%A7%80%20%E0%A6%95%E0%A7%B0%E0%A6%BF%20%E0%A6%A4%E0%A7%81%E0%A6%B2%E0%A6%BF%E0%A6%9B%E0%A7%87.%20%E0%A6%A8%E0%A6%BF%E0%A6%9C%E0%A7%B0%20%E0%A6%AD%E0%A6%BE%E0%A6%B7%E0%A6%BE%20%E0%A6%86%E0%A7%B0%E0%A7%81%20%E0%A6%B8%E0%A6%82%E0%A6%B8%E0%A7%8D%E0%A6%95%E0%A7%83%E0%A6%A4%E0%A6%BF%E0%A6%95%20%E0%A6%B8%E0%A6%A8%E0%A7%8D%E0%A6%AE%E0%A6%BE%E0%A6%A8%20%E0%A6%9C%E0%A6%A8%E0%A6%BE%E0%A6%87%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%B8%E0%A6%95%E0%A6%B2%E0%A7%8B%E0%A7%B1%E0%A7%87%20%E0%A6%AE%E0%A6%BF%E0%A6%B2%E0%A6%BF-%E0%A6%9C%E0%A7%81%E0%A6%B2%E0%A6%BF%20%E0%A6%86%E0%A6%97%E0%A6%AC%E0%A6%BE%E0%A6%A2%E0%A6%BC%E0%A6%BF%20%E0%A6%AF%E0%A6%BE%E0%A6%AC%20%E0%A6%B2%E0%A6%BE%E0%A6%97%E0%A7%87" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">ব্ৰহ্মপুত্ৰৰ দুয়োপাৰৰ সেউজীয়া প্ৰকৃতি আৰু চাহ বাগিচাবোৰে আমাৰ অসমখনক অপূৰ্ব সৌন্দৰ্যৰে সজাই তুলিছে. ৰাতিপুৱাৰ শীতল বতাহ আৰু বিহুগীতৰ মধুৰ সুৰে সকলোৰে মন আনন্দৰে ভৰাই তোলে. কাজিৰঙাৰ মনোৰম বননি আৰু সোণালী ধাননি পথাৰে আমাৰ ঐতিহ্যক অধিক চহকী কৰি তুলিছে. নিজৰ ভাষা আৰু সংস্কৃতিক সন্মান জনাই আমি সকলোৱে মিলি-জুলি আগবাঢ়ি যাব লাগে</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Brohmoputror duyopaaror seujiya prokriti aaru saah baagisabore aamaar Axomkhonok opurbo xoundorjore xozai tulise. Raatipuwaar xeetol botah aaru Bihugeetor modhur xure xokolore mon aanondore bhorai tole. Kazirangar monorom bononi aaru sonali dhaanoni pothaare aamaar oitijhyok odhik sohokee kori tulise. Nizor bhaaxa aaru xongskritik xonmaan zonai aami xokolowe mili-zuli aagbaadhi zaabo laage.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The lush greenery along both banks of the Brahmaputra and rolling tea gardens adorn our Assam with sublime beauty. The morning breeze and sweet tunes of Bihu songs fill everyone&#x27;s heart with joy. The picturesque forests of Kaziranga and golden paddy fields make our heritage ever more bountiful. Respecting our language and culture, let us all advance forward together in harmony.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Evaluate characteristic Assamese velar fricative /x/ for sibilants (স, শ, ষ).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Listen for distinct Assamese &#x27;ৰ&#x27; (ro) and &#x27;ৱ&#x27; (wo) articulation.</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Observe gentle sentence cadence and natural pauses at periods.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-asm-female.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Rituraj Assamese অসমীয়া male sid1">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Rituraj <span class="text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">male</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Assamese (অসমীয়া) · <span class="font-mono text-slate-500">sid=1</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=1</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-asm-male.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-asm-male.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (325 chars)</span>
+      <button data-copy="%E0%A6%AC%E0%A7%8D%E0%A7%B0%E0%A6%B9%E0%A7%8D%E0%A6%AE%E0%A6%AA%E0%A7%81%E0%A6%A4%E0%A7%8D%E0%A7%B0%E0%A7%B0%20%E0%A6%A6%E0%A7%81%E0%A6%AF%E0%A6%BC%E0%A7%8B%E0%A6%AA%E0%A6%BE%E0%A7%B0%E0%A7%B0%20%E0%A6%B8%E0%A7%87%E0%A6%89%E0%A6%9C%E0%A7%80%E0%A6%AF%E0%A6%BC%E0%A6%BE%20%E0%A6%AA%E0%A7%8D%E0%A7%B0%E0%A6%95%E0%A7%83%E0%A6%A4%E0%A6%BF%20%E0%A6%86%E0%A7%B0%E0%A7%81%20%E0%A6%9A%E0%A6%BE%E0%A6%B9%20%E0%A6%AC%E0%A6%BE%E0%A6%97%E0%A6%BF%E0%A6%9A%E0%A6%BE%E0%A6%AC%E0%A7%8B%E0%A7%B0%E0%A7%87%20%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A7%B0%20%E0%A6%85%E0%A6%B8%E0%A6%AE%E0%A6%96%E0%A6%A8%E0%A6%95%20%E0%A6%85%E0%A6%AA%E0%A7%82%E0%A7%B0%E0%A7%8D%E0%A6%AC%20%E0%A6%B8%E0%A7%8C%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%B0%E0%A7%8D%E0%A6%AF%E0%A7%B0%E0%A7%87%20%E0%A6%B8%E0%A6%9C%E0%A6%BE%E0%A6%87%20%E0%A6%A4%E0%A7%81%E0%A6%B2%E0%A6%BF%E0%A6%9B%E0%A7%87.%20%E0%A7%B0%E0%A6%BE%E0%A6%A4%E0%A6%BF%E0%A6%AA%E0%A7%81%E0%A7%B1%E0%A6%BE%E0%A7%B0%20%E0%A6%B6%E0%A7%80%E0%A6%A4%E0%A6%B2%20%E0%A6%AC%E0%A6%A4%E0%A6%BE%E0%A6%B9%20%E0%A6%86%E0%A7%B0%E0%A7%81%20%E0%A6%AC%E0%A6%BF%E0%A6%B9%E0%A7%81%E0%A6%97%E0%A7%80%E0%A6%A4%E0%A7%B0%20%E0%A6%AE%E0%A6%A7%E0%A7%81%E0%A7%B0%20%E0%A6%B8%E0%A7%81%E0%A7%B0%E0%A7%87%20%E0%A6%B8%E0%A6%95%E0%A6%B2%E0%A7%8B%E0%A7%B0%E0%A7%87%20%E0%A6%AE%E0%A6%A8%20%E0%A6%86%E0%A6%A8%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%B0%E0%A7%87%20%E0%A6%AD%E0%A7%B0%E0%A6%BE%E0%A6%87%20%E0%A6%A4%E0%A7%8B%E0%A6%B2%E0%A7%87.%20%E0%A6%95%E0%A6%BE%E0%A6%9C%E0%A6%BF%E0%A7%B0%E0%A6%99%E0%A6%BE%E0%A7%B0%20%E0%A6%AE%E0%A6%A8%E0%A7%8B%E0%A7%B0%E0%A6%AE%20%E0%A6%AC%E0%A6%A8%E0%A6%A8%E0%A6%BF%20%E0%A6%86%E0%A7%B0%E0%A7%81%20%E0%A6%B8%E0%A7%8B%E0%A6%A3%E0%A6%BE%E0%A6%B2%E0%A7%80%20%E0%A6%A7%E0%A6%BE%E0%A6%A8%E0%A6%A8%E0%A6%BF%20%E0%A6%AA%E0%A6%A5%E0%A6%BE%E0%A7%B0%E0%A7%87%20%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A7%B0%20%E0%A6%90%E0%A6%A4%E0%A6%BF%E0%A6%B9%E0%A7%8D%E0%A6%AF%E0%A6%95%20%E0%A6%85%E0%A6%A7%E0%A6%BF%E0%A6%95%20%E0%A6%9A%E0%A6%B9%E0%A6%95%E0%A7%80%20%E0%A6%95%E0%A7%B0%E0%A6%BF%20%E0%A6%A4%E0%A7%81%E0%A6%B2%E0%A6%BF%E0%A6%9B%E0%A7%87.%20%E0%A6%A8%E0%A6%BF%E0%A6%9C%E0%A7%B0%20%E0%A6%AD%E0%A6%BE%E0%A6%B7%E0%A6%BE%20%E0%A6%86%E0%A7%B0%E0%A7%81%20%E0%A6%B8%E0%A6%82%E0%A6%B8%E0%A7%8D%E0%A6%95%E0%A7%83%E0%A6%A4%E0%A6%BF%E0%A6%95%20%E0%A6%B8%E0%A6%A8%E0%A7%8D%E0%A6%AE%E0%A6%BE%E0%A6%A8%20%E0%A6%9C%E0%A6%A8%E0%A6%BE%E0%A6%87%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%B8%E0%A6%95%E0%A6%B2%E0%A7%8B%E0%A7%B1%E0%A7%87%20%E0%A6%AE%E0%A6%BF%E0%A6%B2%E0%A6%BF-%E0%A6%9C%E0%A7%81%E0%A6%B2%E0%A6%BF%20%E0%A6%86%E0%A6%97%E0%A6%AC%E0%A6%BE%E0%A6%A2%E0%A6%BC%E0%A6%BF%20%E0%A6%AF%E0%A6%BE%E0%A6%AC%20%E0%A6%B2%E0%A6%BE%E0%A6%97%E0%A7%87" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">ব্ৰহ্মপুত্ৰৰ দুয়োপাৰৰ সেউজীয়া প্ৰকৃতি আৰু চাহ বাগিচাবোৰে আমাৰ অসমখনক অপূৰ্ব সৌন্দৰ্যৰে সজাই তুলিছে. ৰাতিপুৱাৰ শীতল বতাহ আৰু বিহুগীতৰ মধুৰ সুৰে সকলোৰে মন আনন্দৰে ভৰাই তোলে. কাজিৰঙাৰ মনোৰম বননি আৰু সোণালী ধাননি পথাৰে আমাৰ ঐতিহ্যক অধিক চহকী কৰি তুলিছে. নিজৰ ভাষা আৰু সংস্কৃতিক সন্মান জনাই আমি সকলোৱে মিলি-জুলি আগবাঢ়ি যাব লাগে</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Brohmoputror duyopaaror seujiya prokriti aaru saah baagisabore aamaar Axomkhonok opurbo xoundorjore xozai tulise. Raatipuwaar xeetol botah aaru Bihugeetor modhur xure xokolore mon aanondore bhorai tole. Kazirangar monorom bononi aaru sonali dhaanoni pothaare aamaar oitijhyok odhik sohokee kori tulise. Nizor bhaaxa aaru xongskritik xonmaan zonai aami xokolowe mili-zuli aagbaadhi zaabo laage.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The lush greenery along both banks of the Brahmaputra and rolling tea gardens adorn our Assam with sublime beauty. The morning breeze and sweet tunes of Bihu songs fill everyone&#x27;s heart with joy. The picturesque forests of Kaziranga and golden paddy fields make our heritage ever more bountiful. Respecting our language and culture, let us all advance forward together in harmony.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Evaluate characteristic Assamese velar fricative /x/ for sibilants (স, শ, ষ).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Listen for distinct Assamese &#x27;ৰ&#x27; (ro) and &#x27;ৱ&#x27; (wo) articulation.</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Observe gentle sentence cadence and natural pauses at periods.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-asm-male.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Tithi Bengali বাংলা female sid2">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Tithi <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">female</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Bengali (বাংলা) · <span class="font-mono text-slate-500">sid=2</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=2</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-bn-female-alt.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-bn-female-alt.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (334 chars)</span>
+      <button data-copy="%E0%A6%AC%E0%A6%BE%E0%A6%99%E0%A6%B2%E0%A6%BE%E0%A6%B0%20%E0%A6%B6%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%A4%20%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%AE%E0%A7%8D%E0%A6%AF%20%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%95%E0%A7%83%E0%A6%A4%E0%A6%BF%20%E0%A6%86%E0%A6%B0%20%E0%A6%97%E0%A6%99%E0%A7%8D%E0%A6%97%E0%A6%BE%E0%A6%B0%20%E0%A6%A4%E0%A7%80%E0%A6%B0%E0%A7%87%20%E0%A6%B8%E0%A6%95%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%B8%E0%A7%8D%E0%A6%A8%E0%A6%BF%E0%A6%97%E0%A7%8D%E0%A6%A7%20%E0%A6%AC%E0%A6%BE%E0%A6%A4%E0%A6%BE%E0%A6%B8%20%E0%A6%AE%E0%A6%A8%E0%A6%95%E0%A7%87%20%E0%A6%8F%E0%A6%95%20%E0%A6%85%E0%A6%AA%E0%A6%BE%E0%A6%B0%20%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%B6%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A6%BF%20%E0%A6%8F%E0%A6%A8%E0%A7%87%20%E0%A6%A6%E0%A7%87%E0%A6%AF%E0%A6%BC.%20%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B0%20%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BF%E0%A6%A4%E0%A7%8D%E0%A6%AF%2C%20%E0%A6%B8%E0%A6%99%E0%A7%8D%E0%A6%97%E0%A7%80%E0%A6%A4%20%E0%A6%86%E0%A6%B0%20%E0%A6%B8%E0%A6%82%E0%A6%B8%E0%A7%8D%E0%A6%95%E0%A7%83%E0%A6%A4%E0%A6%BF%E0%A6%B0%20%E0%A6%90%E0%A6%A4%E0%A6%BF%E0%A6%B9%E0%A7%8D%E0%A6%AF%20%E0%A6%B6%E0%A6%A4%E0%A6%BE%E0%A6%AC%E0%A7%8D%E0%A6%A6%E0%A7%80%E0%A6%B0%20%E0%A6%AA%E0%A6%B0%20%E0%A6%B6%E0%A6%A4%E0%A6%BE%E0%A6%AC%E0%A7%8D%E0%A6%A6%E0%A7%80%20%E0%A6%A7%E0%A6%B0%E0%A7%87%20%E0%A6%AC%E0%A7%87%E0%A6%81%E0%A6%9A%E0%A7%87%20%E0%A6%86%E0%A6%9B%E0%A7%87.%20%E0%A6%B0%E0%A6%AC%E0%A7%80%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%8D%E0%A6%B0%E0%A6%A8%E0%A6%BE%E0%A6%A5%20%E0%A6%86%E0%A6%B0%20%E0%A6%A8%E0%A6%9C%E0%A6%B0%E0%A7%81%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%85%E0%A6%AE%E0%A6%B0%20%E0%A6%B8%E0%A7%83%E0%A6%B7%E0%A7%8D%E0%A6%9F%E0%A6%BF%E0%A6%B0%20%E0%A6%B8%E0%A7%81%E0%A6%B0%20%E0%A6%86%E0%A6%9C%E0%A6%93%20%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%A4%E0%A6%BF%E0%A6%9F%E0%A6%BF%20%E0%A6%AC%E0%A6%BE%E0%A6%99%E0%A6%BE%E0%A6%B2%E0%A6%BF%E0%A6%B0%20%E0%A6%85%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A6%B0%E0%A7%87%20%E0%A6%85%E0%A6%A8%E0%A7%81%E0%A6%B0%E0%A6%A3%E0%A6%BF%E0%A6%A4%20%E0%A6%B9%E0%A6%AF%E0%A6%BC.%20%E0%A6%AD%E0%A6%BE%E0%A6%B2%E0%A7%8B%E0%A6%AC%E0%A6%BE%E0%A6%B8%E0%A6%BE%E0%A6%B0%20%E0%A6%AC%E0%A6%A8%E0%A7%8D%E0%A6%A7%E0%A6%A8%E0%A7%87%20%E0%A6%B8%E0%A6%AC%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%87%20%E0%A6%86%E0%A6%AA%E0%A6%A8%20%E0%A6%95%E0%A6%B0%E0%A7%87%20%E0%A6%A8%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A7%87%20%E0%A6%A8%E0%A6%A4%E0%A7%81%E0%A6%A8%20%E0%A6%A6%E0%A6%BF%E0%A6%A8%E0%A7%87%E0%A6%B0%20%E0%A6%AA%E0%A6%A5%E0%A7%87%20%E0%A6%8F%E0%A6%97%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A7%87%20%E0%A6%9A%E0%A6%B2%E0%A6%BE%E0%A6%87%20%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B0%20%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%B0%E0%A6%A3%E0%A6%BE" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">বাঙলার শান্ত গ্রাম্য প্রকৃতি আর গঙ্গার তীরে সকালের স্নিগ্ধ বাতাস মনকে এক অপার প্রশান্তি এনে দেয়. আমাদের সাহিত্য, সঙ্গীত আর সংস্কৃতির ঐতিহ্য শতাব্দীর পর শতাব্দী ধরে বেঁচে আছে. রবীন্দ্রনাথ আর নজরুলের অমর সৃষ্টির সুর আজও প্রতিটি বাঙালির অন্তরে অনুরণিত হয়. ভালোবাসার বন্ধনে সবাইকে আপন করে নিয়ে নতুন দিনের পথে এগিয়ে চলাই আমাদের প্রেরণা</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Banglar shanto gramyo prokriti aar Gongar teere sokaler snigdho batash monke ek opar proshanti ene dey. Amader sahityo, songeet aar songskritir oitijhyo shotabdhir por shotabdhi dhore beche achhe. Robindronath aar Nozrulel omor srishtir shur aaj-o protiti Bangalir ontore onuronito hoy. Bhalobashar bondhone shobaike aapon kore niye notun diner pothe egiye cholai amader prerona.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The serene rural landscape of Bengal and the gentle breeze on the banks of the Ganges bring immense tranquility. The legacy of our literature, music, and culture has endured through centuries. The immortal melodies of Rabindranath and Nazrul continue to resonate in every Bengali heart. Embracing all with love and striding forward toward a new dawn is our inspiration.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Verify rounded Bengali vowel coloring (অ/ও-কার) and soft nasalized cadences.</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test complex conjuncts (স্নিগ্ধ, প্রশান্তি, ঐতিহ্য, শতাব্দী, সৃষ্টি).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Compare tonal balance and emotional warmth between Tithi and Anirban.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-bn-female-alt.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Anirban Bengali বাংলা male sid3">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Anirban <span class="text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">male</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Bengali (বাংলা) · <span class="font-mono text-slate-500">sid=3</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=3</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-bn-male-alt.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-bn-male-alt.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (334 chars)</span>
+      <button data-copy="%E0%A6%AC%E0%A6%BE%E0%A6%99%E0%A6%B2%E0%A6%BE%E0%A6%B0%20%E0%A6%B6%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%A4%20%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%AE%E0%A7%8D%E0%A6%AF%20%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%95%E0%A7%83%E0%A6%A4%E0%A6%BF%20%E0%A6%86%E0%A6%B0%20%E0%A6%97%E0%A6%99%E0%A7%8D%E0%A6%97%E0%A6%BE%E0%A6%B0%20%E0%A6%A4%E0%A7%80%E0%A6%B0%E0%A7%87%20%E0%A6%B8%E0%A6%95%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%B8%E0%A7%8D%E0%A6%A8%E0%A6%BF%E0%A6%97%E0%A7%8D%E0%A6%A7%20%E0%A6%AC%E0%A6%BE%E0%A6%A4%E0%A6%BE%E0%A6%B8%20%E0%A6%AE%E0%A6%A8%E0%A6%95%E0%A7%87%20%E0%A6%8F%E0%A6%95%20%E0%A6%85%E0%A6%AA%E0%A6%BE%E0%A6%B0%20%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%B6%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A6%BF%20%E0%A6%8F%E0%A6%A8%E0%A7%87%20%E0%A6%A6%E0%A7%87%E0%A6%AF%E0%A6%BC.%20%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B0%20%E0%A6%B8%E0%A6%BE%E0%A6%B9%E0%A6%BF%E0%A6%A4%E0%A7%8D%E0%A6%AF%2C%20%E0%A6%B8%E0%A6%99%E0%A7%8D%E0%A6%97%E0%A7%80%E0%A6%A4%20%E0%A6%86%E0%A6%B0%20%E0%A6%B8%E0%A6%82%E0%A6%B8%E0%A7%8D%E0%A6%95%E0%A7%83%E0%A6%A4%E0%A6%BF%E0%A6%B0%20%E0%A6%90%E0%A6%A4%E0%A6%BF%E0%A6%B9%E0%A7%8D%E0%A6%AF%20%E0%A6%B6%E0%A6%A4%E0%A6%BE%E0%A6%AC%E0%A7%8D%E0%A6%A6%E0%A7%80%E0%A6%B0%20%E0%A6%AA%E0%A6%B0%20%E0%A6%B6%E0%A6%A4%E0%A6%BE%E0%A6%AC%E0%A7%8D%E0%A6%A6%E0%A7%80%20%E0%A6%A7%E0%A6%B0%E0%A7%87%20%E0%A6%AC%E0%A7%87%E0%A6%81%E0%A6%9A%E0%A7%87%20%E0%A6%86%E0%A6%9B%E0%A7%87.%20%E0%A6%B0%E0%A6%AC%E0%A7%80%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%8D%E0%A6%B0%E0%A6%A8%E0%A6%BE%E0%A6%A5%20%E0%A6%86%E0%A6%B0%20%E0%A6%A8%E0%A6%9C%E0%A6%B0%E0%A7%81%E0%A6%B2%E0%A7%87%E0%A6%B0%20%E0%A6%85%E0%A6%AE%E0%A6%B0%20%E0%A6%B8%E0%A7%83%E0%A6%B7%E0%A7%8D%E0%A6%9F%E0%A6%BF%E0%A6%B0%20%E0%A6%B8%E0%A7%81%E0%A6%B0%20%E0%A6%86%E0%A6%9C%E0%A6%93%20%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A6%A4%E0%A6%BF%E0%A6%9F%E0%A6%BF%20%E0%A6%AC%E0%A6%BE%E0%A6%99%E0%A6%BE%E0%A6%B2%E0%A6%BF%E0%A6%B0%20%E0%A6%85%E0%A6%A8%E0%A7%8D%E0%A6%A4%E0%A6%B0%E0%A7%87%20%E0%A6%85%E0%A6%A8%E0%A7%81%E0%A6%B0%E0%A6%A3%E0%A6%BF%E0%A6%A4%20%E0%A6%B9%E0%A6%AF%E0%A6%BC.%20%E0%A6%AD%E0%A6%BE%E0%A6%B2%E0%A7%8B%E0%A6%AC%E0%A6%BE%E0%A6%B8%E0%A6%BE%E0%A6%B0%20%E0%A6%AC%E0%A6%A8%E0%A7%8D%E0%A6%A7%E0%A6%A8%E0%A7%87%20%E0%A6%B8%E0%A6%AC%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%87%20%E0%A6%86%E0%A6%AA%E0%A6%A8%20%E0%A6%95%E0%A6%B0%E0%A7%87%20%E0%A6%A8%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A7%87%20%E0%A6%A8%E0%A6%A4%E0%A7%81%E0%A6%A8%20%E0%A6%A6%E0%A6%BF%E0%A6%A8%E0%A7%87%E0%A6%B0%20%E0%A6%AA%E0%A6%A5%E0%A7%87%20%E0%A6%8F%E0%A6%97%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A7%87%20%E0%A6%9A%E0%A6%B2%E0%A6%BE%E0%A6%87%20%E0%A6%86%E0%A6%AE%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B0%20%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%B0%E0%A6%A3%E0%A6%BE" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">বাঙলার শান্ত গ্রাম্য প্রকৃতি আর গঙ্গার তীরে সকালের স্নিগ্ধ বাতাস মনকে এক অপার প্রশান্তি এনে দেয়. আমাদের সাহিত্য, সঙ্গীত আর সংস্কৃতির ঐতিহ্য শতাব্দীর পর শতাব্দী ধরে বেঁচে আছে. রবীন্দ্রনাথ আর নজরুলের অমর সৃষ্টির সুর আজও প্রতিটি বাঙালির অন্তরে অনুরণিত হয়. ভালোবাসার বন্ধনে সবাইকে আপন করে নিয়ে নতুন দিনের পথে এগিয়ে চলাই আমাদের প্রেরণা</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Banglar shanto gramyo prokriti aar Gongar teere sokaler snigdho batash monke ek opar proshanti ene dey. Amader sahityo, songeet aar songskritir oitijhyo shotabdhir por shotabdhi dhore beche achhe. Robindronath aar Nozrulel omor srishtir shur aaj-o protiti Bangalir ontore onuronito hoy. Bhalobashar bondhone shobaike aapon kore niye notun diner pothe egiye cholai amader prerona.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The serene rural landscape of Bengal and the gentle breeze on the banks of the Ganges bring immense tranquility. The legacy of our literature, music, and culture has endured through centuries. The immortal melodies of Rabindranath and Nazrul continue to resonate in every Bengali heart. Embracing all with love and striding forward toward a new dawn is our inspiration.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Verify rounded Bengali vowel coloring (অ/ও-কার) and soft nasalized cadences.</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test complex conjuncts (স্নিগ্ধ, প্রশান্তি, ঐতিহ্য, শতাব্দী, সৃষ্টি).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Compare tonal balance and emotional warmth between Tithi and Anirban.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-bn-male-alt.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Mainao Bodo बड़ो female sid4">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Mainao <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">female</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Bodo (बड़ो) · <span class="font-mono text-slate-500">sid=4</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=4</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-brx-female.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-brx-female.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (335 chars)</span>
+      <button data-copy="%E0%A4%AC%E0%A4%A1%E0%A5%8B%E0%A4%B2%E0%A5%87%E0%A4%A3%E0%A5%8D%E0%A4%A1%E0%A4%A8%E0%A4%BF%20%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%AF%E0%A4%A8%E0%A4%BE%20%E0%A4%AE%E0%A4%BF%E0%A4%A5%E0%A4%BF%E0%A4%82%E0%A4%97%E0%A4%BE%2C%20%E0%A4%A6%E0%A5%88%E0%A4%AE%E0%A4%BE-%E0%A4%A6%E0%A5%88%E0%A4%B8%E0%A4%BE%20%E0%A4%86%E0%A4%B0%E0%A5%8B%20%E0%A4%B9%E0%A4%BE%E0%A4%9C%E0%A5%8B-%E0%A4%B9%E0%A4%BE%E0%A4%B2%E0%A4%BE%E0%A4%A8%E0%A4%BF%20%E0%A4%A8%E0%A5%81%E0%A4%A5%E0%A4%BE%E0%A4%AF%E0%A4%86%20%E0%A4%9C%E0%A5%8B%E0%A4%82%E0%A4%A8%E0%A4%BF%20%E0%A4%97%E0%A5%8B%E0%A4%B8%E0%A5%8B%E0%A4%96%E0%A5%8C%20%E0%A4%97%E0%A5%8B%E0%A4%9C%E0%A5%8B%E0%A4%A8%E0%A4%A8%E0%A4%BE%E0%A4%AF%E0%A4%9C%E0%A5%8B%E0%A4%82%20%E0%A4%86%E0%A4%AC%E0%A5%81%E0%A4%82%20%E0%A4%96%E0%A4%BE%E0%A4%B2%E0%A4%BE%E0%A4%AE%E0%A5%8B.%20%E0%A4%AB%E0%A5%81%E0%A4%82%E0%A4%A8%E0%A4%BF%20%E0%A4%AC%E0%A4%BE%E0%A4%B0%20%E0%A4%AC%E0%A4%BE%E0%A4%B0%E0%A4%A8%E0%A4%BE%E0%A4%AF%E0%A4%9C%E0%A5%8B%E0%A4%82%20%E0%A4%B2%E0%A5%8B%E0%A4%97%E0%A5%8B%E0%A4%B8%E0%A5%87%20%E0%A4%AC%E0%A5%88%E0%A4%B8%E0%A4%BE%E0%A4%97%E0%A5%81%E0%A4%A8%E0%A4%BF%20%E0%A4%96%E0%A4%BE%E0%A4%AE%E0%A5%8D-%E0%A4%B8%E0%A4%BF%E0%A4%AB%E0%A5%81%E0%A4%82%E0%A4%A8%E0%A4%BF%20%E0%A4%AE%E0%A5%8B%E0%A4%A8%E0%A5%8D%E0%A4%A5%E0%A4%BE%E0%A4%AF%E0%A4%AB%E0%A5%8B%E0%A4%B0%E0%A4%BE%20%E0%A4%97%E0%A4%BE%E0%A4%B8%E0%A5%88%E0%A4%96%E0%A5%8C%E0%A4%AC%E0%A5%8B%20%E0%A4%B0%E0%A4%82%E0%A4%9C%E0%A4%BE%E0%A4%B9%E0%A5%8B%E0%A4%AF%E0%A5%8B.%20%E0%A4%A6%E0%A4%BE%E0%A4%89-%E0%A4%A6%E0%A4%BE%E0%A4%89%E0%A4%B8%E0%A4%BE%E0%A4%AB%E0%A5%8B%E0%A4%B0%E0%A4%A8%E0%A4%BF%20%E0%A4%97%E0%A4%BE%E0%A4%AC%E0%A4%96%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%AF%E0%A4%A8%E0%A4%BE%E0%A4%AF%20%E0%A4%86%E0%A4%B0%E0%A5%8B%20%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A4%B8%E0%A4%BF%E0%A4%A8%E0%A4%BF%20%E0%A4%AE%E0%A4%BF%E0%A4%A8%E0%A4%BF%E0%A4%B8%E0%A5%8D%E0%A4%B2%E0%A5%81%20%E0%A4%AE%E0%A5%8B%E0%A4%96%E0%A4%BE%E0%A4%82%E0%A4%86%20%E0%A4%9C%E0%A5%8B%E0%A4%82%E0%A4%A8%E0%A4%BF%20%E0%A4%97%E0%A4%BE%E0%A4%AE%E0%A4%BF%E0%A4%96%E0%A5%8C%20%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%AF%E0%A4%A8%E0%A4%BE%20%E0%A4%96%E0%A4%BE%E0%A4%B2%E0%A4%BE%E0%A4%AE%E0%A5%8B.%20%E0%A4%9C%E0%A5%8B%E0%A4%82%E0%A4%A8%E0%A4%BF%20%E0%A4%B0%E0%A4%BE%E0%A4%B5%2C%20%E0%A4%B9%E0%A4%BE%E0%A4%B0%E0%A4%BF%E0%A4%AE%E0%A5%81%20%E0%A4%86%E0%A4%B0%E0%A5%8B%20%E0%A4%86%E0%A4%97%E0%A5%8B%E0%A4%B0%E0%A4%BE%E0%A4%96%E0%A5%8C%20%E0%A4%AE%E0%A5%8B%E0%A4%9C%E0%A4%BE%E0%A4%82%20%E0%A4%AE%E0%A5%8B%E0%A4%A8%E0%A4%A8%E0%A4%BE%20%E0%A4%9C%E0%A5%8B%E0%A4%82%20%E0%A4%96%E0%A5%8C%E0%A4%B8%E0%A5%87%E0%A4%A5%E0%A4%BF%E0%A4%9C%E0%A5%8B%E0%A4%82%20%E0%A4%A5%E0%A4%BE%E0%A4%82%E0%A4%A8%E0%A4%BE%E0%A4%A8%E0%A5%88%20%E0%A4%A5%E0%A4%BE%E0%A4%A8%E0%A5%8B%20%E0%A4%A8%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%8C" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">बडोलेण्डनि समायना मिथिंगा, दैमा-दैसा आरो हाजो-हालानि नुथायआ जोंनि गोसोखौ गोजोननायजों आबुं खालामो. फुंनि बार बारनायजों लोगोसे बैसागुनि खाम्-सिफुंनि मोन्थायफोरा गासैखौबो रंजाहोयो. दाउ-दाउसाफोरनि गाबख्रायनाय आरो मानसिनि मिनिस्लु मोखांआ जोंनि गामिखौ समायना खालामो. जोंनि राव, हारिमु आरो आगोराखौ मोजां मोनना जों खौसेथिजों थांनानै थानो नांगौ</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Bodoland-ni somaina mothinga, doima-doisa aro hajo-halani nuthaya jwni gosokhwo gojwnnaijwng abu-ng khalamw. Phungni bar barnaijwng logose Bwisaguni kham-siphungni mwnthaiphora gasoikhwbo rwnjahoyo. Dau-dausaforni gabkhrainai aro mansini minislw mwkhanga jwni gamikhwo somaina khalamw. Jwni rao, harimu aro agorakhwo mojakh mwnna jwng khousethijwng thangnanwi thanw nangw.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The breathtaking nature of Bodoland, its rivers, and scenic hills fill our hearts with serene contentment. The morning breeze along with the rhythm of the Kham and Sifung flutes of Bwisagu bring delight to all. The cheerful chirping of birds and smiling faces of the people make our village splendid. Cherishing our mother tongue, heritage, and woven traditions, let us live together in unity.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Evaluate high unrounded vowel /ɯ/ and natural tone articulation in Devanagari Bodo.</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test authentic regional vocabulary (बैसागु, खाम्-सिफुं, आगोरा, खौसेथि).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Observe bright folk narrative prosody in Mainao and Sansuma.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-brx-female.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Sansuma Bodo बड़ो male sid5">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Sansuma <span class="text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">male</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Bodo (बड़ो) · <span class="font-mono text-slate-500">sid=5</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=5</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-brx-male.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-brx-male.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (335 chars)</span>
+      <button data-copy="%E0%A4%AC%E0%A4%A1%E0%A5%8B%E0%A4%B2%E0%A5%87%E0%A4%A3%E0%A5%8D%E0%A4%A1%E0%A4%A8%E0%A4%BF%20%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%AF%E0%A4%A8%E0%A4%BE%20%E0%A4%AE%E0%A4%BF%E0%A4%A5%E0%A4%BF%E0%A4%82%E0%A4%97%E0%A4%BE%2C%20%E0%A4%A6%E0%A5%88%E0%A4%AE%E0%A4%BE-%E0%A4%A6%E0%A5%88%E0%A4%B8%E0%A4%BE%20%E0%A4%86%E0%A4%B0%E0%A5%8B%20%E0%A4%B9%E0%A4%BE%E0%A4%9C%E0%A5%8B-%E0%A4%B9%E0%A4%BE%E0%A4%B2%E0%A4%BE%E0%A4%A8%E0%A4%BF%20%E0%A4%A8%E0%A5%81%E0%A4%A5%E0%A4%BE%E0%A4%AF%E0%A4%86%20%E0%A4%9C%E0%A5%8B%E0%A4%82%E0%A4%A8%E0%A4%BF%20%E0%A4%97%E0%A5%8B%E0%A4%B8%E0%A5%8B%E0%A4%96%E0%A5%8C%20%E0%A4%97%E0%A5%8B%E0%A4%9C%E0%A5%8B%E0%A4%A8%E0%A4%A8%E0%A4%BE%E0%A4%AF%E0%A4%9C%E0%A5%8B%E0%A4%82%20%E0%A4%86%E0%A4%AC%E0%A5%81%E0%A4%82%20%E0%A4%96%E0%A4%BE%E0%A4%B2%E0%A4%BE%E0%A4%AE%E0%A5%8B.%20%E0%A4%AB%E0%A5%81%E0%A4%82%E0%A4%A8%E0%A4%BF%20%E0%A4%AC%E0%A4%BE%E0%A4%B0%20%E0%A4%AC%E0%A4%BE%E0%A4%B0%E0%A4%A8%E0%A4%BE%E0%A4%AF%E0%A4%9C%E0%A5%8B%E0%A4%82%20%E0%A4%B2%E0%A5%8B%E0%A4%97%E0%A5%8B%E0%A4%B8%E0%A5%87%20%E0%A4%AC%E0%A5%88%E0%A4%B8%E0%A4%BE%E0%A4%97%E0%A5%81%E0%A4%A8%E0%A4%BF%20%E0%A4%96%E0%A4%BE%E0%A4%AE%E0%A5%8D-%E0%A4%B8%E0%A4%BF%E0%A4%AB%E0%A5%81%E0%A4%82%E0%A4%A8%E0%A4%BF%20%E0%A4%AE%E0%A5%8B%E0%A4%A8%E0%A5%8D%E0%A4%A5%E0%A4%BE%E0%A4%AF%E0%A4%AB%E0%A5%8B%E0%A4%B0%E0%A4%BE%20%E0%A4%97%E0%A4%BE%E0%A4%B8%E0%A5%88%E0%A4%96%E0%A5%8C%E0%A4%AC%E0%A5%8B%20%E0%A4%B0%E0%A4%82%E0%A4%9C%E0%A4%BE%E0%A4%B9%E0%A5%8B%E0%A4%AF%E0%A5%8B.%20%E0%A4%A6%E0%A4%BE%E0%A4%89-%E0%A4%A6%E0%A4%BE%E0%A4%89%E0%A4%B8%E0%A4%BE%E0%A4%AB%E0%A5%8B%E0%A4%B0%E0%A4%A8%E0%A4%BF%20%E0%A4%97%E0%A4%BE%E0%A4%AC%E0%A4%96%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%AF%E0%A4%A8%E0%A4%BE%E0%A4%AF%20%E0%A4%86%E0%A4%B0%E0%A5%8B%20%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A4%B8%E0%A4%BF%E0%A4%A8%E0%A4%BF%20%E0%A4%AE%E0%A4%BF%E0%A4%A8%E0%A4%BF%E0%A4%B8%E0%A5%8D%E0%A4%B2%E0%A5%81%20%E0%A4%AE%E0%A5%8B%E0%A4%96%E0%A4%BE%E0%A4%82%E0%A4%86%20%E0%A4%9C%E0%A5%8B%E0%A4%82%E0%A4%A8%E0%A4%BF%20%E0%A4%97%E0%A4%BE%E0%A4%AE%E0%A4%BF%E0%A4%96%E0%A5%8C%20%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%AF%E0%A4%A8%E0%A4%BE%20%E0%A4%96%E0%A4%BE%E0%A4%B2%E0%A4%BE%E0%A4%AE%E0%A5%8B.%20%E0%A4%9C%E0%A5%8B%E0%A4%82%E0%A4%A8%E0%A4%BF%20%E0%A4%B0%E0%A4%BE%E0%A4%B5%2C%20%E0%A4%B9%E0%A4%BE%E0%A4%B0%E0%A4%BF%E0%A4%AE%E0%A5%81%20%E0%A4%86%E0%A4%B0%E0%A5%8B%20%E0%A4%86%E0%A4%97%E0%A5%8B%E0%A4%B0%E0%A4%BE%E0%A4%96%E0%A5%8C%20%E0%A4%AE%E0%A5%8B%E0%A4%9C%E0%A4%BE%E0%A4%82%20%E0%A4%AE%E0%A5%8B%E0%A4%A8%E0%A4%A8%E0%A4%BE%20%E0%A4%9C%E0%A5%8B%E0%A4%82%20%E0%A4%96%E0%A5%8C%E0%A4%B8%E0%A5%87%E0%A4%A5%E0%A4%BF%E0%A4%9C%E0%A5%8B%E0%A4%82%20%E0%A4%A5%E0%A4%BE%E0%A4%82%E0%A4%A8%E0%A4%BE%E0%A4%A8%E0%A5%88%20%E0%A4%A5%E0%A4%BE%E0%A4%A8%E0%A5%8B%20%E0%A4%A8%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%8C" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">बडोलेण्डनि समायना मिथिंगा, दैमा-दैसा आरो हाजो-हालानि नुथायआ जोंनि गोसोखौ गोजोननायजों आबुं खालामो. फुंनि बार बारनायजों लोगोसे बैसागुनि खाम्-सिफुंनि मोन्थायफोरा गासैखौबो रंजाहोयो. दाउ-दाउसाफोरनि गाबख्रायनाय आरो मानसिनि मिनिस्लु मोखांआ जोंनि गामिखौ समायना खालामो. जोंनि राव, हारिमु आरो आगोराखौ मोजां मोनना जों खौसेथिजों थांनानै थानो नांगौ</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Bodoland-ni somaina mothinga, doima-doisa aro hajo-halani nuthaya jwni gosokhwo gojwnnaijwng abu-ng khalamw. Phungni bar barnaijwng logose Bwisaguni kham-siphungni mwnthaiphora gasoikhwbo rwnjahoyo. Dau-dausaforni gabkhrainai aro mansini minislw mwkhanga jwni gamikhwo somaina khalamw. Jwni rao, harimu aro agorakhwo mojakh mwnna jwng khousethijwng thangnanwi thanw nangw.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The breathtaking nature of Bodoland, its rivers, and scenic hills fill our hearts with serene contentment. The morning breeze along with the rhythm of the Kham and Sifung flutes of Bwisagu bring delight to all. The cheerful chirping of birds and smiling faces of the people make our village splendid. Cherishing our mother tongue, heritage, and woven traditions, let us live together in unity.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Evaluate high unrounded vowel /ɯ/ and natural tone articulation in Devanagari Bodo.</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test authentic regional vocabulary (बैसागु, खाम्-सिफुं, आगोरा, खौसेथि).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Observe bright folk narrative prosody in Mainao and Sansuma.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-brx-male.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Sheetal Dogri डोगरी female sid6">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Sheetal <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">female</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Dogri (डोगरी) · <span class="font-mono text-slate-500">sid=6</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=6</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-doi-female.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-doi-female.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (350 chars)</span>
+      <button data-copy="%E0%A4%B8%E0%A4%BE%E0%A4%B9%E0%A5%8D%E0%A4%A1%E0%A4%BC%E0%A5%87%20%E0%A4%A1%E0%A5%81%E0%A4%97%E0%A5%8D%E0%A4%97%E0%A4%B0%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A6%E0%A5%87%E0%A4%B6%20%E0%A4%A6%E0%A5%80%20%E0%A4%B8%E0%A5%8B%E0%A4%B9%E0%A4%A3%E0%A5%80%20%E0%A4%A7%E0%A4%B0%E0%A4%A4%E0%A5%80%2C%20%E0%A4%A4%E0%A4%B5%E0%A5%80%20%E0%A4%A8%E0%A4%A6%E0%A5%80%20%E0%A4%A6%E0%A4%BE%20%E0%A4%AA%E0%A4%BE%E0%A4%B5%E0%A4%A8%20%E0%A4%95%E0%A4%82%E0%A4%A1%E0%A4%BE%20%E0%A4%A4%E0%A5%87%20%E0%A4%AC%E0%A4%BE%E0%A4%B5%E0%A5%87%20%E0%A4%B5%E0%A4%BE%E0%A4%B2%E0%A5%80%20%E0%A4%AE%E0%A4%BE%E0%A4%A4%E0%A4%BE%20%E0%A4%A6%E0%A4%BE%20%E0%A4%AE%E0%A4%82%E0%A4%A6%E0%A4%BF%E0%A4%B0%20%E0%A4%AE%E0%A4%A8%E0%A5%87%20%E0%A4%97%E0%A5%80%20%E0%A4%AC%E0%A4%A1%E0%A4%BC%E0%A4%BE%20%E0%A4%86%E0%A4%A8%E0%A4%82%E0%A4%A6%20%E0%A4%A6%E0%A4%BF%E0%A4%82%E0%A4%A6%E0%A5%87%20%E0%A4%A8.%20%E0%A4%B8%E0%A4%B5%E0%A5%87%E0%A4%B0%E0%A5%87-%E0%A4%B8%E0%A4%B5%E0%A5%87%E0%A4%B0%E0%A5%87%20%E0%A4%AA%E0%A5%80%E0%A4%B0%20%E0%A4%AA%E0%A4%82%E0%A4%9C%E0%A4%BE%E0%A4%B2%20%E0%A4%A6%E0%A5%87%20%E0%A4%AA%E0%A4%B9%E0%A4%BE%E0%A4%A1%E0%A4%BC%E0%A4%BE%E0%A4%82%20%E0%A4%A5%E0%A4%AE%E0%A4%BE%E0%A4%82%20%E0%A4%94%E0%A4%82%E0%A4%A6%E0%A5%80%20%E0%A4%A0%E0%A4%82%E0%A4%A1%E0%A5%80%20%E0%A4%B9%E0%A4%B5%E0%A4%BE%20%E0%A4%A4%E0%A5%87%20%E0%A4%AA%E0%A4%82%E0%A4%9B%E0%A4%BF%E0%A4%AF%E0%A5%87%E0%A4%82%20%E0%A4%A6%E0%A4%BE%20%E0%A4%9A%E0%A4%B9%E0%A4%9A%E0%A4%B9%E0%A4%BE%E0%A4%A8%E0%A4%BE%20%E0%A4%AE%E0%A4%A8%20%E0%A4%9A%20%E0%A4%A8%E0%A4%B5%E0%A4%BE%E0%A4%82%20%E0%A4%9A%E0%A4%BE%E0%A4%BD%20%E0%A4%AD%E0%A4%B0%E0%A4%BF%20%E0%A4%A6%E0%A4%BF%E0%A4%82%E0%A4%A6%E0%A4%BE%20%E0%A4%90.%20%E0%A4%A1%E0%A5%8B%E0%A4%97%E0%A4%B0%E0%A5%87%E0%A4%82%20%E0%A4%A6%E0%A5%80%20%E0%A4%B0%E0%A5%80%E0%A4%A4%20%E0%A4%90%20%E0%A4%95%E0%A4%BF%20%E0%A4%B8%E0%A4%AC%E0%A4%A8%E0%A5%87%20%E0%A4%95%E0%A4%A8%E0%A5%8D%E0%A4%A8%E0%A5%87%20%E0%A4%AA%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%B0-%E0%A4%AE%E0%A5%81%E0%A4%B9%E0%A4%AC%E0%A5%8D%E0%A4%AC%E0%A4%A4%20%E0%A4%A4%E0%A5%87%20%E0%A4%B8%E0%A4%A4%E0%A5%8D%E0%A4%95%E0%A4%BE%E0%A4%B0%20%E0%A4%95%E0%A4%A8%E0%A5%8D%E0%A4%A8%E0%A5%87%20%E0%A4%B0%E0%A5%8C%E0%A4%B9%E0%A5%8D%E0%A4%A8%E0%A4%BE.%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%80%20%E0%A4%AE%E0%A5%80%E0%A4%A0%E0%A5%80%20%E0%A4%A1%E0%A5%8B%E0%A4%97%E0%A4%B0%E0%A5%80%20%E0%A4%AC%E0%A5%8B%E0%A4%B2%E0%A5%80%20%E0%A4%A4%E0%A5%87%20%E0%A4%B2%E0%A5%8B%E0%A4%95-%E0%A4%B8%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF%20%E0%A4%A6%E0%A5%80%20%E0%A4%B8%E0%A5%87%E0%A4%B5%E0%A4%BE%20%E0%A4%95%E0%A4%B0%E0%A4%A8%E0%A4%BE%20%E0%A4%B8%E0%A4%BE%E0%A4%B9%E0%A5%8D%E0%A4%A1%E0%A4%BC%E0%A4%BE%20%E0%A4%B8%E0%A4%9A%E0%A5%8D%E0%A4%9A%E0%A4%BE%20%E0%A4%AB%E0%A4%B0%E0%A5%8D%E0%A4%9C%20%E0%A4%90" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">साह्ड़े डुग्गर प्रदेश दी सोहणी धरती, तवी नदी दा पावन कंडा ते बावे वाली माता दा मंदिर मने गी बड़ा आनंद दिंदे न. सवेरे-सवेरे पीर पंजाल दे पहाड़ां थमां औंदी ठंडी हवा ते पंछियें दा चहचहाना मन च नवां चाऽ भरि दिंदा ऐ. डोगरें दी रीत ऐ कि सबने कन्ने प्यार-मुहब्बत ते सत्कार कन्ने रौह्ना. अपनी मीठी डोगरी बोली ते लोक-संस्कृति दी सेवा करना साह्ड़ा सच्चा फर्ज ऐ</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Sahde Duggar pardesh di sohni dharti, Tawi nadi da paavan kanda te Bawe wali Mata da mandir mane gi bada aanand dinde nan. Savere-savere Peer Panjal de pahadan thaman aundi thandi hawa te panjhiyen da chahchahana man cha nawan chaa bhari dinda ai. Dogren di reet ai ki sabne kanne pyaar-muhabbat te satkaar kanne rauhna. Apni meethi Dogri boli te lok-sanskriti di seva karna sahda sachha farz ai.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The splendid land of our Duggar realm, the sacred banks of river Tawi, and the shrine of Bawe Wali Mata bring profound joy. The refreshing dawn breeze descending from the Pir Panjal ranges and the chirping of birds infuse eager zeal. It is the noble custom of the Dogras to live with mutual affection and respect. Cherishing our sweet Dogri tongue and folk heritage is our true calling.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Assess characteristic Dogri tonal contours (rising-falling pitch on aspirates/glottals).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Check regional postpositions and verbal markers (दी, दा, गी, च, ऐ, न).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Listen for authentic Duggar folk warmth and melodious cadence in Sheetal and Vijay.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-doi-female.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Vijay Dogri डोगरी male sid7">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Vijay <span class="text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">male</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Dogri (डोगरी) · <span class="font-mono text-slate-500">sid=7</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=7</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-doi-male.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-doi-male.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (350 chars)</span>
+      <button data-copy="%E0%A4%B8%E0%A4%BE%E0%A4%B9%E0%A5%8D%E0%A4%A1%E0%A4%BC%E0%A5%87%20%E0%A4%A1%E0%A5%81%E0%A4%97%E0%A5%8D%E0%A4%97%E0%A4%B0%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A6%E0%A5%87%E0%A4%B6%20%E0%A4%A6%E0%A5%80%20%E0%A4%B8%E0%A5%8B%E0%A4%B9%E0%A4%A3%E0%A5%80%20%E0%A4%A7%E0%A4%B0%E0%A4%A4%E0%A5%80%2C%20%E0%A4%A4%E0%A4%B5%E0%A5%80%20%E0%A4%A8%E0%A4%A6%E0%A5%80%20%E0%A4%A6%E0%A4%BE%20%E0%A4%AA%E0%A4%BE%E0%A4%B5%E0%A4%A8%20%E0%A4%95%E0%A4%82%E0%A4%A1%E0%A4%BE%20%E0%A4%A4%E0%A5%87%20%E0%A4%AC%E0%A4%BE%E0%A4%B5%E0%A5%87%20%E0%A4%B5%E0%A4%BE%E0%A4%B2%E0%A5%80%20%E0%A4%AE%E0%A4%BE%E0%A4%A4%E0%A4%BE%20%E0%A4%A6%E0%A4%BE%20%E0%A4%AE%E0%A4%82%E0%A4%A6%E0%A4%BF%E0%A4%B0%20%E0%A4%AE%E0%A4%A8%E0%A5%87%20%E0%A4%97%E0%A5%80%20%E0%A4%AC%E0%A4%A1%E0%A4%BC%E0%A4%BE%20%E0%A4%86%E0%A4%A8%E0%A4%82%E0%A4%A6%20%E0%A4%A6%E0%A4%BF%E0%A4%82%E0%A4%A6%E0%A5%87%20%E0%A4%A8.%20%E0%A4%B8%E0%A4%B5%E0%A5%87%E0%A4%B0%E0%A5%87-%E0%A4%B8%E0%A4%B5%E0%A5%87%E0%A4%B0%E0%A5%87%20%E0%A4%AA%E0%A5%80%E0%A4%B0%20%E0%A4%AA%E0%A4%82%E0%A4%9C%E0%A4%BE%E0%A4%B2%20%E0%A4%A6%E0%A5%87%20%E0%A4%AA%E0%A4%B9%E0%A4%BE%E0%A4%A1%E0%A4%BC%E0%A4%BE%E0%A4%82%20%E0%A4%A5%E0%A4%AE%E0%A4%BE%E0%A4%82%20%E0%A4%94%E0%A4%82%E0%A4%A6%E0%A5%80%20%E0%A4%A0%E0%A4%82%E0%A4%A1%E0%A5%80%20%E0%A4%B9%E0%A4%B5%E0%A4%BE%20%E0%A4%A4%E0%A5%87%20%E0%A4%AA%E0%A4%82%E0%A4%9B%E0%A4%BF%E0%A4%AF%E0%A5%87%E0%A4%82%20%E0%A4%A6%E0%A4%BE%20%E0%A4%9A%E0%A4%B9%E0%A4%9A%E0%A4%B9%E0%A4%BE%E0%A4%A8%E0%A4%BE%20%E0%A4%AE%E0%A4%A8%20%E0%A4%9A%20%E0%A4%A8%E0%A4%B5%E0%A4%BE%E0%A4%82%20%E0%A4%9A%E0%A4%BE%E0%A4%BD%20%E0%A4%AD%E0%A4%B0%E0%A4%BF%20%E0%A4%A6%E0%A4%BF%E0%A4%82%E0%A4%A6%E0%A4%BE%20%E0%A4%90.%20%E0%A4%A1%E0%A5%8B%E0%A4%97%E0%A4%B0%E0%A5%87%E0%A4%82%20%E0%A4%A6%E0%A5%80%20%E0%A4%B0%E0%A5%80%E0%A4%A4%20%E0%A4%90%20%E0%A4%95%E0%A4%BF%20%E0%A4%B8%E0%A4%AC%E0%A4%A8%E0%A5%87%20%E0%A4%95%E0%A4%A8%E0%A5%8D%E0%A4%A8%E0%A5%87%20%E0%A4%AA%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%B0-%E0%A4%AE%E0%A5%81%E0%A4%B9%E0%A4%AC%E0%A5%8D%E0%A4%AC%E0%A4%A4%20%E0%A4%A4%E0%A5%87%20%E0%A4%B8%E0%A4%A4%E0%A5%8D%E0%A4%95%E0%A4%BE%E0%A4%B0%20%E0%A4%95%E0%A4%A8%E0%A5%8D%E0%A4%A8%E0%A5%87%20%E0%A4%B0%E0%A5%8C%E0%A4%B9%E0%A5%8D%E0%A4%A8%E0%A4%BE.%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%80%20%E0%A4%AE%E0%A5%80%E0%A4%A0%E0%A5%80%20%E0%A4%A1%E0%A5%8B%E0%A4%97%E0%A4%B0%E0%A5%80%20%E0%A4%AC%E0%A5%8B%E0%A4%B2%E0%A5%80%20%E0%A4%A4%E0%A5%87%20%E0%A4%B2%E0%A5%8B%E0%A4%95-%E0%A4%B8%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF%20%E0%A4%A6%E0%A5%80%20%E0%A4%B8%E0%A5%87%E0%A4%B5%E0%A4%BE%20%E0%A4%95%E0%A4%B0%E0%A4%A8%E0%A4%BE%20%E0%A4%B8%E0%A4%BE%E0%A4%B9%E0%A5%8D%E0%A4%A1%E0%A4%BC%E0%A4%BE%20%E0%A4%B8%E0%A4%9A%E0%A5%8D%E0%A4%9A%E0%A4%BE%20%E0%A4%AB%E0%A4%B0%E0%A5%8D%E0%A4%9C%20%E0%A4%90" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">साह्ड़े डुग्गर प्रदेश दी सोहणी धरती, तवी नदी दा पावन कंडा ते बावे वाली माता दा मंदिर मने गी बड़ा आनंद दिंदे न. सवेरे-सवेरे पीर पंजाल दे पहाड़ां थमां औंदी ठंडी हवा ते पंछियें दा चहचहाना मन च नवां चाऽ भरि दिंदा ऐ. डोगरें दी रीत ऐ कि सबने कन्ने प्यार-मुहब्बत ते सत्कार कन्ने रौह्ना. अपनी मीठी डोगरी बोली ते लोक-संस्कृति दी सेवा करना साह्ड़ा सच्चा फर्ज ऐ</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Sahde Duggar pardesh di sohni dharti, Tawi nadi da paavan kanda te Bawe wali Mata da mandir mane gi bada aanand dinde nan. Savere-savere Peer Panjal de pahadan thaman aundi thandi hawa te panjhiyen da chahchahana man cha nawan chaa bhari dinda ai. Dogren di reet ai ki sabne kanne pyaar-muhabbat te satkaar kanne rauhna. Apni meethi Dogri boli te lok-sanskriti di seva karna sahda sachha farz ai.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The splendid land of our Duggar realm, the sacred banks of river Tawi, and the shrine of Bawe Wali Mata bring profound joy. The refreshing dawn breeze descending from the Pir Panjal ranges and the chirping of birds infuse eager zeal. It is the noble custom of the Dogras to live with mutual affection and respect. Cherishing our sweet Dogri tongue and folk heritage is our true calling.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Assess characteristic Dogri tonal contours (rising-falling pitch on aspirates/glottals).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Check regional postpositions and verbal markers (दी, दा, गी, च, ऐ, न).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Listen for authentic Duggar folk warmth and melodious cadence in Sheetal and Vijay.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-doi-male.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Spoorthi Kannada ಕನ್ನಡ female sid8">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Spoorthi <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">female</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Kannada (ಕನ್ನಡ) · <span class="font-mono text-slate-500">sid=8</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=8</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-kn-female-alt.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-kn-female-alt.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (309 chars)</span>
+      <button data-copy="%E0%B2%95%E0%B2%B0%E0%B3%8D%E0%B2%A8%E0%B2%BE%E0%B2%9F%E0%B2%95%E0%B2%A6%20%E0%B2%AD%E0%B2%B5%E0%B3%8D%E0%B2%AF%20%E0%B2%87%E0%B2%A4%E0%B2%BF%E0%B2%B9%E0%B2%BE%E0%B2%B8%2C%20%E0%B2%B8%E0%B3%81%E0%B2%82%E0%B2%A6%E0%B2%B0%20%E0%B2%B8%E0%B2%B9%E0%B3%8D%E0%B2%AF%E0%B2%BE%E0%B2%A6%E0%B3%8D%E0%B2%B0%E0%B2%BF%20%E0%B2%AC%E0%B3%86%E0%B2%9F%E0%B3%8D%E0%B2%9F%E0%B2%97%E0%B2%B3%E0%B3%81%20%E0%B2%AE%E0%B2%A4%E0%B3%8D%E0%B2%A4%E0%B3%81%20%E0%B2%B9%E0%B2%B8%E0%B2%BF%E0%B2%B0%E0%B2%BF%E0%B2%A8%20%E0%B2%95%E0%B2%BE%E0%B2%A8%E0%B2%A8%E0%B2%97%E0%B2%B3%E0%B3%81%20%E0%B2%A8%E0%B2%AE%E0%B3%8D%E0%B2%AE%20%E0%B2%A8%E0%B2%BE%E0%B2%A1%E0%B2%BF%E0%B2%A8%20%E0%B2%95%E0%B3%80%E0%B2%B0%E0%B3%8D%E0%B2%A4%E0%B2%BF%E0%B2%AF%E0%B2%A8%E0%B3%8D%E0%B2%A8%E0%B3%81%20%E0%B2%B9%E0%B3%86%E0%B2%9A%E0%B3%8D%E0%B2%9A%E0%B2%BF%E0%B2%B8%E0%B2%BF%E0%B2%B5%E0%B3%86.%20%E0%B2%AE%E0%B3%81%E0%B2%82%E0%B2%9C%E0%B2%BE%E0%B2%A8%E0%B3%86%E0%B2%AF%20%E0%B2%A4%E0%B2%82%E0%B2%97%E0%B2%BE%E0%B2%B3%E0%B2%BF%20%E0%B2%AE%E0%B2%A4%E0%B3%8D%E0%B2%A4%E0%B3%81%20%E0%B2%A8%E0%B2%A6%E0%B2%BF%E0%B2%97%E0%B2%B3%20%E0%B2%87%E0%B2%82%E0%B2%AA%E0%B2%BE%E0%B2%A6%20%E0%B2%B9%E0%B2%B0%E0%B2%BF%E0%B2%B5%E0%B3%81%20%E0%B2%AE%E0%B2%A8%E0%B2%B8%E0%B3%8D%E0%B2%B8%E0%B2%BF%E0%B2%97%E0%B3%86%20%E0%B2%B6%E0%B2%BE%E0%B2%82%E0%B2%A4%E0%B2%BF%20%E0%B2%A4%E0%B2%B0%E0%B3%81%E0%B2%A4%E0%B3%8D%E0%B2%A4%E0%B2%A6%E0%B3%86.%20%E0%B2%95%E0%B2%B5%E0%B2%BF%E0%B2%97%E0%B2%B3%20%E0%B2%B5%E0%B2%BE%E0%B2%A3%E0%B2%BF%20%E0%B2%AE%E0%B2%A4%E0%B3%8D%E0%B2%A4%E0%B3%81%20%E0%B2%95%E0%B2%B2%E0%B3%86%E0%B2%97%E0%B2%B3%20%E0%B2%B5%E0%B3%88%E0%B2%AD%E0%B2%B5%20%E0%B2%A8%E0%B2%AE%E0%B3%8D%E0%B2%AE%20%E0%B2%AC%E0%B2%A6%E0%B3%81%E0%B2%95%E0%B2%A8%E0%B3%8D%E0%B2%A8%E0%B3%81%20%E0%B2%B8%E0%B3%81%E0%B2%82%E0%B2%A6%E0%B2%B0%E0%B2%97%E0%B3%8A%E0%B2%B3%E0%B2%BF%E0%B2%B8%E0%B2%BF%E0%B2%B5%E0%B3%86.%20%E0%B2%A8%E0%B2%AE%E0%B3%8D%E0%B2%AE%20%E0%B2%B8%E0%B2%82%E0%B2%B8%E0%B3%8D%E0%B2%95%E0%B3%83%E0%B2%A4%E0%B2%BF%20%E0%B2%AE%E0%B2%A4%E0%B3%8D%E0%B2%A4%E0%B3%81%20%E0%B2%9C%E0%B3%8D%E0%B2%9E%E0%B2%BE%E0%B2%A8%E0%B2%A6%20%E0%B2%AA%E0%B2%B0%E0%B2%82%E0%B2%AA%E0%B2%B0%E0%B3%86%E0%B2%AF%E0%B2%A8%E0%B3%8D%E0%B2%A8%E0%B3%81%20%E0%B2%95%E0%B2%BE%E0%B2%AA%E0%B2%BE%E0%B2%A1%E0%B2%BF%E0%B2%95%E0%B3%8A%E0%B2%82%E0%B2%A1%E0%B3%81%20%E0%B2%A8%E0%B2%BE%E0%B2%B5%E0%B3%86%E0%B2%B2%E0%B3%8D%E0%B2%B2%E0%B2%B0%E0%B3%82%20%E0%B2%92%E0%B2%97%E0%B3%8D%E0%B2%97%E0%B2%9F%E0%B3%8D%E0%B2%9F%E0%B2%BF%E0%B2%A8%E0%B2%BF%E0%B2%82%E0%B2%A6%20%E0%B2%AE%E0%B3%81%E0%B2%A8%E0%B3%8D%E0%B2%A8%E0%B2%A1%E0%B3%86%E0%B2%AF%E0%B3%8B%E0%B2%A3" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">ಕರ್ನಾಟಕದ ಭವ್ಯ ಇತಿಹಾಸ, ಸುಂದರ ಸಹ್ಯಾದ್ರಿ ಬೆಟ್ಟಗಳು ಮತ್ತು ಹಸಿರಿನ ಕಾನನಗಳು ನಮ್ಮ ನಾಡಿನ ಕೀರ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸಿವೆ. ಮುಂಜಾನೆಯ ತಂಗಾಳಿ ಮತ್ತು ನದಿಗಳ ಇಂಪಾದ ಹರಿವು ಮನಸ್ಸಿಗೆ ಶಾಂತಿ ತರುತ್ತದೆ. ಕವಿಗಳ ವಾಣಿ ಮತ್ತು ಕಲೆಗಳ ವೈಭವ ನಮ್ಮ ಬದುಕನ್ನು ಸುಂದರಗೊಳಿಸಿವೆ. ನಮ್ಮ ಸಂಸ್ಕೃತಿ ಮತ್ತು ಜ್ಞಾನದ ಪರಂಪರೆಯನ್ನು ಕಾಪಾಡಿಕೊಂಡು ನಾವೆಲ್ಲರೂ ಒಗ್ಗಟ್ಟಿನಿಂದ ಮುನ್ನಡೆಯೋಣ</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Karnatakada bhavya itihaasa, sundara Sahyadri bettagalu mattu hasirina kaananagalu namma naadina keertiyannu hecchisive. Munjaaneya tangaali mattu nadigala impaada harivu manassige shaanti taruttade. Kavigala vaani mattu kalegala vaibhava namma badukannu sundaragolisive. Namma sanskruti mattu jnaanada parampareyannu kaapaadikandu naavellaroo oggattininda munnadeyona.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">Karnataka&#x27;s glorious history, majestic Sahyadri ranges, and verdant forests heighten our land&#x27;s renown. The morning breeze and soothing murmur of rivers bestow tranquility. The wisdom of our poets and splendor of arts enrich our lives. Guarding our cultural and intellectual heritage, let us march forward united.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Evaluate gemination (ದ್ವಿತ್ವ: ಬೆಟ್ಟಗಳು, ಹೆಚ್ಚಿಸಿವೆ, ತರುತ್ತದೆ).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Check retroflex consonant articulation (ಣ, ಳ, ಟ) and smooth Ajanta vowel endings.</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Compare dynamic vocal timbre between alternate speakers Spoorthi and Chetan.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-kn-female-alt.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Chetan Kannada ಕನ್ನಡ male sid9">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Chetan <span class="text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">male</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Kannada (ಕನ್ನಡ) · <span class="font-mono text-slate-500">sid=9</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=9</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-kn-male-alt.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-kn-male-alt.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (309 chars)</span>
+      <button data-copy="%E0%B2%95%E0%B2%B0%E0%B3%8D%E0%B2%A8%E0%B2%BE%E0%B2%9F%E0%B2%95%E0%B2%A6%20%E0%B2%AD%E0%B2%B5%E0%B3%8D%E0%B2%AF%20%E0%B2%87%E0%B2%A4%E0%B2%BF%E0%B2%B9%E0%B2%BE%E0%B2%B8%2C%20%E0%B2%B8%E0%B3%81%E0%B2%82%E0%B2%A6%E0%B2%B0%20%E0%B2%B8%E0%B2%B9%E0%B3%8D%E0%B2%AF%E0%B2%BE%E0%B2%A6%E0%B3%8D%E0%B2%B0%E0%B2%BF%20%E0%B2%AC%E0%B3%86%E0%B2%9F%E0%B3%8D%E0%B2%9F%E0%B2%97%E0%B2%B3%E0%B3%81%20%E0%B2%AE%E0%B2%A4%E0%B3%8D%E0%B2%A4%E0%B3%81%20%E0%B2%B9%E0%B2%B8%E0%B2%BF%E0%B2%B0%E0%B2%BF%E0%B2%A8%20%E0%B2%95%E0%B2%BE%E0%B2%A8%E0%B2%A8%E0%B2%97%E0%B2%B3%E0%B3%81%20%E0%B2%A8%E0%B2%AE%E0%B3%8D%E0%B2%AE%20%E0%B2%A8%E0%B2%BE%E0%B2%A1%E0%B2%BF%E0%B2%A8%20%E0%B2%95%E0%B3%80%E0%B2%B0%E0%B3%8D%E0%B2%A4%E0%B2%BF%E0%B2%AF%E0%B2%A8%E0%B3%8D%E0%B2%A8%E0%B3%81%20%E0%B2%B9%E0%B3%86%E0%B2%9A%E0%B3%8D%E0%B2%9A%E0%B2%BF%E0%B2%B8%E0%B2%BF%E0%B2%B5%E0%B3%86.%20%E0%B2%AE%E0%B3%81%E0%B2%82%E0%B2%9C%E0%B2%BE%E0%B2%A8%E0%B3%86%E0%B2%AF%20%E0%B2%A4%E0%B2%82%E0%B2%97%E0%B2%BE%E0%B2%B3%E0%B2%BF%20%E0%B2%AE%E0%B2%A4%E0%B3%8D%E0%B2%A4%E0%B3%81%20%E0%B2%A8%E0%B2%A6%E0%B2%BF%E0%B2%97%E0%B2%B3%20%E0%B2%87%E0%B2%82%E0%B2%AA%E0%B2%BE%E0%B2%A6%20%E0%B2%B9%E0%B2%B0%E0%B2%BF%E0%B2%B5%E0%B3%81%20%E0%B2%AE%E0%B2%A8%E0%B2%B8%E0%B3%8D%E0%B2%B8%E0%B2%BF%E0%B2%97%E0%B3%86%20%E0%B2%B6%E0%B2%BE%E0%B2%82%E0%B2%A4%E0%B2%BF%20%E0%B2%A4%E0%B2%B0%E0%B3%81%E0%B2%A4%E0%B3%8D%E0%B2%A4%E0%B2%A6%E0%B3%86.%20%E0%B2%95%E0%B2%B5%E0%B2%BF%E0%B2%97%E0%B2%B3%20%E0%B2%B5%E0%B2%BE%E0%B2%A3%E0%B2%BF%20%E0%B2%AE%E0%B2%A4%E0%B3%8D%E0%B2%A4%E0%B3%81%20%E0%B2%95%E0%B2%B2%E0%B3%86%E0%B2%97%E0%B2%B3%20%E0%B2%B5%E0%B3%88%E0%B2%AD%E0%B2%B5%20%E0%B2%A8%E0%B2%AE%E0%B3%8D%E0%B2%AE%20%E0%B2%AC%E0%B2%A6%E0%B3%81%E0%B2%95%E0%B2%A8%E0%B3%8D%E0%B2%A8%E0%B3%81%20%E0%B2%B8%E0%B3%81%E0%B2%82%E0%B2%A6%E0%B2%B0%E0%B2%97%E0%B3%8A%E0%B2%B3%E0%B2%BF%E0%B2%B8%E0%B2%BF%E0%B2%B5%E0%B3%86.%20%E0%B2%A8%E0%B2%AE%E0%B3%8D%E0%B2%AE%20%E0%B2%B8%E0%B2%82%E0%B2%B8%E0%B3%8D%E0%B2%95%E0%B3%83%E0%B2%A4%E0%B2%BF%20%E0%B2%AE%E0%B2%A4%E0%B3%8D%E0%B2%A4%E0%B3%81%20%E0%B2%9C%E0%B3%8D%E0%B2%9E%E0%B2%BE%E0%B2%A8%E0%B2%A6%20%E0%B2%AA%E0%B2%B0%E0%B2%82%E0%B2%AA%E0%B2%B0%E0%B3%86%E0%B2%AF%E0%B2%A8%E0%B3%8D%E0%B2%A8%E0%B3%81%20%E0%B2%95%E0%B2%BE%E0%B2%AA%E0%B2%BE%E0%B2%A1%E0%B2%BF%E0%B2%95%E0%B3%8A%E0%B2%82%E0%B2%A1%E0%B3%81%20%E0%B2%A8%E0%B2%BE%E0%B2%B5%E0%B3%86%E0%B2%B2%E0%B3%8D%E0%B2%B2%E0%B2%B0%E0%B3%82%20%E0%B2%92%E0%B2%97%E0%B3%8D%E0%B2%97%E0%B2%9F%E0%B3%8D%E0%B2%9F%E0%B2%BF%E0%B2%A8%E0%B2%BF%E0%B2%82%E0%B2%A6%20%E0%B2%AE%E0%B3%81%E0%B2%A8%E0%B3%8D%E0%B2%A8%E0%B2%A1%E0%B3%86%E0%B2%AF%E0%B3%8B%E0%B2%A3" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">ಕರ್ನಾಟಕದ ಭವ್ಯ ಇತಿಹಾಸ, ಸುಂದರ ಸಹ್ಯಾದ್ರಿ ಬೆಟ್ಟಗಳು ಮತ್ತು ಹಸಿರಿನ ಕಾನನಗಳು ನಮ್ಮ ನಾಡಿನ ಕೀರ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸಿವೆ. ಮುಂಜಾನೆಯ ತಂಗಾಳಿ ಮತ್ತು ನದಿಗಳ ಇಂಪಾದ ಹರಿವು ಮನಸ್ಸಿಗೆ ಶಾಂತಿ ತರುತ್ತದೆ. ಕವಿಗಳ ವಾಣಿ ಮತ್ತು ಕಲೆಗಳ ವೈಭವ ನಮ್ಮ ಬದುಕನ್ನು ಸುಂದರಗೊಳಿಸಿವೆ. ನಮ್ಮ ಸಂಸ್ಕೃತಿ ಮತ್ತು ಜ್ಞಾನದ ಪರಂಪರೆಯನ್ನು ಕಾಪಾಡಿಕೊಂಡು ನಾವೆಲ್ಲರೂ ಒಗ್ಗಟ್ಟಿನಿಂದ ಮುನ್ನಡೆಯೋಣ</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Karnatakada bhavya itihaasa, sundara Sahyadri bettagalu mattu hasirina kaananagalu namma naadina keertiyannu hecchisive. Munjaaneya tangaali mattu nadigala impaada harivu manassige shaanti taruttade. Kavigala vaani mattu kalegala vaibhava namma badukannu sundaragolisive. Namma sanskruti mattu jnaanada parampareyannu kaapaadikandu naavellaroo oggattininda munnadeyona.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">Karnataka&#x27;s glorious history, majestic Sahyadri ranges, and verdant forests heighten our land&#x27;s renown. The morning breeze and soothing murmur of rivers bestow tranquility. The wisdom of our poets and splendor of arts enrich our lives. Guarding our cultural and intellectual heritage, let us march forward united.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Evaluate gemination (ದ್ವಿತ್ವ: ಬೆಟ್ಟಗಳು, ಹೆಚ್ಚಿಸಿವೆ, ತರುತ್ತದೆ).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Check retroflex consonant articulation (ಣ, ಳ, ಟ) and smooth Ajanta vowel endings.</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Compare dynamic vocal timbre between alternate speakers Spoorthi and Chetan.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-kn-male-alt.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Shravan Maithili मैथिली male sid10">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Shravan <span class="text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">male</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Maithili (मैथिली) · <span class="font-mono text-slate-500">sid=10</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=10</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-mai-male-alt.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-mai-male-alt.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (303 chars)</span>
+      <button data-copy="%E0%A4%AE%E0%A4%BF%E0%A4%A5%E0%A4%BF%E0%A4%B2%E0%A4%BE%E0%A4%95%20%E0%A4%AA%E0%A4%BE%E0%A4%B5%E0%A4%A8%20%E0%A4%AE%E0%A4%BE%E0%A4%9F%E0%A4%BF%20%E0%A4%AA%E0%A4%B0%20%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8%2C%20%E0%A4%B8%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A4%BE%E0%A4%B0%20%E0%A4%86%20%E0%A4%B2%E0%A5%8B%E0%A4%95-%E0%A4%B8%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF%E0%A4%95%20%E0%A4%85%E0%A4%A8%E0%A5%81%E0%A4%AA%E0%A4%AE%20%E0%A4%A7%E0%A4%BE%E0%A4%B0%E0%A4%BE%20%E0%A4%AF%E0%A5%81%E0%A4%97-%E0%A4%AF%E0%A5%81%E0%A4%97%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%A4%E0%A4%B0%20%E0%A4%B8%E0%A4%82%20%E0%A4%AC%E0%A4%B9%E0%A5%88%E0%A4%A4%20%E0%A4%86%E0%A4%AC%E0%A4%BF%20%E0%A4%B0%E0%A4%B9%E0%A4%B2%20%E0%A4%85%E0%A4%9B%E0%A4%BF.%20%E0%A4%AD%E0%A5%8B%E0%A4%B0%E0%A5%87-%E0%A4%AD%E0%A5%8B%E0%A4%B0%20%E0%A4%AA%E0%A5%8B%E0%A4%96%E0%A4%B0%E0%A4%BF-%E0%A4%AD%E0%A5%80%E0%A4%82%E0%A4%A1%E0%A4%BE%20%E0%A4%AA%E0%A4%B0%20%E0%A4%B6%E0%A5%80%E0%A4%A4%E0%A4%B2%20%E0%A4%AC%E0%A4%AF%E0%A4%BE%E0%A4%B0%20%E0%A4%86%20%E0%A4%AE%E0%A4%A8%E0%A5%8D%E0%A4%A6%E0%A4%BF%E0%A4%B0%E0%A4%95%20%E0%A4%B6%E0%A4%82%E0%A4%96-%E0%A4%A7%E0%A5%8D%E0%A4%B5%E0%A4%A8%E0%A4%BF%20%E0%A4%B8%E0%A4%82%20%E0%A4%AE%E0%A4%A8%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B8%E0%A4%A8%E0%A5%8D%E0%A4%A8%20%E0%A4%AD%E0%A4%BD%20%E0%A4%9C%E0%A4%BE%E0%A4%87%E0%A4%A4%20%E0%A4%85%E0%A4%9B%E0%A4%BF.%20%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%95%E0%A4%B5%E0%A4%BF%20%E0%A4%B5%E0%A4%BF%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AA%E0%A4%A4%E0%A4%BF%E0%A4%95%20%E0%A4%AE%E0%A4%A7%E0%A5%81%E0%A4%B0%20%E0%A4%AA%E0%A4%A6%E0%A4%BE%E0%A4%B5%E0%A4%B2%E0%A5%80%20%E0%A4%86%E0%A4%87%E0%A4%AF%E0%A5%8B%20%E0%A4%9C%E0%A4%A8-%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A4%B8%20%E0%A4%95%E0%A5%87%E0%A4%81%20%E0%A4%AE%E0%A5%81%E0%A4%97%E0%A5%8D%E0%A4%A7%20%E0%A4%95%E0%A4%B0%E0%A5%88%E0%A4%A4%20%E0%A4%85%E0%A4%9B%E0%A4%BF.%20%E0%A4%85%E0%A4%AA%E0%A4%A8%20%E0%A4%AE%E0%A4%A7%E0%A5%81%E0%A4%B0%20%E0%A4%AE%E0%A5%88%E0%A4%A5%E0%A4%BF%E0%A4%B2%E0%A5%80%20%E0%A4%AD%E0%A4%BE%E0%A4%B7%E0%A4%BE%E0%A4%95%20%E0%A4%AE%E0%A4%BE%E0%A4%A8%20%E0%A4%AC%E0%A4%A2%E0%A4%BC%E0%A4%BE%E0%A4%AF%E0%A4%AC%20%E0%A4%86%20%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%9C%E0%A4%95%20%E0%A4%B8%E0%A5%87%E0%A4%B5%E0%A4%BE%20%E0%A4%95%E0%A4%B0%E0%A4%AC%20%E0%A4%B9%E0%A4%AE%E0%A4%B0%20%E0%A4%97%E0%A5%8C%E0%A4%B0%E0%A4%B5%20%E0%A4%85%E0%A4%9B%E0%A4%BF" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">मिथिलाक पावन माटि पर ज्ञान, संस्कार आ लोक-संस्कृतिक अनुपम धारा युग-युगान्तर सं बहैत आबि रहल अछि. भोरे-भोर पोखरि-भींडा पर शीतल बयार आ मन्दिरक शंख-ध्वनि सं मन प्रसन्न भऽ जाइत अछि. महाकवि विद्यापतिक मधुर पदावली आइयो जन-मानस केँ मुग्ध करैत अछि. अपन मधुर मैथिली भाषाक मान बढ़ायब आ समाजक सेवा करब हमर गौरव अछि</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Mithilaak paavan maati par gyaan, sanskaar aa lok-sanskritik anupam dhaara yug-yugaantar san bahait aabi rahal achhi. Bhore-bhor pokhari-bheenda par sheetal bayaar aa mandirak shankh-dhwani san man prasann bha jaait achhi. Mahakavi Vidyapatik madhur padaavali aaiyo jan-maanas ken mugdh karait achhi. Apan madhur Maithili bhaashaak maan badhaayab aa samaajak seva karab hamar gaurav achhi.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">Upon the sacred soil of Mithila, the peerless stream of wisdom, values, and folk traditions has flowed across ages. The morning pond-side breeze and resounding conches bring deep joy. The sweet verses of Mahakavi Vidyapati continue to enchant the soul. Upholding our melodious Maithili tongue and serving society is our enduring pride.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Verify genitive nominal affix -क (मिथिलाक, मन्दिरक, भाषाक).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test classic verbal auxiliaries (बहैत आबि रहल अछि, भऽ जाइत अछि).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Observe dignified, scholarly cadence in Shravan&#x27;s masculine voice.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-mai-male-alt.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Aparna Malayalam മലയാളം female sid11">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Aparna <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">female</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Malayalam (മലയാളം) · <span class="font-mono text-slate-500">sid=11</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=11</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-mal-female.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-mal-female.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (278 chars)</span>
+      <button data-copy="%E0%B4%95%E0%B5%87%E0%B4%B0%E0%B4%B3%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%BF%E0%B4%A8%E0%B5%8D%E0%B4%B1%E0%B5%86%20%E0%B4%AA%E0%B5%8D%E0%B4%B0%E0%B4%95%E0%B5%83%E0%B4%A4%E0%B4%BF%E0%B4%AD%E0%B4%82%E0%B4%97%E0%B4%BF%E0%B4%AF%E0%B5%81%E0%B4%82%20%E0%B4%B6%E0%B4%BE%E0%B4%A8%E0%B5%8D%E0%B4%A4%E0%B4%AE%E0%B4%BE%E0%B4%AF%20%E0%B4%95%E0%B4%BE%E0%B4%AF%E0%B4%B2%E0%B5%81%E0%B4%95%E0%B4%B3%E0%B5%81%E0%B4%82%20%E0%B4%AA%E0%B4%9A%E0%B5%8D%E0%B4%9A%E0%B4%AA%E0%B5%8D%E0%B4%AA%E0%B5%8D%20%E0%B4%A8%E0%B4%BF%E0%B4%B1%E0%B4%9E%E0%B5%8D%E0%B4%9E%20%E0%B4%AE%E0%B4%B2%E0%B4%A8%E0%B4%BF%E0%B4%B0%E0%B4%95%E0%B4%B3%E0%B5%81%E0%B4%82%20%E0%B4%AE%E0%B4%A8%E0%B4%B8%E0%B5%8D%E0%B4%B8%E0%B4%BF%E0%B4%A8%E0%B5%8D%20%E0%B4%B5%E0%B4%B2%E0%B5%8D%E0%B4%B2%E0%B4%BE%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B5%8A%E0%B4%B0%E0%B5%81%20%E0%B4%95%E0%B5%81%E0%B4%B3%E0%B4%BF%E0%B5%BC%E0%B4%AE%20%E0%B4%A8%E0%B5%BD%E0%B4%95%E0%B5%81%E0%B4%A8%E0%B5%8D%E0%B4%A8%E0%B5%81.%20%E0%B4%AA%E0%B5%8D%E0%B4%B0%E0%B4%AD%E0%B4%BE%E0%B4%A4%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%BF%E0%B4%B2%E0%B5%86%20%E0%B4%95%E0%B5%81%E0%B4%B3%E0%B4%BF%E0%B5%BC%E0%B4%95%E0%B4%BE%E0%B4%B1%E0%B5%8D%E0%B4%B1%E0%B5%81%E0%B4%82%20%E0%B4%AA%E0%B4%95%E0%B5%8D%E0%B4%B7%E0%B4%BF%E0%B4%95%E0%B4%B3%E0%B5%81%E0%B4%9F%E0%B5%86%20%E0%B4%AE%E0%B4%A7%E0%B5%81%E0%B4%B0%E0%B4%AE%E0%B4%BE%E0%B4%AF%20%E0%B4%AA%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%81%E0%B4%82%20%E0%B4%AA%E0%B5%81%E0%B4%A4%E0%B4%BF%E0%B4%AF%E0%B5%8A%E0%B4%B0%E0%B5%81%20%E0%B4%89%E0%B4%A3%E0%B5%BC%E0%B4%B5%E0%B5%8D%20%E0%B4%B8%E0%B4%AE%E0%B5%8D%E0%B4%AE%E0%B4%BE%E0%B4%A8%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%81%E0%B4%A8%E0%B5%8D%E0%B4%A8%E0%B5%81.%20%E0%B4%A8%E0%B4%AE%E0%B5%8D%E0%B4%AE%E0%B5%81%E0%B4%9F%E0%B5%86%20%E0%B4%B8%E0%B5%8D%E0%B4%A8%E0%B5%87%E0%B4%B9%E0%B4%B5%E0%B5%81%E0%B4%82%20%E0%B4%B8%E0%B4%BE%E0%B4%B9%E0%B5%8B%E0%B4%A6%E0%B4%B0%E0%B5%8D%E0%B4%AF%E0%B4%B5%E0%B5%81%E0%B4%82%20%E0%B4%95%E0%B4%BE%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B5%81%E0%B4%B8%E0%B5%82%E0%B4%95%E0%B5%8D%E0%B4%B7%E0%B4%BF%E0%B4%9A%E0%B5%8D%E0%B4%9A%E0%B5%8D%20%E0%B4%AE%E0%B5%81%E0%B4%A8%E0%B5%8D%E0%B4%A8%E0%B5%8B%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%8D%20%E0%B4%AA%E0%B5%8B%E0%B4%95%E0%B4%BE%E0%B5%BB%20%E0%B4%A8%E0%B4%AE%E0%B5%81%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%8D%20%E0%B4%B8%E0%B4%BE%E0%B4%A7%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%86" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">കേരളത്തിന്റെ പ്രകൃതിഭംഗിയും ശാന്തമായ കായലുകളും പച്ചപ്പ് നിറഞ്ഞ മലനിരകളും മനസ്സിന് വല്ലാത്തൊരു കുളിർമ നൽകുന്നു. പ്രഭാതത്തിലെ കുളിർകാറ്റും പക്ഷികളുടെ മധുരമായ പാട്ടും പുതിയൊരു ഉണർവ് സമ്മാനിക്കുന്നു. നമ്മുടെ സ്നേഹവും സാഹോദര്യവും കാത്തുസൂക്ഷിച്ച് മുന്നോട്ട് പോകാൻ നമുക്ക് സാധിക്കട്ടെ</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Keralatthinte prakruthibhangiyum shanthamaaya kaayalukalum pachappu niranjo malanirakalum manassinu vallaathoru kulirma nalkunnu. Prabhaathatthile kulirkaattum pakshikalude madhuramaaya paattum puthiyoru unarvu sammaanikkunnu. Nammude snehavum saahodaryavum kaatthusookshicchu munnottu pokaan namukku saadhikkatte.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">Kerala&#x27;s picturesque beauty, peaceful backwaters, and lush hills impart an incomparable soothing freshness to the mind. The brisk morning breeze and melodic birdsong bestow a renewed vitality. May we always preserve our mutual love and brotherhood as we advance forward.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Verify authentic Malayalam chillu letters (ൽ, ർ, ൺ, ൻ) and retroflexes (ള, ഴ, റ).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Check consonant gemination (കേരളത്തിന്റെ, കുളിർകാറ്റും, സമ്മാനിക്കുന്നു).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Observe flowing, rhythmic cadence with natural breathing intervals in Aparna&#x27;s voice.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-mal-female.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Mrunal Marathi मराठी female sid12">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Mrunal <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">female</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Marathi (मराठी) · <span class="font-mono text-slate-500">sid=12</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=12</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-mr-female-alt.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-mr-female-alt.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (374 chars)</span>
+      <button data-copy="%E0%A4%B8%E0%A4%B9%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A5%80%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%A4%E0%A5%81%E0%A4%82%E0%A4%97%20%E0%A4%B0%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A4%BE%20%E0%A4%86%E0%A4%A3%E0%A4%BF%20%E0%A4%B8%E0%A4%82%E0%A4%A4%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B6%E0%A4%BF%E0%A4%95%E0%A4%B5%E0%A4%A3%E0%A5%80%E0%A4%A8%E0%A5%87%20%E0%A4%AA%E0%A4%BE%E0%A4%B5%E0%A4%A8%20%E0%A4%9D%E0%A4%BE%E0%A4%B2%E0%A5%87%E0%A4%B2%E0%A5%80%20%E0%A4%86%E0%A4%AA%E0%A4%B2%E0%A5%80%20%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0%20%E0%A4%AD%E0%A5%82%E0%A4%AE%E0%A5%80%20%E0%A4%AE%E0%A4%A8%E0%A4%BE%E0%A4%B2%E0%A4%BE%20%E0%A4%A8%E0%A5%87%E0%A4%B9%E0%A4%AE%E0%A5%80%E0%A4%9A%20%E0%A4%A8%E0%A4%B5%E0%A5%80%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A5%87%E0%A4%B0%E0%A4%A3%E0%A4%BE%20%E0%A4%A6%E0%A5%87%E0%A4%A4%E0%A5%87.%20%E0%A4%AA%E0%A4%B9%E0%A4%BE%E0%A4%9F%E0%A5%87%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B5%E0%A5%87%E0%A4%B3%E0%A5%80%20%E0%A4%B6%E0%A5%87%E0%A4%A4%E0%A4%BE%E0%A4%82%E0%A4%AE%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A5%87%20%E0%A4%B5%E0%A4%BE%E0%A4%B9%E0%A4%A3%E0%A4%BE%E0%A4%B0%E0%A4%BE%20%E0%A4%B8%E0%A5%81%E0%A4%96%E0%A4%A6%20%E0%A4%97%E0%A4%BE%E0%A4%B0%E0%A4%B5%E0%A4%BE%20%E0%A4%86%E0%A4%A3%E0%A4%BF%20%E0%A4%AA%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A4%BE%20%E0%A4%95%E0%A4%BF%E0%A4%B2%E0%A4%AC%E0%A4%BF%E0%A4%B2%E0%A4%BE%E0%A4%9F%20%E0%A4%A8%E0%A4%B5%E0%A4%BE%20%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%B8%E0%A4%BE%E0%A4%B9%20%E0%A4%A8%E0%A4%BF%E0%A4%B0%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%A3%20%E0%A4%95%E0%A4%B0%E0%A4%A4%E0%A5%8B.%20%E0%A4%86%E0%A4%AA%E0%A4%B2%E0%A4%BE%20%E0%A4%97%E0%A5%8C%E0%A4%B0%E0%A4%B5%E0%A4%B6%E0%A4%BE%E0%A4%B2%E0%A5%80%20%E0%A4%87%E0%A4%A4%E0%A4%BF%E0%A4%B9%E0%A4%BE%E0%A4%B8%20%E0%A4%86%E0%A4%A3%E0%A4%BF%20%E0%A4%B8%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A5%80%20%E0%A4%9C%E0%A4%AA%E0%A4%A4%E0%A4%BE%E0%A4%A8%E0%A4%BE%2C%20%E0%A4%B5%E0%A4%BF%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8%E0%A4%BE%E0%A4%9A%E0%A5%80%20%E0%A4%95%E0%A4%BE%E0%A4%B8%20%E0%A4%A7%E0%A4%B0%E0%A5%82%E0%A4%A8%20%E0%A4%AA%E0%A5%81%E0%A4%A2%E0%A5%87%20%E0%A4%9C%E0%A4%BE%E0%A4%A3%E0%A5%87%20%E0%A4%95%E0%A4%BE%E0%A4%B3%E0%A4%BE%E0%A4%9A%E0%A5%80%20%E0%A4%97%E0%A4%B0%E0%A4%9C%20%E0%A4%86%E0%A4%B9%E0%A5%87.%20%E0%A4%95%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A4%BE%E0%A4%B2%E0%A4%BE%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A3%E0%A4%BF%E0%A4%95%E0%A4%AA%E0%A4%A3%E0%A4%BE%E0%A4%9A%E0%A5%80%20%E0%A4%9C%E0%A5%8B%E0%A4%A1%20%E0%A4%A6%E0%A5%87%E0%A4%8A%E0%A4%A8%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%97%E0%A4%A4%E0%A5%80%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%A6%E0%A4%BF%E0%A4%B6%E0%A5%87%E0%A4%A8%E0%A5%87%20%E0%A4%AA%E0%A4%BE%E0%A4%8A%E0%A4%B2%20%E0%A4%9F%E0%A4%BE%E0%A4%95%E0%A4%A3%E0%A5%87%20%E0%A4%B9%E0%A5%87%E0%A4%9A%20%E0%A4%86%E0%A4%AA%E0%A4%B2%E0%A5%87%20%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A5%87%E0%A4%AF%20%E0%A4%86%E0%A4%B9%E0%A5%87" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">सह्याद्रीच्या उत्तुंग रांगा आणि संतांच्या शिकवणीने पावन झालेली आपली महाराष्ट्र भूमी मनाला नेहमीच नवी प्रेरणा देते. पहाटेच्या वेळी शेतांमध्ये वाहणारा सुखद गारवा आणि पक्षांचा किलबिलाट नवा उत्साह निर्माण करतो. आपला गौरवशाली इतिहास आणि संस्कृती जपताना, विज्ञानाची कास धरून पुढे जाणे काळाची गरज आहे. कष्टाला प्रामाणिकपणाची जोड देऊन प्रगतीच्या दिशेने पाऊल टाकणे हेच आपले ध्येय आहे</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Sahyadrichya uttung raanga aani santanchya shikavanine paavan jhaalelee aapli Maharashtra bhoomi manala nehmeecha navee prerana dete. Pahaatechya velee shetaanmadhye vaahnara sukhad gaarva aani pakshaancha kilbilaat nava utsaah nirmaan karto. Aapla gauravshaalee itihaas aani sanskruti japtaanaa, vijnaanaachee kaas dharoon pudhe jaane kaalaachee garaj aahe. Kashtaala praamaanikpanaachee jod deun pragatichya dishene paool taakne hecha aaple dhyey aahe.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The towering Sahyadri ranges and the teachings of saints make our Maharashtra land an everlasting source of inspiration. The dawn breeze through fields and chirping birds kindle vibrant zeal. Preserving our glorious history and culture while embracing modern science is the call of the hour. Pairing honest labor with dedication toward progress is our highest goal.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Evaluate crisp Marathi dental vs. palatal affricates (झालेली, जोड).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test heavy conjuncts (सह्याद्रीच्या, उत्तुंग, प्रामाणिकपणाची, ध्येय).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Compare tonal balance and authority between alternate speakers Mrunal and Tejas.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-mr-female-alt.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Tejas Marathi मराठी male sid13">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Tejas <span class="text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">male</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Marathi (मराठी) · <span class="font-mono text-slate-500">sid=13</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=13</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-mr-male-alt.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-mr-male-alt.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (374 chars)</span>
+      <button data-copy="%E0%A4%B8%E0%A4%B9%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A5%80%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%A4%E0%A5%81%E0%A4%82%E0%A4%97%20%E0%A4%B0%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A4%BE%20%E0%A4%86%E0%A4%A3%E0%A4%BF%20%E0%A4%B8%E0%A4%82%E0%A4%A4%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B6%E0%A4%BF%E0%A4%95%E0%A4%B5%E0%A4%A3%E0%A5%80%E0%A4%A8%E0%A5%87%20%E0%A4%AA%E0%A4%BE%E0%A4%B5%E0%A4%A8%20%E0%A4%9D%E0%A4%BE%E0%A4%B2%E0%A5%87%E0%A4%B2%E0%A5%80%20%E0%A4%86%E0%A4%AA%E0%A4%B2%E0%A5%80%20%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0%20%E0%A4%AD%E0%A5%82%E0%A4%AE%E0%A5%80%20%E0%A4%AE%E0%A4%A8%E0%A4%BE%E0%A4%B2%E0%A4%BE%20%E0%A4%A8%E0%A5%87%E0%A4%B9%E0%A4%AE%E0%A5%80%E0%A4%9A%20%E0%A4%A8%E0%A4%B5%E0%A5%80%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A5%87%E0%A4%B0%E0%A4%A3%E0%A4%BE%20%E0%A4%A6%E0%A5%87%E0%A4%A4%E0%A5%87.%20%E0%A4%AA%E0%A4%B9%E0%A4%BE%E0%A4%9F%E0%A5%87%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B5%E0%A5%87%E0%A4%B3%E0%A5%80%20%E0%A4%B6%E0%A5%87%E0%A4%A4%E0%A4%BE%E0%A4%82%E0%A4%AE%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A5%87%20%E0%A4%B5%E0%A4%BE%E0%A4%B9%E0%A4%A3%E0%A4%BE%E0%A4%B0%E0%A4%BE%20%E0%A4%B8%E0%A5%81%E0%A4%96%E0%A4%A6%20%E0%A4%97%E0%A4%BE%E0%A4%B0%E0%A4%B5%E0%A4%BE%20%E0%A4%86%E0%A4%A3%E0%A4%BF%20%E0%A4%AA%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A4%BE%20%E0%A4%95%E0%A4%BF%E0%A4%B2%E0%A4%AC%E0%A4%BF%E0%A4%B2%E0%A4%BE%E0%A4%9F%20%E0%A4%A8%E0%A4%B5%E0%A4%BE%20%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%B8%E0%A4%BE%E0%A4%B9%20%E0%A4%A8%E0%A4%BF%E0%A4%B0%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%A3%20%E0%A4%95%E0%A4%B0%E0%A4%A4%E0%A5%8B.%20%E0%A4%86%E0%A4%AA%E0%A4%B2%E0%A4%BE%20%E0%A4%97%E0%A5%8C%E0%A4%B0%E0%A4%B5%E0%A4%B6%E0%A4%BE%E0%A4%B2%E0%A5%80%20%E0%A4%87%E0%A4%A4%E0%A4%BF%E0%A4%B9%E0%A4%BE%E0%A4%B8%20%E0%A4%86%E0%A4%A3%E0%A4%BF%20%E0%A4%B8%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A5%80%20%E0%A4%9C%E0%A4%AA%E0%A4%A4%E0%A4%BE%E0%A4%A8%E0%A4%BE%2C%20%E0%A4%B5%E0%A4%BF%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8%E0%A4%BE%E0%A4%9A%E0%A5%80%20%E0%A4%95%E0%A4%BE%E0%A4%B8%20%E0%A4%A7%E0%A4%B0%E0%A5%82%E0%A4%A8%20%E0%A4%AA%E0%A5%81%E0%A4%A2%E0%A5%87%20%E0%A4%9C%E0%A4%BE%E0%A4%A3%E0%A5%87%20%E0%A4%95%E0%A4%BE%E0%A4%B3%E0%A4%BE%E0%A4%9A%E0%A5%80%20%E0%A4%97%E0%A4%B0%E0%A4%9C%20%E0%A4%86%E0%A4%B9%E0%A5%87.%20%E0%A4%95%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A4%BE%E0%A4%B2%E0%A4%BE%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A3%E0%A4%BF%E0%A4%95%E0%A4%AA%E0%A4%A3%E0%A4%BE%E0%A4%9A%E0%A5%80%20%E0%A4%9C%E0%A5%8B%E0%A4%A1%20%E0%A4%A6%E0%A5%87%E0%A4%8A%E0%A4%A8%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%97%E0%A4%A4%E0%A5%80%E0%A4%9A%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%A6%E0%A4%BF%E0%A4%B6%E0%A5%87%E0%A4%A8%E0%A5%87%20%E0%A4%AA%E0%A4%BE%E0%A4%8A%E0%A4%B2%20%E0%A4%9F%E0%A4%BE%E0%A4%95%E0%A4%A3%E0%A5%87%20%E0%A4%B9%E0%A5%87%E0%A4%9A%20%E0%A4%86%E0%A4%AA%E0%A4%B2%E0%A5%87%20%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A5%87%E0%A4%AF%20%E0%A4%86%E0%A4%B9%E0%A5%87" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">सह्याद्रीच्या उत्तुंग रांगा आणि संतांच्या शिकवणीने पावन झालेली आपली महाराष्ट्र भूमी मनाला नेहमीच नवी प्रेरणा देते. पहाटेच्या वेळी शेतांमध्ये वाहणारा सुखद गारवा आणि पक्षांचा किलबिलाट नवा उत्साह निर्माण करतो. आपला गौरवशाली इतिहास आणि संस्कृती जपताना, विज्ञानाची कास धरून पुढे जाणे काळाची गरज आहे. कष्टाला प्रामाणिकपणाची जोड देऊन प्रगतीच्या दिशेने पाऊल टाकणे हेच आपले ध्येय आहे</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Sahyadrichya uttung raanga aani santanchya shikavanine paavan jhaalelee aapli Maharashtra bhoomi manala nehmeecha navee prerana dete. Pahaatechya velee shetaanmadhye vaahnara sukhad gaarva aani pakshaancha kilbilaat nava utsaah nirmaan karto. Aapla gauravshaalee itihaas aani sanskruti japtaanaa, vijnaanaachee kaas dharoon pudhe jaane kaalaachee garaj aahe. Kashtaala praamaanikpanaachee jod deun pragatichya dishene paool taakne hecha aaple dhyey aahe.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The towering Sahyadri ranges and the teachings of saints make our Maharashtra land an everlasting source of inspiration. The dawn breeze through fields and chirping birds kindle vibrant zeal. Preserving our glorious history and culture while embracing modern science is the call of the hour. Pairing honest labor with dedication toward progress is our highest goal.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Evaluate crisp Marathi dental vs. palatal affricates (झालेली, जोड).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test heavy conjuncts (सह्याद्रीच्या, उत्तुंग, प्रामाणिकपणाची, ध्येय).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Compare tonal balance and authority between alternate speakers Mrunal and Tejas.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-mr-male-alt.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Prerana Nepali नेपाली female sid14">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Prerana <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">female</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Nepali (नेपाली) · <span class="font-mono text-slate-500">sid=14</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=14</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-ne-female.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-ne-female.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (242 chars)</span>
+      <button data-copy="%E0%A4%B9%E0%A4%BF%E0%A4%AE%E0%A4%BE%E0%A4%B2%E0%A4%95%E0%A5%8B%20%E0%A4%95%E0%A4%BE%E0%A4%96%E0%A4%AE%E0%A4%BE%20%E0%A4%85%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%BF%E0%A4%A4%20%E0%A4%B9%E0%A4%BE%E0%A4%AE%E0%A5%8D%E0%A4%B0%E0%A5%8B%20%E0%A4%B8%E0%A5%81%E0%A4%A8%E0%A5%8D%E0%A4%A6%E0%A4%B0%20%E0%A4%A6%E0%A5%87%E0%A4%B6%E0%A4%AE%E0%A4%BE%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A5%8B%20%E0%A4%85%E0%A4%A8%E0%A5%81%E0%A4%AA%E0%A4%AE%20%E0%A4%B5%E0%A4%B0%E0%A4%A6%E0%A4%BE%E0%A4%A8%20%E0%A4%9A%E0%A4%BE%E0%A4%B0%E0%A5%88%E0%A4%A4%E0%A4%BF%E0%A4%B0%20%E0%A4%AB%E0%A5%88%E0%A4%B2%E0%A4%BF%E0%A4%8F%E0%A4%95%E0%A5%8B%20%E0%A4%9B.%20%E0%A4%AC%E0%A4%BF%E0%A4%B9%E0%A4%BE%E0%A4%A8%E0%A5%80%E0%A4%95%E0%A5%8B%20%E0%A4%B8%E0%A5%81%E0%A4%A8%E0%A5%8C%E0%A4%B2%E0%A5%8B%20%E0%A4%98%E0%A4%BE%E0%A4%AE%20%E0%A4%B0%20%E0%A4%B9%E0%A4%BF%E0%A4%89%E0%A4%81%E0%A4%95%E0%A4%BE%20%E0%A4%9A%E0%A5%81%E0%A4%9A%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%B9%E0%A4%B0%E0%A5%82%E0%A4%B2%E0%A5%87%20%E0%A4%AE%E0%A4%A8%E0%A4%AE%E0%A4%BE%20%E0%A4%85%E0%A4%B8%E0%A5%80%E0%A4%AE%20%E0%A4%B6%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%A4%E0%A4%BF%20%E0%A4%B0%20%E0%A4%89%E0%A4%AE%E0%A4%99%E0%A5%8D%E0%A4%97%20%E0%A4%AD%E0%A4%B0%E0%A4%BF%E0%A4%A6%E0%A4%BF%E0%A4%A8%E0%A5%8D%E0%A4%9B%E0%A4%A8%E0%A5%8D.%20%E0%A4%86%E0%A4%AB%E0%A5%8D%E0%A4%A8%E0%A4%BE%20%E0%A4%AE%E0%A5%8C%E0%A4%B2%E0%A4%BF%E0%A4%95%20%E0%A4%AA%E0%A4%B0%E0%A4%AE%E0%A5%8D%E0%A4%AA%E0%A4%B0%E0%A4%BE%2C%20%E0%A4%AD%E0%A4%BE%E0%A4%B7%E0%A4%BE%20%E0%A4%B0%20%E0%A4%B8%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A5%8B%20%E0%A4%B8%E0%A4%82%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%A3%20%E0%A4%97%E0%A4%B0%E0%A5%8D%E0%A4%A6%E0%A5%88%20%E0%A4%B9%E0%A4%BE%E0%A4%AE%E0%A5%80%20%E0%A4%B8%E0%A4%AC%E0%A5%88%20%E0%A4%AE%E0%A4%BF%E0%A4%B2%E0%A5%87%E0%A4%B0%20%E0%A4%85%E0%A4%98%E0%A4%BF%20%E0%A4%AC%E0%A4%A2%E0%A5%8D%E0%A4%A8%E0%A5%81%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%9B" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">हिमालको काखमा अवस्थित हाम्रो सुन्दर देशमा प्रकृतिको अनुपम वरदान चारैतिर फैलिएको छ. बिहानीको सुनौलो घाम र हिउँका चुचुराहरूले मनमा असीम शान्ति र उमङ्ग भरिदिन्छन्. आफ्ना मौलिक परम्परा, भाषा र संस्कृतिको संरक्षण गर्दै हामी सबै मिलेर अघि बढ्नुपर्छ</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Himaalko kaakhmaa avasthit haamro sundar deshmaa prakritiko anupam vardaan chaaraitira phailieko chha. Bihaaniko sunoulo ghaam ra hiunkaa chuchuraaharule manmaa aseem shaanti ra umanga bharidinchhan. Aapnaa maulik paramparaa, bhaashaa ra sanskritiko sanrakshan gardai haamee sabai milera aghi badhnuparchha.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">Nestled in the lap of the Himalayas, our wonderful land is blessed with nature&#x27;s peerless gifts stretching all around. The golden morning sunshine upon snowy peaks fills the heart with infinite peace and jubilation. Preserving our original traditions, language, and culture, let us all progress forward together.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Evaluate distinct Nepali verb agreement forms (भरिदिन्छन्, बढ्नुपर्छ).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Check clear conjunct and nasal articulacy (हिमालको, चुचुराहरूले, उमङ्ग).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Listen for Prerana&#x27;s cheerful, expressive Himalayan speech contour.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-ne-female.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Simran Punjabi ਪੰਜਾਬੀ female sid15">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Simran <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">female</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Punjabi (ਪੰਜਾਬੀ) · <span class="font-mono text-slate-500">sid=15</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=15</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-pan-female.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-pan-female.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (327 chars)</span>
+      <button data-copy="%E0%A8%AA%E0%A9%B0%E0%A8%9C%20%E0%A8%A6%E0%A8%B0%E0%A8%BF%E0%A8%86%E0%A8%B5%E0%A8%BE%E0%A8%82%20%E0%A8%A6%E0%A9%80%20%E0%A8%A7%E0%A8%B0%E0%A8%A4%E0%A9%80%20%E0%A8%AA%E0%A9%B0%E0%A8%9C%E0%A8%BE%E0%A8%AC%20%E0%A8%A6%E0%A9%80%20%E0%A8%B8%E0%A8%BC%E0%A8%BE%E0%A8%A8%2C%20%E0%A8%B9%E0%A8%B0%E0%A9%87-%E0%A8%AD%E0%A8%B0%E0%A9%87%20%E0%A8%96%E0%A9%87%E0%A8%A4%20%E0%A8%85%E0%A8%A4%E0%A9%87%20%E0%A8%AE%E0%A8%BF%E0%A9%B1%E0%A8%A0%E0%A9%80%20%E0%A8%AC%E0%A9%8B%E0%A8%B2%E0%A9%80%20%E0%A8%B9%E0%A8%B0%20%E0%A8%95%E0%A8%BF%E0%A8%B8%E0%A9%87%20%E0%A8%A6%E0%A8%BE%20%E0%A8%A6%E0%A8%BF%E0%A8%B2%20%E0%A8%AE%E0%A9%8B%E0%A8%B9%20%E0%A8%B2%E0%A9%88%E0%A8%82%E0%A8%A6%E0%A9%80%20%E0%A8%B9%E0%A9%88.%20%E0%A8%85%E0%A9%B0%E0%A8%AE%E0%A9%8D%E0%A8%B0%E0%A8%BF%E0%A8%A4%20%E0%A8%B5%E0%A9%87%E0%A8%B2%E0%A9%87%20%E0%A8%A6%E0%A9%80%20%E0%A8%A0%E0%A9%B0%E0%A8%A2%E0%A9%80%20%E0%A8%AA%E0%A9%8C%E0%A8%A3%20%E0%A8%85%E0%A8%A4%E0%A9%87%20%E0%A8%97%E0%A9%81%E0%A8%B0%E0%A8%AC%E0%A8%BE%E0%A8%A3%E0%A9%80%20%E0%A8%A6%E0%A9%87%20%E0%A8%AE%E0%A8%BF%E0%A9%B1%E0%A8%A0%E0%A9%87%20%E0%A8%AC%E0%A9%8B%E0%A8%B2%20%E0%A8%AE%E0%A8%A8%20%E0%A8%B5%E0%A8%BF%E0%A9%B1%E0%A8%9A%20%E0%A8%B8%E0%A8%BC%E0%A8%BE%E0%A8%82%E0%A8%A4%E0%A9%80%20%E0%A8%85%E0%A8%A4%E0%A9%87%20%E0%A8%A8%E0%A8%B5%E0%A9%80%E0%A8%82%20%E0%A8%8A%E0%A8%B0%E0%A8%9C%E0%A8%BE%20%E0%A8%AD%E0%A8%B0%20%E0%A8%A6%E0%A8%BF%E0%A9%B0%E0%A8%A6%E0%A9%87%20%E0%A8%B9%E0%A8%A8.%20%E0%A8%B8%E0%A8%BE%E0%A8%A1%E0%A9%87%20%E0%A8%B5%E0%A8%BF%E0%A8%B0%E0%A8%B8%E0%A9%87%20%E0%A8%A6%E0%A9%80%20%E0%A8%85%E0%A8%AE%E0%A9%80%E0%A8%B0%E0%A9%80%2C%20%E0%A8%97%E0%A8%BF%E0%A9%B1%E0%A8%A7%E0%A8%BE-%E0%A8%AD%E0%A9%B0%E0%A8%97%E0%A9%9C%E0%A8%BE%20%E0%A8%85%E0%A8%A4%E0%A9%87%20%E0%A8%AE%E0%A8%B9%E0%A8%BF%E0%A8%AE%E0%A8%BE%E0%A8%A8-%E0%A8%A8%E0%A8%B5%E0%A8%BE%E0%A8%9C%E0%A8%BC%E0%A9%80%20%E0%A8%AA%E0%A9%82%E0%A8%B0%E0%A9%80%20%E0%A8%A6%E0%A9%81%E0%A8%A8%E0%A9%80%E0%A8%86%20%E0%A8%B5%E0%A8%BF%E0%A9%B1%E0%A8%9A%20%E0%A8%AE%E0%A8%B8%E0%A8%BC%E0%A8%B9%E0%A9%82%E0%A8%B0%20%E0%A8%B9%E0%A8%A8.%20%E0%A8%B8%E0%A8%BE%E0%A8%B0%E0%A9%87%20%E0%A8%B0%E0%A8%B2-%E0%A8%AE%E0%A8%BF%E0%A8%B2%20%E0%A8%95%E0%A9%87%20%E0%A8%AA%E0%A8%BF%E0%A8%86%E0%A8%B0%20%E0%A8%85%E0%A8%A4%E0%A9%87%20%E0%A8%9A%E0%A9%9C%E0%A9%8D%E0%A8%B9%E0%A8%A6%E0%A9%80%20%E0%A8%95%E0%A8%B2%E0%A8%BE%20%E0%A8%A8%E0%A8%BE%E0%A8%B2%20%E0%A8%9C%E0%A8%BC%E0%A8%BF%E0%A9%B0%E0%A8%A6%E0%A8%97%E0%A9%80%20%E0%A8%A6%E0%A9%87%20%E0%A8%B0%E0%A8%BE%E0%A8%B9%20%E0%A8%A4%E0%A9%87%20%E0%A8%85%E0%A9%B1%E0%A8%97%E0%A9%87%20%E0%A8%B5%E0%A8%A7%E0%A9%80%E0%A8%8F" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">ਪੰਜ ਦਰਿਆਵਾਂ ਦੀ ਧਰਤੀ ਪੰਜਾਬ ਦੀ ਸ਼ਾਨ, ਹਰੇ-ਭਰੇ ਖੇਤ ਅਤੇ ਮਿੱਠੀ ਬੋਲੀ ਹਰ ਕਿਸੇ ਦਾ ਦਿਲ ਮੋਹ ਲੈਂਦੀ ਹੈ. ਅੰਮ੍ਰਿਤ ਵੇਲੇ ਦੀ ਠੰਢੀ ਪੌਣ ਅਤੇ ਗੁਰਬਾਣੀ ਦੇ ਮਿੱਠੇ ਬੋਲ ਮਨ ਵਿੱਚ ਸ਼ਾਂਤੀ ਅਤੇ ਨਵੀਂ ਊਰਜਾ ਭਰ ਦਿੰਦੇ ਹਨ. ਸਾਡੇ ਵਿਰਸੇ ਦੀ ਅਮੀਰੀ, ਗਿੱਧਾ-ਭੰਗੜਾ ਅਤੇ ਮਹਿਮਾਨ-ਨਵਾਜ਼ੀ ਪੂਰੀ ਦੁਨੀਆ ਵਿੱਚ ਮਸ਼ਹੂਰ ਹਨ. ਸਾਰੇ ਰਲ-ਮਿਲ ਕੇ ਪਿਆਰ ਅਤੇ ਚੜ੍ਹਦੀ ਕਲਾ ਨਾਲ ਜ਼ਿੰਦਗੀ ਦੇ ਰਾਹ ਤੇ ਅੱਗੇ ਵਧੀਏ</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Panj daryawan di dharti Punjab di shaan, hare-bhare khet ate meethi boli har kise da dil moh laindi hai. Amrit vele di thandhi paun ate Gurbani de meethe bol man vich shanti ate navin oorja bhar dinde han. Saade virse di ameeri, giddha-bhangra ate mehmaan-nawazi poori duniya vich mashhoor han. Saare ral-mil ke pyaar ate chardi kala naal zindagi de raah te agge vadhiye.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The pride of Punjab, the blessed land of five rivers, with its emerald wheat fields and sweet tongue captivates every heart. In the sacred dawn hour (Amrit Vela), the refreshing breeze and sweet hymns instill tranquil peace and renewed energy. Our rich cultural heritage, Giddha, Bhangra, and hospitality are renowned worldwide. Let us stride forward together in high spirits (Chardi Kala).</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Assess Gurmukhi tonal inflection and gemination with Addak (ੱ: ਠੰਢੀ, ਮਿੱਠੀ, ਰਲ-ਮਿਲ).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test Punjabi nasal markers (Tippi ੰ / Bindi ਂ: ਧਰਤੀ, ਪੰਜਾਬ, ਸ਼ਾਂਤੀ).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Compare spirited delivery between female speaker Simran and male speaker Harpreet.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-pan-female.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Harpreet Punjabi ਪੰਜਾਬੀ male sid16">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Harpreet <span class="text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">male</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Punjabi (ਪੰਜਾਬੀ) · <span class="font-mono text-slate-500">sid=16</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=16</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-pan-male.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-pan-male.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (327 chars)</span>
+      <button data-copy="%E0%A8%AA%E0%A9%B0%E0%A8%9C%20%E0%A8%A6%E0%A8%B0%E0%A8%BF%E0%A8%86%E0%A8%B5%E0%A8%BE%E0%A8%82%20%E0%A8%A6%E0%A9%80%20%E0%A8%A7%E0%A8%B0%E0%A8%A4%E0%A9%80%20%E0%A8%AA%E0%A9%B0%E0%A8%9C%E0%A8%BE%E0%A8%AC%20%E0%A8%A6%E0%A9%80%20%E0%A8%B8%E0%A8%BC%E0%A8%BE%E0%A8%A8%2C%20%E0%A8%B9%E0%A8%B0%E0%A9%87-%E0%A8%AD%E0%A8%B0%E0%A9%87%20%E0%A8%96%E0%A9%87%E0%A8%A4%20%E0%A8%85%E0%A8%A4%E0%A9%87%20%E0%A8%AE%E0%A8%BF%E0%A9%B1%E0%A8%A0%E0%A9%80%20%E0%A8%AC%E0%A9%8B%E0%A8%B2%E0%A9%80%20%E0%A8%B9%E0%A8%B0%20%E0%A8%95%E0%A8%BF%E0%A8%B8%E0%A9%87%20%E0%A8%A6%E0%A8%BE%20%E0%A8%A6%E0%A8%BF%E0%A8%B2%20%E0%A8%AE%E0%A9%8B%E0%A8%B9%20%E0%A8%B2%E0%A9%88%E0%A8%82%E0%A8%A6%E0%A9%80%20%E0%A8%B9%E0%A9%88.%20%E0%A8%85%E0%A9%B0%E0%A8%AE%E0%A9%8D%E0%A8%B0%E0%A8%BF%E0%A8%A4%20%E0%A8%B5%E0%A9%87%E0%A8%B2%E0%A9%87%20%E0%A8%A6%E0%A9%80%20%E0%A8%A0%E0%A9%B0%E0%A8%A2%E0%A9%80%20%E0%A8%AA%E0%A9%8C%E0%A8%A3%20%E0%A8%85%E0%A8%A4%E0%A9%87%20%E0%A8%97%E0%A9%81%E0%A8%B0%E0%A8%AC%E0%A8%BE%E0%A8%A3%E0%A9%80%20%E0%A8%A6%E0%A9%87%20%E0%A8%AE%E0%A8%BF%E0%A9%B1%E0%A8%A0%E0%A9%87%20%E0%A8%AC%E0%A9%8B%E0%A8%B2%20%E0%A8%AE%E0%A8%A8%20%E0%A8%B5%E0%A8%BF%E0%A9%B1%E0%A8%9A%20%E0%A8%B8%E0%A8%BC%E0%A8%BE%E0%A8%82%E0%A8%A4%E0%A9%80%20%E0%A8%85%E0%A8%A4%E0%A9%87%20%E0%A8%A8%E0%A8%B5%E0%A9%80%E0%A8%82%20%E0%A8%8A%E0%A8%B0%E0%A8%9C%E0%A8%BE%20%E0%A8%AD%E0%A8%B0%20%E0%A8%A6%E0%A8%BF%E0%A9%B0%E0%A8%A6%E0%A9%87%20%E0%A8%B9%E0%A8%A8.%20%E0%A8%B8%E0%A8%BE%E0%A8%A1%E0%A9%87%20%E0%A8%B5%E0%A8%BF%E0%A8%B0%E0%A8%B8%E0%A9%87%20%E0%A8%A6%E0%A9%80%20%E0%A8%85%E0%A8%AE%E0%A9%80%E0%A8%B0%E0%A9%80%2C%20%E0%A8%97%E0%A8%BF%E0%A9%B1%E0%A8%A7%E0%A8%BE-%E0%A8%AD%E0%A9%B0%E0%A8%97%E0%A9%9C%E0%A8%BE%20%E0%A8%85%E0%A8%A4%E0%A9%87%20%E0%A8%AE%E0%A8%B9%E0%A8%BF%E0%A8%AE%E0%A8%BE%E0%A8%A8-%E0%A8%A8%E0%A8%B5%E0%A8%BE%E0%A8%9C%E0%A8%BC%E0%A9%80%20%E0%A8%AA%E0%A9%82%E0%A8%B0%E0%A9%80%20%E0%A8%A6%E0%A9%81%E0%A8%A8%E0%A9%80%E0%A8%86%20%E0%A8%B5%E0%A8%BF%E0%A9%B1%E0%A8%9A%20%E0%A8%AE%E0%A8%B8%E0%A8%BC%E0%A8%B9%E0%A9%82%E0%A8%B0%20%E0%A8%B9%E0%A8%A8.%20%E0%A8%B8%E0%A8%BE%E0%A8%B0%E0%A9%87%20%E0%A8%B0%E0%A8%B2-%E0%A8%AE%E0%A8%BF%E0%A8%B2%20%E0%A8%95%E0%A9%87%20%E0%A8%AA%E0%A8%BF%E0%A8%86%E0%A8%B0%20%E0%A8%85%E0%A8%A4%E0%A9%87%20%E0%A8%9A%E0%A9%9C%E0%A9%8D%E0%A8%B9%E0%A8%A6%E0%A9%80%20%E0%A8%95%E0%A8%B2%E0%A8%BE%20%E0%A8%A8%E0%A8%BE%E0%A8%B2%20%E0%A8%9C%E0%A8%BC%E0%A8%BF%E0%A9%B0%E0%A8%A6%E0%A8%97%E0%A9%80%20%E0%A8%A6%E0%A9%87%20%E0%A8%B0%E0%A8%BE%E0%A8%B9%20%E0%A8%A4%E0%A9%87%20%E0%A8%85%E0%A9%B1%E0%A8%97%E0%A9%87%20%E0%A8%B5%E0%A8%A7%E0%A9%80%E0%A8%8F" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">ਪੰਜ ਦਰਿਆਵਾਂ ਦੀ ਧਰਤੀ ਪੰਜਾਬ ਦੀ ਸ਼ਾਨ, ਹਰੇ-ਭਰੇ ਖੇਤ ਅਤੇ ਮਿੱਠੀ ਬੋਲੀ ਹਰ ਕਿਸੇ ਦਾ ਦਿਲ ਮੋਹ ਲੈਂਦੀ ਹੈ. ਅੰਮ੍ਰਿਤ ਵੇਲੇ ਦੀ ਠੰਢੀ ਪੌਣ ਅਤੇ ਗੁਰਬਾਣੀ ਦੇ ਮਿੱਠੇ ਬੋਲ ਮਨ ਵਿੱਚ ਸ਼ਾਂਤੀ ਅਤੇ ਨਵੀਂ ਊਰਜਾ ਭਰ ਦਿੰਦੇ ਹਨ. ਸਾਡੇ ਵਿਰਸੇ ਦੀ ਅਮੀਰੀ, ਗਿੱਧਾ-ਭੰਗੜਾ ਅਤੇ ਮਹਿਮਾਨ-ਨਵਾਜ਼ੀ ਪੂਰੀ ਦੁਨੀਆ ਵਿੱਚ ਮਸ਼ਹੂਰ ਹਨ. ਸਾਰੇ ਰਲ-ਮਿਲ ਕੇ ਪਿਆਰ ਅਤੇ ਚੜ੍ਹਦੀ ਕਲਾ ਨਾਲ ਜ਼ਿੰਦਗੀ ਦੇ ਰਾਹ ਤੇ ਅੱਗੇ ਵਧੀਏ</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Panj daryawan di dharti Punjab di shaan, hare-bhare khet ate meethi boli har kise da dil moh laindi hai. Amrit vele di thandhi paun ate Gurbani de meethe bol man vich shanti ate navin oorja bhar dinde han. Saade virse di ameeri, giddha-bhangra ate mehmaan-nawazi poori duniya vich mashhoor han. Saare ral-mil ke pyaar ate chardi kala naal zindagi de raah te agge vadhiye.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The pride of Punjab, the blessed land of five rivers, with its emerald wheat fields and sweet tongue captivates every heart. In the sacred dawn hour (Amrit Vela), the refreshing breeze and sweet hymns instill tranquil peace and renewed energy. Our rich cultural heritage, Giddha, Bhangra, and hospitality are renowned worldwide. Let us stride forward together in high spirits (Chardi Kala).</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Assess Gurmukhi tonal inflection and gemination with Addak (ੱ: ਠੰਢੀ, ਮਿੱਠੀ, ਰਲ-ਮਿਲ).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test Punjabi nasal markers (Tippi ੰ / Bindi ਂ: ਧਰਤੀ, ਪੰਜਾਬ, ਸ਼ਾਂਤੀ).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Compare spirited delivery between female speaker Simran and male speaker Harpreet.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-pan-male.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Vedant Sanskrit संस्कृतम् male sid17">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Vedant <span class="text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">male</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Sanskrit (संस्कृतम्) · <span class="font-mono text-slate-500">sid=17</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=17</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-san-male.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-san-male.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (259 chars)</span>
+      <button data-copy="%E0%A4%85%E0%A4%B8%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%95%E0%A4%82%20%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4%E0%A4%B5%E0%A4%B0%E0%A5%8D%E0%A4%B7%E0%A4%B8%E0%A5%8D%E0%A4%AF%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%9A%E0%A5%80%E0%A4%A8%E0%A4%BE%20%E0%A4%B8%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF%E0%A4%83%20%E0%A4%B5%E0%A4%BF%E0%A4%B6%E0%A5%8D%E0%A4%B5%E0%A5%87%20%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%B5%E0%A4%A4%E0%A5%8D%E0%A4%B0%20%E0%A4%AA%E0%A5%82%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A4%A4%E0%A5%87.%20%E0%A4%85%E0%A4%A4%E0%A5%8D%E0%A4%B0%20%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8%E0%A4%B8%E0%A5%8D%E0%A4%AF%2C%20%E0%A4%A7%E0%A4%B0%E0%A5%8D%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%AF%2C%20%E0%A4%95%E0%A4%B2%E0%A4%BE%E0%A4%AF%E0%A4%BE%E0%A4%83%20%E0%A4%9A%20%E0%A4%85%E0%A4%A8%E0%A5%81%E0%A4%AA%E0%A4%AE%E0%A4%83%20%E0%A4%B8%E0%A4%82%E0%A4%97%E0%A4%AE%E0%A4%83%20%E0%A4%A6%E0%A5%83%E0%A4%B6%E0%A5%8D%E0%A4%AF%E0%A4%A4%E0%A5%87.%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%A4%E0%A4%83%E0%A4%95%E0%A4%BE%E0%A4%B2%E0%A5%87%20%E0%A4%89%E0%A4%A6%E0%A5%80%E0%A4%AF%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A4%83%20%E0%A4%B8%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%83%20%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%B5%E0%A5%87%E0%A4%AD%E0%A5%8D%E0%A4%AF%E0%A4%83%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%A3%E0%A4%BF%E0%A4%AD%E0%A5%8D%E0%A4%AF%E0%A4%83%20%E0%A4%A8%E0%A5%82%E0%A4%A4%E0%A4%A8%E0%A4%AE%E0%A5%8D%20%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%B8%E0%A4%BE%E0%A4%B9%E0%A4%82%20%E0%A4%B6%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%82%20%E0%A4%9A%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AF%E0%A4%9A%E0%A5%8D%E0%A4%9B%E0%A4%A4%E0%A4%BF.%20%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%B5%E0%A5%87%20%E0%A4%AD%E0%A4%B5%E0%A4%A8%E0%A5%8D%E0%A4%A4%E0%A5%81%20%E0%A4%B8%E0%A5%81%E0%A4%96%E0%A4%BF%E0%A4%A8%E0%A4%83%20%E0%A4%87%E0%A4%A4%E0%A4%BF%20%E0%A4%AD%E0%A4%BE%E0%A4%B5%E0%A4%A8%E0%A4%AF%E0%A4%BE%20%E0%A4%B5%E0%A4%AF%E0%A4%82%20%E0%A4%AA%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%AA%E0%A4%B0%E0%A4%82%20%E0%A4%B8%E0%A5%8D%E0%A4%A8%E0%A5%87%E0%A4%B9%E0%A5%87%E0%A4%A8%20%E0%A4%A8%E0%A4%BF%E0%A4%B5%E0%A4%B8%E0%A5%87%E0%A4%AE" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">अस्माकं भारतवर्षस्य प्राचीना संस्कृतिः विश्वे सर्वत्र पूज्यते. अत्र ज्ञानस्य, धर्मस्य, कलायाः च अनुपमः संगमः दृश्यते. प्रातःकाले उदीयमानः सूर्यः सर्वेभ्यः प्राणिभ्यः नूतनम् उत्साहं शान्तिं च प्रयच्छति. सर्वे भवन्तु सुखिनः इति भावनया वयं परस्परं स्नेहेन निवसेम</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Asmaakam Bhaaratavarshasya praacheenaa sanskritih vishwe sarvatra poojyate. Atra jnaanasya, dharmasya, kalaayaah cha anupamah sangamah drishyate. Praatahkaale udeeyamaanah sooryah sarvebhyah praanibhyah nootanam utsaaham shaantim cha prayacchati. Sarve bhavantu sukhinah iti bhaavanayaa vayam parasparam snehena nivasema.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">The ancient culture of our Bharatavarsha is revered throughout the world. Here, a peerless confluence of wisdom, righteousness, and fine arts is witnessed. The morning sun rising in the sky bestows renewed vigor and serene peace upon all living beings. Guided by the noble ideal &#x27;May all beings be happy&#x27;, let us live together in mutual love.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Assess classical Sanskrit pronunciation: visarga (ः), anusvara (ं), and samasa compounds.</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test complex consonant conjuncts (संस्कृतिः, दृश्यते, प्राणिभ्यः, प्रयच्छति).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Evaluate resonance, dignity, and Vedic cadence in Vedant&#x27;s voice.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-san-male.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Kaveri Tamil தமிழ் female sid18">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Kaveri <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">female</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">new</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Tamil (தமிழ்) · <span class="font-mono text-slate-500">sid=18</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=18</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-tam-female.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-tam-female.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (392 chars)</span>
+      <button data-copy="%E0%AE%A8%E0%AE%AE%E0%AF%8D%20%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D%E0%AE%A8%E0%AE%BE%E0%AE%9F%E0%AF%81%20%E0%AE%AA%E0%AE%B4%E0%AE%AE%E0%AF%8D%E0%AE%AA%E0%AF%86%E0%AE%B0%E0%AF%81%E0%AE%AE%E0%AF%88%20%E0%AE%B5%E0%AE%BE%E0%AE%AF%E0%AF%8D%E0%AE%A8%E0%AF%8D%E0%AE%A4%20%E0%AE%AA%E0%AE%A3%E0%AF%8D%E0%AE%AA%E0%AE%BE%E0%AE%9F%E0%AF%81%E0%AE%AE%E0%AF%8D%2C%20%E0%AE%9A%E0%AF%86%E0%AE%B4%E0%AF%81%E0%AE%AE%E0%AF%88%E0%AE%AF%E0%AE%BE%E0%AE%A9%20%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%AF%20%E0%AE%B5%E0%AE%B3%E0%AE%AE%E0%AF%81%E0%AE%AE%E0%AF%8D%20%E0%AE%95%E0%AF%8A%E0%AE%A3%E0%AF%8D%E0%AE%9F%20%E0%AE%9A%E0%AE%BF%E0%AE%B1%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%BE%E0%AE%A9%20%E0%AE%A8%E0%AE%BF%E0%AE%B2%E0%AE%AE%E0%AE%BE%E0%AE%95%E0%AF%81%E0%AE%AE%E0%AF%8D.%20%E0%AE%85%E0%AE%A4%E0%AE%BF%E0%AE%95%E0%AE%BE%E0%AE%B2%E0%AF%88%20%E0%AE%B5%E0%AF%87%E0%AE%B3%E0%AF%88%E0%AE%AF%E0%AE%BF%E0%AE%B2%E0%AF%8D%20%E0%AE%B5%E0%AF%80%E0%AE%9A%E0%AF%81%E0%AE%AE%E0%AF%8D%20%E0%AE%A4%E0%AF%86%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AE%B2%E0%AF%8D%20%E0%AE%95%E0%AE%BE%E0%AE%B1%E0%AF%8D%E0%AE%B1%E0%AF%81%E0%AE%AE%E0%AF%8D%2C%20%E0%AE%AA%E0%AE%B1%E0%AE%B5%E0%AF%88%E0%AE%95%E0%AE%B3%E0%AE%BF%E0%AE%A9%E0%AF%8D%20%E0%AE%87%E0%AE%A9%E0%AE%BF%E0%AE%AF%20%E0%AE%95%E0%AF%81%E0%AE%B0%E0%AE%B2%E0%AF%81%E0%AE%AE%E0%AF%8D%20%E0%AE%89%E0%AE%B3%E0%AF%8D%E0%AE%B3%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AE%BF%E0%AE%B1%E0%AF%8D%E0%AE%95%E0%AF%81%20%E0%AE%85%E0%AE%AE%E0%AF%88%E0%AE%A4%E0%AE%BF%E0%AE%AF%E0%AF%88%E0%AE%AF%E0%AF%81%E0%AE%AE%E0%AF%8D%20%E0%AE%AA%E0%AF%81%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AF%81%E0%AE%A3%E0%AE%B0%E0%AF%8D%E0%AE%9A%E0%AF%8D%E0%AE%9A%E0%AE%BF%E0%AE%AF%E0%AF%88%E0%AE%AF%E0%AF%81%E0%AE%AE%E0%AF%8D%20%E0%AE%A4%E0%AE%B0%E0%AF%81%E0%AE%95%E0%AE%BF%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AE%A9.%20%E0%AE%95%E0%AF%8B%E0%AE%AF%E0%AE%BF%E0%AE%B2%E0%AF%8D%20%E0%AE%95%E0%AF%8B%E0%AE%AA%E0%AF%81%E0%AE%B0%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AE%BF%E0%AE%A9%E0%AF%8D%20%E0%AE%85%E0%AE%B4%E0%AE%95%E0%AF%81%E0%AE%AE%E0%AF%8D%2C%20%E0%AE%AA%E0%AE%B0%E0%AE%A4%E0%AE%A8%E0%AE%BE%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%BF%E0%AE%AF%E0%AE%AE%E0%AF%81%E0%AE%AE%E0%AF%8D%2C%20%E0%AE%A4%E0%AE%BF%E0%AE%B0%E0%AF%81%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AF%81%E0%AE%B1%E0%AE%B3%E0%AE%BF%E0%AE%A9%E0%AF%8D%20%E0%AE%B5%E0%AE%B4%E0%AE%BF%E0%AE%95%E0%AE%BE%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AF%81%E0%AE%A4%E0%AE%B2%E0%AF%81%E0%AE%AE%E0%AF%8D%20%E0%AE%A8%E0%AE%AE%E0%AF%8D%20%E0%AE%AA%E0%AE%A3%E0%AF%8D%E0%AE%AA%E0%AE%BE%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%BF%E0%AE%A9%E0%AF%8D%20%E0%AE%9A%E0%AE%BF%E0%AE%95%E0%AE%B0%E0%AE%AE%E0%AE%BE%E0%AE%95%E0%AF%81%E0%AE%AE%E0%AF%8D.%20%E0%AE%85%E0%AE%A9%E0%AF%8D%E0%AE%AA%E0%AF%81%E0%AE%AE%E0%AF%8D%20%E0%AE%85%E0%AE%B1%E0%AE%AE%E0%AF%81%E0%AE%AE%E0%AF%8D%20%E0%AE%95%E0%AF%8A%E0%AE%A3%E0%AF%8D%E0%AE%9F%E0%AF%81%20%E0%AE%A8%E0%AE%BE%E0%AE%AE%E0%AF%8D%20%E0%AE%85%E0%AE%A9%E0%AF%88%E0%AE%B5%E0%AE%B0%E0%AF%81%E0%AE%AE%E0%AF%8D%20%E0%AE%92%E0%AE%B1%E0%AF%8D%E0%AE%B1%E0%AF%81%E0%AE%AE%E0%AF%88%E0%AE%AF%E0%AF%81%E0%AE%9F%E0%AE%A9%E0%AF%8D%20%E0%AE%B5%E0%AE%BE%E0%AE%B4%E0%AF%8D%E0%AE%A8%E0%AF%8D%E0%AE%A4%E0%AF%81%20%E0%AE%AA%E0%AF%86%E0%AE%B0%E0%AF%81%E0%AE%AE%E0%AF%88%20%E0%AE%9A%E0%AF%87%E0%AE%B0%E0%AF%8D%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AF%8B%E0%AE%AE%E0%AF%8D" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">நம் தமிழ்நாடு பழம்பெருமை வாய்ந்த பண்பாடும், செழுமையான இலக்கிய வளமும் கொண்ட சிறப்பான நிலமாகும். அதிகாலை வேளையில் வீசும் தென்றல் காற்றும், பறவைகளின் இனிய குரலும் உள்ளத்திற்கு அமைதியையும் புத்துணர்ச்சியையும் தருகின்றன. கோயில் கோபுரங்களின் அழகும், பரதநாட்டியமும், திருக்குறளின் வழிகாட்டுதலும் நம் பண்பாட்டின் சிகரமாகும். அன்பும் அறமும் கொண்டு நாம் அனைவரும் ஒற்றுமையுடன் வாழ்ந்து பெருமை சேர்ப்போம்</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Nam Thamizhnaadu pazhamperumai vaaintha panpaadum, sezhumaiyaana ilakkiya valamum konda sirappaana nilamaagum. Athikaalai vaelaiyil veesum thendral kaattrum, paravaigalin iniya kuralum ullathirku amaithiyaiyum puththunarchiyaiyum tharukindrana. Koyil gopurangalin azhagum, Bharathanattiyamum, Thirukkuralin vazhikaattudhalum nam panpaattin sikaramaagum. Anbum aramum kondu naam anaivarum otrumaiyudan vaazhndhu perumai saerppom.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">Our Tamil Nadu is an extraordinary land endowed with time-honored heritage and rich literary wealth. The gentle morning breeze and sweet calls of birds impart deep peace and revitalization to the spirit. The grandeur of temple towers, Bharatanatyam, and the guidance of Thirukkural are the pinnacles of our heritage. Embracing love and righteousness, let us live in harmony and bring glory to our land.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Check characteristic Tamil retroflex liquid (ழ: தமிழ்நாடு, செழுமையான, வாழ்ந்து, வழிகாட்டுதல்).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test alveolar tap/trill vs retroflex flap (ர vs ற, ல vs ள vs ழ).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Listen for pure natural prosody and balanced articulation in Kaveri&#x27;s voice.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-tam-female.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
+<div class="rasa-card p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3.5 shadow-lg hover:border-slate-700/80 transition-colors" data-search="Harini Telugu తెలుగు female sid19">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <div class="font-bold text-white text-base flex items-center gap-2">
+        Harini <span class="text-xs font-semibold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">female</span>
+         <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">alternate</span>
+      </div>
+      <div class="text-xs text-slate-400 mt-0.5">Telugu (తెలుగు) · <span class="font-mono text-slate-500">sid=19</span> · 24 kHz</div>
+    </div>
+    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">sid=19</span>
+  </div>
+
+  <div class="space-y-1.5">
+    <div class="text-[11px] text-slate-400 flex items-center justify-between">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+        <span>Synthesized Voice Sample (~11–22s)</span>
+      </span>
+      <a href="samples/vits-rasa-te-female-alt.mp3" download class="text-[11px] text-blue-400 hover:text-blue-300 underline font-medium">Download MP3</a>
+    </div>
+    <audio controls preload="none" class="w-full h-9 rounded-lg bg-slate-900 border border-slate-800">
+      <source src="samples/vits-rasa-te-female-alt.mp3" type="audio/mpeg">
+      No audio playback.
+    </audio>
+  </div>
+
+  <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-1.5">
+    <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400 flex items-center justify-between">
+      <span>Test Passage (269 chars)</span>
+      <button data-copy="%E0%B0%AE%E0%B0%A8%20%E0%B0%A4%E0%B1%86%E0%B0%B2%E0%B1%81%E0%B0%97%E0%B1%81%20%E0%B0%A8%E0%B1%87%E0%B0%B2%20%E0%B0%B8%E0%B0%82%E0%B0%B8%E0%B1%8D%E0%B0%95%E0%B1%83%E0%B0%A4%E0%B0%BF%2C%20%E0%B0%B8%E0%B0%82%E0%B0%AA%E0%B1%8D%E0%B0%B0%E0%B0%A6%E0%B0%BE%E0%B0%AF%E0%B0%BE%E0%B0%B2%E0%B1%81%20%E0%B0%AE%E0%B0%B0%E0%B0%BF%E0%B0%AF%E0%B1%81%20%E0%B0%AE%E0%B0%A7%E0%B1%81%E0%B0%B0%E0%B0%AE%E0%B1%88%E0%B0%A8%20%E0%B0%B8%E0%B0%BE%E0%B0%B9%E0%B0%BF%E0%B0%A4%E0%B1%8D%E0%B0%AF%E0%B0%BE%E0%B0%A8%E0%B0%BF%E0%B0%95%E0%B0%BF%20%E0%B0%AA%E0%B1%86%E0%B0%9F%E0%B1%8D%E0%B0%9F%E0%B0%BF%E0%B0%82%E0%B0%A6%E0%B0%BF%20%E0%B0%AA%E0%B1%87%E0%B0%B0%E0%B1%81.%20%E0%B0%97%E0%B1%8B%E0%B0%A6%E0%B0%BE%E0%B0%B5%E0%B0%B0%E0%B0%BF%2C%20%E0%B0%95%E0%B1%83%E0%B0%B7%E0%B1%8D%E0%B0%A3%E0%B0%BE%20%E0%B0%A8%E0%B0%A6%E0%B1%81%E0%B0%B2%20%E0%B0%A4%E0%B1%80%E0%B0%B0%E0%B0%BE%E0%B0%B2%E0%B0%B2%E0%B1%8B%20%E0%B0%89%E0%B0%A6%E0%B0%AF%E0%B0%BF%E0%B0%82%E0%B0%9A%E0%B1%87%20%E0%B0%AD%E0%B0%BE%E0%B0%A8%E0%B1%81%E0%B0%A8%E0%B0%BF%20%E0%B0%95%E0%B0%BF%E0%B0%B0%E0%B0%A3%E0%B0%BE%E0%B0%B2%E0%B1%81%20%E0%B0%AA%E0%B1%8D%E0%B0%B0%E0%B0%95%E0%B1%83%E0%B0%A4%E0%B0%BF%E0%B0%95%E0%B0%BF%20%E0%B0%B8%E0%B0%B0%E0%B0%BF%E0%B0%95%E0%B1%8A%E0%B0%A4%E0%B1%8D%E0%B0%A4%20%E0%B0%85%E0%B0%82%E0%B0%A6%E0%B0%BE%E0%B0%A8%E0%B1%8D%E0%B0%A8%E0%B0%BF%20%E0%B0%A4%E0%B1%86%E0%B0%9A%E0%B1%8D%E0%B0%9A%E0%B0%BF%E0%B0%AA%E0%B1%86%E0%B0%A1%E0%B0%A4%E0%B0%BE%E0%B0%AF%E0%B0%BF.%20%E0%B0%AE%E0%B0%A8%20%E0%B0%AA%E0%B1%86%E0%B0%A6%E0%B1%8D%E0%B0%A6%E0%B0%B2%20%E0%B0%85%E0%B0%A8%E0%B1%81%E0%B0%AD%E0%B0%B5%E0%B0%BE%E0%B0%B2%E0%B1%81%20%E0%B0%AE%E0%B0%B0%E0%B0%BF%E0%B0%AF%E0%B1%81%20%E0%B0%B8%E0%B0%A6%E0%B1%8D%E0%B0%97%E0%B1%81%E0%B0%A3%E0%B0%BE%E0%B0%B2%E0%B0%A8%E0%B1%81%20%E0%B0%97%E0%B1%8C%E0%B0%B0%E0%B0%B5%E0%B0%BF%E0%B0%B8%E0%B1%8D%E0%B0%A4%E0%B1%82%2C%20%E0%B0%AE%E0%B0%A8%E0%B0%AE%E0%B0%82%E0%B0%A6%E0%B0%B0%E0%B0%82%20%E0%B0%95%E0%B0%B2%E0%B0%B8%E0%B0%BF%E0%B0%95%E0%B0%9F%E0%B1%8D%E0%B0%9F%E0%B1%81%E0%B0%97%E0%B0%BE%20%E0%B0%AA%E0%B1%8D%E0%B0%B0%E0%B0%97%E0%B0%A4%E0%B0%BF%20%E0%B0%AA%E0%B0%A5%E0%B0%82%E0%B0%B2%E0%B1%8B%20%E0%B0%AE%E0%B1%81%E0%B0%82%E0%B0%A6%E0%B1%81%E0%B0%95%E0%B1%81%20%E0%B0%B8%E0%B0%BE%E0%B0%97%E0%B1%81%E0%B0%A6%E0%B0%BE%E0%B0%82" onclick="copyText(this)" class="text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold">Copy</button>
+    </div>
+    <div class="text-sm font-medium text-slate-100 leading-relaxed select-all">మన తెలుగు నేల సంస్కృతి, సంప్రదాయాలు మరియు మధురమైన సాహిత్యానికి పెట్టింది పేరు. గోదావరి, కృష్ణా నదుల తీరాలలో ఉదయించే భానుని కిరణాలు ప్రకృతికి సరికొత్త అందాన్ని తెచ్చిపెడతాయి. మన పెద్దల అనుభవాలు మరియు సద్గుణాలను గౌరవిస్తూ, మనమందరం కలసికట్టుగా ప్రగతి పథంలో ముందుకు సాగుదాం</div>
+  </div>
+
+  <details class="text-xs text-slate-400 group">
+    <summary class="cursor-pointer select-none text-slate-400 hover:text-slate-200 font-medium flex items-center justify-between py-1 text-[11px]">
+      <span>Pronunciation, Meaning & Rubric</span>
+      <span class="text-slate-500 group-open:rotate-180 transition-transform text-[10px]">▼</span>
+    </summary>
+    <div class="mt-2 space-y-2 pt-2 border-t border-slate-800/60 text-[11px]">
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">Transliteration:</div>
+        <div class="italic text-slate-300 leading-relaxed">Mana Telugu nela sanskruthi, sampradaayaalu mariyu madhuramaina saahityaaniki pettindi peru. Godavari, Krishnaa nadula theeraalalo udayinche bhaanuni kiranaalu prakruthiki sarikottha andaanni thecchipadathaayi. Mana peddala anubhavaalu mariyu sadgunaalanu gouravistoo, manamandaram kalasikattugaa pragathi pathamlo munduku saagudaam.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">English Meaning:</div>
+        <div class="text-slate-400 leading-relaxed">Our Telugu land is famed for its rich culture, time-honored traditions, and melodious literature. The golden rays of the morning sun shining along the banks of the Godavari and Krishna rivers bring enchanting beauty to nature. Respecting the wisdom of our elders and noble virtues, let us all journey forward united on the path of progress.</div>
+      </div>
+      <div>
+        <div class="uppercase font-mono text-[10px] text-slate-500 mb-0.5">What to listen for:</div>
+        <ul class="space-y-1 text-slate-400"><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Test graceful Ajanta (vowel-ending) syllable flow and rhythmic cadence.</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Assess conjunct clusters and retroflex consonants (సంప్రదాయాలు, సరికొత్త, కలసికట్టుగా).</span></li><li class="flex items-start gap-1.5"><span class="text-emerald-400 font-bold">•</span><span>Evaluate Harini&#x27;s bright, lyrical female articulation.</span></li></ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="flex items-center gap-2 pt-1 border-t border-slate-900 text-[11px]">
+    <a class="text-blue-400 hover:text-blue-300 underline" href="samples/vits-rasa-te-female-alt.mp3" download>MP3 sample</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-model.onnx">FP16 ONNX 59.5MB</a>
+    <span class="text-slate-700">·</span>
+    <a class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener" href="https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/v2.0.0-rasa-fp16/vits-rasa-13-tokens.txt">tokens.txt</a>
+  </div>
+</div>
       </div>
       <p class="text-[11px] text-slate-500">Tip: search above filters these cards too. CLI needs <code class="font-mono">--sid=&lt;id&gt;</code> (e.g. Tamil Kaveri is <code class="font-mono">sid=18</code>). Full sid table in <code class="font-mono">voices.json</code> and the README.</p>
     </section>
