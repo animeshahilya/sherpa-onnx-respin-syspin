@@ -73,6 +73,8 @@ For phones where the full voices run near real time on the CPU (long text pauses
 | Kaveri (Rasa Tamil) | 1.2x | 2.3x |
 | LJSpeech (Piper high) | 1.3x | 2.3x |
 
+Not offered for Piper's own Standard (medium) voices: their decoder is ~7x lighter, and INT8 gave no speed there (Priyamvada 22.0x -> 21.7x real time on CPU), only a smaller file.
+
 `build_compact.py MODEL CONFIG OUT` converts one voice and verifies it against the original decoder (SNR, spectral distance, CPU speed). Not converted: en_US-lessac (Blizzard licence) and en_US-ryan (CC BY-NC-SA); es_MX-claude and en_US-libritts (older exports with unnamed nodes, so the decoder can't be found). Piper Compact voices keep their original licences (see each entry in the catalog).
 
 ## Quickstart

@@ -100,6 +100,10 @@ def quantize(fp32: Path, out: Path, config, sid):
     m = onnx.load(str(fp32))
     names = [i.name for i in m.graph.input]
     exclude = [n.name for n in m.graph.node if not n.name.startswith(DECODER_PREFIXES)]
+    if len(exclude) == len(m.graph.node):
+        # Older exports with unnamed nodes (es_MX-claude, en_US-libritts high):
+        # nothing to quantize, and the "Compact" file would just be FP16.
+        raise SystemExit(f"{fp32.name}: no named decoder nodes; not convertible")
     exclude += last_stage(m)
 
     class Reader(CalibrationDataReader):
