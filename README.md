@@ -136,6 +136,7 @@ If a voice sounds wrong, check in order: (1) `tokens.txt` paired with the right 
 | `export_respin_syspin_to_onnx.py` | HF Coqui checkpoint → sherpa-onnx ONNX + `tokens.txt` + metadata |
 | `hindi_frontend.py` | Optional Hindi schwa/numeral/punctuation normalizer |
 | `build_rasa_stock.py` | Rasa pipeline: download ungated export → freeze emotion + metadata fix → FP16 → sherpa-onnx verify |
+| `build_piper_configs.py` | Piper `.onnx.json` configs (`phoneme_type: text`) for all 42 voices + catalog entries, released as `piper-v1` for the [espeak-ng Android fork](https://github.com/animeshahilya/espeak-ng) |
 | `export_rasa_to_onnx.py` | From-scratch Rasa exporter (needs gated HF access; normally not needed) |
 | `samples/` | 22 × `.mp3` + `all_22_voices_showcase.mp3` |
 

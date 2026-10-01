@@ -8,7 +8,8 @@ pack scales, rename inputs) -> weight-only FP16 -> ORT verify.
   python build_rasa_stock.py --download   # fetch model.onnx + tokens.txt only
   python build_rasa_stock.py --surgery    # stock-compatible FP32
   python build_rasa_stock.py --fp16       # 59.5MB release asset
-  python build_rasa_stock.py --verify     # ORT smoke test (12 priority sids)
+  python build_rasa_stock.py --piper      # Piper-layout copy (input/input_lengths/scales/sid)
+  python build_rasa_stock.py --verify     # sherpa-onnx smoke test (12 priority sids)
 
 Outputs: vits-rasa-13/model.onnx (+tokens.txt, committed), release asset
 release_assets_rasa/vits-rasa-13-model.onnx (uploaded to GitHub Release, not git).
@@ -93,6 +94,54 @@ def cmd_surgery():
     print(f"stock model: {dst} ({dst.stat().st_size / 1024 / 1024:.1f} MB), checker OK")
 
 
+def cmd_piper():
+    """Piper-layout copy (input, input_lengths, scales, sid) for apps that feed
+    VITS the way Piper does, e.g. the espeak-ng Android fork's natural voices.
+    Same weights as the sherpa asset; only the input wiring differs."""
+    import onnx
+    from onnx import helper, numpy_helper
+    import numpy as np
+    from build_fp16_60mb import convert_weight_fp16
+
+    src = OUT_DIR / "model.onnx"
+    assert src.exists(), "run --surgery first"
+    m = onnx.load(str(src))
+    g = m.graph
+    scalars = ["noise_scale", "length_scale", "noise_scale_w"]
+    for k, name in enumerate(scalars):
+        g.initializer.append(numpy_helper.from_array(np.array(k, dtype=np.int64), name=f"scales_idx_{k}"))
+        g.node.insert(0, helper.make_node("Gather", ["scales", f"scales_idx_{k}"], [name], name=f"PackScales_{name}"))
+    ren = {"x": "input", "x_length": "input_lengths"}
+    for n in g.node:
+        for j, s in enumerate(n.input):
+            if s in ren:
+                n.input[j] = ren[s]
+    by_name = {i.name: i for i in g.input}
+    for old, new_name in ren.items():
+        by_name[old].name = new_name
+    order = [by_name["x"], by_name["x_length"],
+             helper.make_tensor_value_info("scales", onnx.TensorProto.FLOAT, [3]), by_name["sid"]]
+    del g.input[:]
+    g.input.extend(order)
+    # Piper names the audio "output"; the export calls it "y".
+    for n in g.node:
+        for j, o in enumerate(n.output):
+            if o == "y":
+                n.output[j] = "output"
+    g.output[0].name = "output"
+    tmp = ASSETS / "piper_fp32.tmp.onnx"
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    onnx.save(m, str(tmp))
+    onnx.checker.check_model(str(tmp))
+    dst = ASSETS / "vits-rasa-13-piper-model.onnx"
+    convert_weight_fp16(tmp, dst)
+    tmp.unlink()
+    out = onnx.load(str(dst)).graph
+    assert [i.name for i in out.input] == ["input", "input_lengths", "scales", "sid"]
+    assert [o.name for o in out.output] == ["output"]
+    print(f"piper asset: {dst} ({dst.stat().st_size / 1024 / 1024:.1f} MB)")
+
+
 def cmd_fp16():
     from build_fp16_60mb import convert_weight_fp16
     src = OUT_DIR / "model.onnx"
@@ -141,10 +190,11 @@ if __name__ == "__main__":
     ap.add_argument("--surgery", action="store_true")
     ap.add_argument("--fp16", action="store_true")
     ap.add_argument("--verify", action="store_true")
+    ap.add_argument("--piper", action="store_true")
     a = ap.parse_args()
     steps = []
     if a.all:
-        steps = [cmd_download, cmd_surgery, cmd_fp16, cmd_verify]
+        steps = [cmd_download, cmd_surgery, cmd_fp16, cmd_piper, cmd_verify]
     else:
         if a.download:
             steps.append(cmd_download)
@@ -152,6 +202,8 @@ if __name__ == "__main__":
             steps.append(cmd_surgery)
         if a.fp16:
             steps.append(cmd_fp16)
+        if a.piper:
+            steps.append(cmd_piper)
         if a.verify:
             steps.append(cmd_verify)
     if not steps:
