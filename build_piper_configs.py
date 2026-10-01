@@ -12,7 +12,8 @@ trained with (plus one extra blank at each end). Rasa voices are single-speaker
 views of the shared multi-speaker file: num_speakers 1, default_speaker_id = sid.
 
 Languages eSpeak NG has no voice for (Bhojpuri, Chhattisgarhi, Magahi,
-Maithili, Sanskrit, Bodo, Dogri) are listed under Hindi, named "<Name> <Language>".
+Maithili, Sanskrit, Bodo, Dogri) keep their own language; the app gives each
+its own TTS voice, with eSpeak's Hindi rules as the stand-in.
 
   python build_piper_configs.py
 """
@@ -42,10 +43,14 @@ LANGS = {
     "pan": ("pa", "IN", "ਪੰਜਾਬੀ", "Punjabi", "India"),
     "ne": ("ne", "NP", "नेपाली", "Nepali", "Nepal"),
     "tam": ("ta", "IN", "தமிழ்", "Tamil", "India"),
+    "bho": ("bho", "IN", "भोजपुरी", "Bhojpuri", "India"),
+    "hne": ("hne", "IN", "छत्तीसगढ़ी", "Chhattisgarhi", "India"),
+    "mag": ("mag", "IN", "मगही", "Magahi", "India"),
+    "mai": ("mai", "IN", "मैथिली", "Maithili", "India"),
+    "san": ("sa", "IN", "संस्कृतम्", "Sanskrit", "India"),
+    "brx": ("brx", "IN", "बड़ो", "Bodo", "India"),
+    "doi": ("doi", "IN", "डोगरी", "Dogri", "India"),
 }
-# No eSpeak NG language: read Devanagari, so they join Hindi.
-UNDER_HINDI = {"bho": "bhojpuri", "hne": "chhattisgarhi", "mag": "magahi", "mai": "maithili",
-               "san": "sanskrit", "brx": "bodo", "doi": "dogri"}
 
 
 def read_tokens(path):
@@ -72,11 +77,7 @@ def main():
         for v in group["voices"]:
             rasa = v.get("engine") == "rasa"
             slug = v["displayName"].lower()
-            if lc in UNDER_HINDI:
-                slug += "_" + UNDER_HINDI[lc]
-                family, region, native, english, country = LANGS["hi"]
-            else:
-                family, region, native, english, country = LANGS[lc]
+            family, region, native, english, country = LANGS[lc]
             code = f"{family}_{region}"
             key = f"{code}-{slug}-medium"
 
