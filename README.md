@@ -110,7 +110,7 @@ a = tts.generate("नमस्ते आप कैसे हैं", sid=0, spee
 sf.write("out.wav", a.samples, tts.sample_rate)
 ```
 
-**Recommended config (all 22 voices):** `noise_scale=0.667, noise_scale_w=0.8, length_scale=1.0, sid=0, speed=1.0, provider=cpu, num_threads=2–4`, `sample_rate=22050`. Single-speaker files — always `sid=0`.
+**Recommended config (all 22 SYSPIN voices):** `noise_scale=0.667, noise_scale_w=0.8, length_scale=1.0, sid=0, speed=1.0, provider=cpu, num_threads=2–4`, `sample_rate=22050`. Single-speaker files — always `sid=0`. Rasa voices use the same scales at 24000 Hz with per-voice `sid` 0–19.
 
 ## SherpaVoices (Android, fully offline)
 
@@ -130,7 +130,7 @@ sf.write("out.wav", a.samples, tts.sample_rate)
 - **Don’t do full-FP16 compute** — breaks onnxruntime CPU (Cast/Shape errors).
 - Samples are 64 kbps mono MP3 with `preload="none"`; consider Opus 24 kbps for ~40% further saving (see Optimizations below).
 
-## Config audit (all 22 voices pass)
+## Config audit (all 22 SYSPIN voices pass; 20 Rasa sids verified separately via `build_rasa_stock.py --verify`)
 
 - ONNX metadata (set in `export_respin_syspin_to_onnx.py`): `model_type=vits, comment=coqui, frontend=characters, language=<Name>, sample_rate=22050` + `add_blank/blank_id/n_speakers/use_eos_bos/bos_id/eos_id/pad_id`. Correct for sherpa-onnx character VITS.
 - `tokens.txt`: every file has `<PAD> 0`, `<BLNK>` last, a space entry, and script coverage (halant + danda for Devanagari langs, language script chars, a–Z + punctuation for `en`). ID gaps (e.g. hi-female 116 lines, max id 121) are **expected** — pruned Coqui vocab, not corruption.
@@ -153,7 +153,7 @@ If a voice sounds wrong, check in order: (1) `tokens.txt` paired with the right 
 | `build_compact.py` | Compact tier: INT8 decoder only, last stage float, self-verifying |
 | `build_piper_configs.py` | Piper `.onnx.json` configs (`phoneme_type: text`) for all 42 voices + catalog entries, released as `piper-v1` for the [espeak-ng Android fork](https://github.com/animeshahilya/espeak-ng) |
 | `export_rasa_to_onnx.py` | From-scratch Rasa exporter (needs gated HF access; normally not needed) |
-| `samples/` | 22 × `.mp3` + `all_22_voices_showcase.mp3` |
+| `samples/` | 42 × `.mp3` (22 SYSPIN + 20 Rasa) + `all_22_voices_showcase.mp3` (SYSPIN showcase) |
 
 Regenerate page: `python build_dashboard.py`.
 

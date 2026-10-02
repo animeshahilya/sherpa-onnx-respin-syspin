@@ -356,10 +356,10 @@ HTML_HEAD = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SYSPIN / RESPIN Indian Voices — 22 Offline TTS Voices for sherpa-onnx</title>
+  <title>SYSPIN / RESPIN Indian Voices — 42 Offline TTS Voices for sherpa-onnx</title>
   <meta name="description" content="42 lightweight offline VITS voices (22 SYSPIN + 20 Rasa, 19 language entries) for sherpa-onnx. Named voices, FP16, listen and download.">
   <meta property="og:title" content="SYSPIN / RESPIN Indian Voices — Listen & Download">
-  <meta property="og:description" content="Hindi, Bengali, Telugu, Kannada, Marathi, Gujarati, Bhojpuri, Chhattisgarhi, Maithili, Magahi + Indian English. Named voices, 22050 Hz, ~55 MB FP16 each.">
+  <meta property="og:description" content="Hindi, Bengali, Telugu, Kannada, Marathi, Gujarati, Bhojpuri, Chhattisgarhi, Maithili, Magahi + Indian English + Tamil, Malayalam, Punjabi, Assamese, Nepali, Sanskrit, Bodo, Dogri via Rasa. Named voices, 22050/24000 Hz, FP16 each.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#020617">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
@@ -384,11 +384,11 @@ BODY_TOP = """<body class="bg-slate-950 text-slate-100 antialiased p-4 md:p-8 mi
           <div class="flex flex-wrap items-center gap-2">
             <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">42 named voices</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">19 language entries &bull; 2 engines</span>
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">sherpa-onnx VITS &bull; 22050 Hz</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">sherpa-onnx VITS &bull; 22050/24000 Hz</span>
           </div>
           <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">SYSPIN / RESPIN Indian Voices</h1>
           <p class="text-sm text-slate-400 max-w-3xl">Lightweight offline TTS from IISc Bengaluru SPIRE Lab, converted to <span class="text-slate-200 font-medium">weight-only FP16 (~55 MB each)</span> for <a class="text-blue-400 underline" href="https://github.com/k2-fsa/sherpa-onnx">sherpa-onnx</a> and <a class="text-blue-400 underline" href="https://github.com/animeshahilya/SherpaVoices">SherpaVoices</a>. Each voice now has a proper name — e.g. <span class="text-slate-200">Kavya (Hindi Female)</span>, <span class="text-slate-200">Vihaan (Hindi Male)</span> — instead of Voice 1 / Voice 2.</p>
-          <p class="text-xs text-slate-500">Source repo: <a href="https://github.com/REPO" class="font-mono text-blue-400 underline">REPO</a> &middot; Release <span class="font-mono">TAG</span> &middot; <a href="#about" class="underline">About this project</a> &middot; <a href="#all-voices" class="underline">All-voices table</a></p>
+          <p class="text-xs text-slate-500">Source repo: <a href="https://github.com/REPO" class="font-mono text-blue-400 underline">REPO</a> &middot; Releases <span class="font-mono">TAG</span> + <span class="font-mono">RASATAG</span> &middot; <a href="#about" class="underline">About this project</a> &middot; <a href="#all-voices" class="underline">All-voices table</a></p>
         </div>
         <div class="flex flex-wrap gap-2 text-xs">
           <div class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700"><div class="text-slate-400">Precision</div><div class="font-bold text-slate-200">FP16 weights, FP32 compute</div></div>
@@ -405,7 +405,7 @@ BODY_TOP = """<body class="bg-slate-950 text-slate-100 antialiased p-4 md:p-8 mi
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div class="space-y-1">
           <div class="flex items-center gap-2">
-            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">🎙️ Master showcase — all 22 voices</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">🎙️ Master showcase — all 22 SYSPIN voices</span>
             <span class="text-xs text-slate-400">~3m 48s &middot; one continuous stream</span>
           </div>
           <p class="text-xs text-slate-300">Each speaker introduces themselves in their native script for sherpa-onnx offline synthesis. One file, quick comparison.</p>
@@ -434,7 +434,7 @@ __RASA_CARDS__
       </div>
       <p class="text-[11px] text-slate-500">Tip: search above filters these cards too. CLI needs <code class="font-mono">--sid=&lt;id&gt;</code> (e.g. Tamil Kaveri is <code class="font-mono">sid=18</code>). Full sid table in <code class="font-mono">voices.json</code> and the README.</p>
     </section>
-""".replace("REPO", REPO).replace("TAG", RELEASE_TAG).replace("RASATAG", RASA_TAG)
+""".replace("REPO", REPO).replace("RASATAG", RASA_TAG).replace("TAG", RELEASE_TAG)
 
 BODY_MID = """
     <section id="about" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
@@ -493,10 +493,10 @@ BODY_END = """
 
     <footer class="text-xs text-slate-500 flex flex-col md:flex-row justify-between gap-2 pb-6">
       <span>Voices: SPIRE Lab, IISc Bengaluru (RESPIN/SYSPIN, via HuggingFace SYSPIN). Runtime: k2-fsa/sherpa-onnx (Apache-2.0). Converter: this repo (see export + FP16 scripts).</span>
-      <span><a class="underline" href="https://github.com/REPO">Repo</a> &middot; <a class="underline" href="https://github.com/REPO/releases/tag/TAG">Release TAG</a> &middot; <a class="underline" href="voices.json">voices.json</a></span>
+      <span><a class="underline" href="https://github.com/REPO">Repo</a> &middot; <a class="underline" href="https://github.com/REPO/releases/tag/TAG">Release TAG</a> + <a class="underline" href="https://github.com/REPO/releases/tag/RASATAG">RASATAG</a> &middot; <a class="underline" href="voices.json">voices.json</a></span>
     </footer>
   </div>
-""".replace("REPO", REPO).replace("TAG", RELEASE_TAG)
+""".replace("REPO", REPO).replace("RASATAG", RASA_TAG).replace("TAG", RELEASE_TAG)
 
 
 def build_table_rows():
@@ -523,7 +523,7 @@ def build_html():
     js = """<script>
     const VOICES_DATA = __DATA__;
     const SPEAKERS = __SPK__;
-    const RELEASE = { repo: "__REPO__", tag: "__TAG__" };
+    const RELEASE = { repo: "__REPO__", tag: "__TAG__", rasaTag: "__RASATAG__" };
     let currentLangIdx = 0;
     const q = new URLSearchParams(location.search).get("lang");
     if (q) { const i = VOICES_DATA.findIndex(v => v.id === q); if (i >= 0) currentLangIdx = i; }
@@ -598,7 +598,7 @@ def build_html():
       }
     });
     renderTabs(); renderActive();
-  </script>""".replace("__DATA__", data_json).replace("__SPK__", spk_json).replace("__REPO__", REPO).replace("__TAG__", RELEASE_TAG)
+  </script>""".replace("__DATA__", data_json).replace("__SPK__", spk_json).replace("__REPO__", REPO).replace("__TAG__", RELEASE_TAG).replace("__RASATAG__", RASA_TAG)
     return HTML_HEAD + top + BODY_MID + build_table_rows() + BODY_END + js + "\n</body>\n</html>\n"
 
 

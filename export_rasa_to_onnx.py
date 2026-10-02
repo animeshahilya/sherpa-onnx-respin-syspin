@@ -149,7 +149,7 @@ def cmd_export(args):
     import onnx
     from transformers import AutoModel as _AM  # noqa (keeps import locality)
     sr = int(getattr(model.config, "sampling_rate",
-                     getattr(model.config, "sample_rate", 22050)))
+                     getattr(model.config, "sample_rate", 24000)))
     meta = {
         "model_type": "vits",
         "comment": "ai4bharat-rasa",

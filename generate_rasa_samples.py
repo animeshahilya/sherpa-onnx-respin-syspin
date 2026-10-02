@@ -210,6 +210,15 @@ def synthesize_voice(tts, sid, text, length_scale=1.0, sample_rate=24000):
     pause_samples = int(sample_rate * 0.35)  # 350 ms breathing silence
     pause = np.zeros(pause_samples, dtype=np.float32)
 
+    def _trim(w, threshold=0.02, margin_ms=50.0):
+        if w.size == 0:
+            return w
+        above = np.where(np.abs(w) > threshold)[0]
+        if above.size == 0:
+            return w
+        margin = int(sample_rate * margin_ms / 1000.0)
+        return w[max(0, int(above[0]) - margin):min(w.size, int(above[-1]) + margin + 1)]
+
     parts = []
     for idx, s in enumerate(sents):
         # Strip trailing punctuation that might cause click
@@ -217,7 +226,7 @@ def synthesize_voice(tts, sid, text, length_scale=1.0, sample_rate=24000):
         if not clean:
             continue
         w = np.array(tts.generate(clean, sid=sid, speed=1.0 / length_scale).samples, dtype=np.float32)
-        parts.append(w)
+        parts.append(_trim(w))
         if idx < len(sents) - 1:
             parts.append(pause)
 

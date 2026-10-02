@@ -22,7 +22,8 @@
   "lang": "hi",
   "langName": "Hindi",
   "modelName": "vits-syspin-hi-female-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-hi-male",
@@ -47,7 +48,8 @@
   "lang": "hi",
   "langName": "Hindi",
   "modelName": "vits-syspin-hi-male-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-bn-female",
@@ -72,7 +74,8 @@
   "lang": "bn",
   "langName": "Bengali",
   "modelName": "vits-syspin-bn-female-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-bn-male",
@@ -97,7 +100,8 @@
   "lang": "bn",
   "langName": "Bengali",
   "modelName": "vits-syspin-bn-male-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-rasa-bn-female-alt",
@@ -174,7 +178,8 @@
   "lang": "te",
   "langName": "Telugu",
   "modelName": "vits-syspin-te-female-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-te-male",
@@ -199,7 +204,8 @@
   "lang": "te",
   "langName": "Telugu",
   "modelName": "vits-syspin-te-male-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-rasa-te-female-alt",
@@ -250,7 +256,8 @@
   "lang": "kn",
   "langName": "Kannada",
   "modelName": "vits-syspin-kn-female-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-kn-male",
@@ -275,7 +282,8 @@
   "lang": "kn",
   "langName": "Kannada",
   "modelName": "vits-syspin-kn-male-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-rasa-kn-female-alt",
@@ -352,7 +360,8 @@
   "lang": "mr",
   "langName": "Marathi",
   "modelName": "vits-syspin-mr-female-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-mr-male",
@@ -377,7 +386,8 @@
   "lang": "mr",
   "langName": "Marathi",
   "modelName": "vits-syspin-mr-male-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-rasa-mr-female-alt",
@@ -454,7 +464,8 @@
   "lang": "gu",
   "langName": "Gujarati",
   "modelName": "vits-syspin-gu-female-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-gu-male",
@@ -479,7 +490,8 @@
   "lang": "gu",
   "langName": "Gujarati",
   "modelName": "vits-syspin-gu-male-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-bho-female",
@@ -504,7 +516,8 @@
   "lang": "bho",
   "langName": "Bhojpuri",
   "modelName": "vits-syspin-bho-female-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-bho-male",
@@ -529,7 +542,8 @@
   "lang": "bho",
   "langName": "Bhojpuri",
   "modelName": "vits-syspin-bho-male-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-hne-female",
@@ -554,7 +568,8 @@
   "lang": "hne",
   "langName": "Chhattisgarhi",
   "modelName": "vits-syspin-hne-female-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-hne-male",
@@ -579,7 +594,8 @@
   "lang": "hne",
   "langName": "Chhattisgarhi",
   "modelName": "vits-syspin-hne-male-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-mai-female",
@@ -604,7 +620,8 @@
   "lang": "mai",
   "langName": "Maithili",
   "modelName": "vits-syspin-mai-female-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-mai-male",
@@ -629,7 +646,8 @@
   "lang": "mai",
   "langName": "Maithili",
   "modelName": "vits-syspin-mai-male-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-rasa-mai-male-alt",
@@ -680,7 +698,8 @@
   "lang": "mag",
   "langName": "Magahi",
   "modelName": "vits-syspin-mag-female-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-mag-male",
@@ -705,7 +724,8 @@
   "lang": "mag",
   "langName": "Magahi",
   "modelName": "vits-syspin-mag-male-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-en-female",
@@ -730,7 +750,8 @@
   "lang": "en",
   "langName": "English (India)",
   "modelName": "vits-syspin-en-female-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-syspin-en-male",
@@ -755,7 +776,8 @@
   "lang": "en",
   "langName": "English (India)",
   "modelName": "vits-syspin-en-male-model.onnx",
-  "isCommunity": false
+  "isCommunity": false,
+  "sid": 0
  },
  {
   "id": "vits-rasa-asm-female",

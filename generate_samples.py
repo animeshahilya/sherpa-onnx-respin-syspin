@@ -4,6 +4,7 @@ import time
 import sherpa_onnx
 import soundfile as sf
 from build_dashboard import VOICES_DATA
+from tts_synth import synthesize_voice
 
 samples = {v["id"]: v["text"] for v in VOICES_DATA}
 
@@ -46,8 +47,10 @@ for lang in langs:
             )
         )
         tts = sherpa_onnx.OfflineTts(config)
-        audio = tts.generate(samples[lang], sid=0, speed=1.0)
-        sf.write(wav_path, audio.samples, tts.sample_rate)
+        # No-retrain pipeline: frontend + per-sentence chunking + trim + norm
+        audio = synthesize_voice(tts, sid=0, text=samples[lang], lang=lang,
+                                 length_scale=1.0, sample_rate=tts.sample_rate)
+        sf.write(wav_path, audio, tts.sample_rate)
         # Convert to lightweight MP3 (64kbps mono)
         subprocess.run(["ffmpeg", "-y", "-i", wav_path, "-b:a", "64k", mp3_path], capture_output=True)
         # We can remove the raw wav to keep git repo very light, or keep both.

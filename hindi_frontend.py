@@ -43,14 +43,14 @@ ANUSVARA = "\u0902"
 VISARGA = "\u0903"
 CHANDRA = "\u0901"
 
-VOWEL_SIGNS = set("\u093e\u093f\u0940\u0941\u0942\u0943\u0944\u0945\u0946\u0947\u0948\u0949\u094a\u094b\u094c\u093e\u093f\u0955\u0956\u0957")
+VOWEL_SIGNS = set("\u093e\u093f\u0940\u0941\u0942\u0943\u0944\u0945\u0946\u0947\u0948\u0949\u094a\u094b\u094c\u0955\u0956\u0957")
 LONG_SIGNS = set("\u093e\u0940\u0942\u0944\u0947\u0948\u0949\u094a\u094b\u094c")  # aa ii uu vocR e ai o au (+candra)
 SHORT_A_SIGNS = set()  # inherent schwa has no sign
-NASALS = set([ANUSVARA, CHANDRA, "\u0901"])
+NASALS = set([ANUSVARA, CHANDRA])
 LONG_INDEP = set("\u0906\u0908\u090a\u090f\u0910\u0911\u0912\u0913\u0914")
 
 DEV_CONS_START, DEV_CONS_END = 0x0915, 0x0939
-RETROFLEX = set("\u091f\u0920\u0921\u0922\u0923\u0922\u093c\u0922\u093c\u0937")  # ट ठ ड ढ ण ड़ ढ़ ष (dupes harmless)
+RETROFLEX = set("\u091f\u0920\u0921\u0922\u0923\u0922\u093c\u0937")  # ट ठ ड ढ ण ड़ ढ़ ष
 
 
 def is_consonant(ch: str) -> bool:
