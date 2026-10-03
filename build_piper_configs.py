@@ -3,7 +3,7 @@
 (phoneme_type "text": characters in, no phonemizer), such as the espeak-ng
 Android fork's natural voices.
 
-Writes release_assets_piper/<key>.onnx.json (uploaded to the piper-v1 release)
+Writes release_assets_piper/<key>.onnx.json (uploaded to the piper-v2 release)
 and release_assets_piper/catalog.json, entries for that app's extra_voices.json.
 
 Each config maps Piper's pad/start/end ("_", "^", "$") to the model's blank,
@@ -25,9 +25,20 @@ from pathlib import Path
 BASE = Path(__file__).parent
 OUT = BASE / "release_assets_piper"
 RELEASES = "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/"
-CONFIG_TAG = "piper-v1"
-SYSPIN_TAG = "v1.1.0-fp16"
-RASA_MODEL = BASE / "release_assets_rasa" / "vits-rasa-13-piper-model.onnx"
+# Configs for SYSPIN + Rasa, Standard and Compact. piper-v1 keeps the older
+# ones for apps that pinned their checksums.
+CONFIG_TAG = "piper-v2"
+# SYSPIN that reads noise_scale/noise_w from `scales` (build_syspin_scales.py),
+# Standard and Compact; v1.1.0-fp16/compact-v1 keep the older exports.
+SYSPIN_TAG = "syspin-v2"
+SYSPIN_DIR = BASE / "release_assets_syspin_v2"
+# The value those exports had frozen: the default sound stays the same.
+SYSPIN_NOISE_W = 1.0
+# Rasa with a speaking style per speaker (build_rasa_styles.py), own release:
+# piper-v1/compact-v1 keep the all-ALEXA files for apps that pinned them.
+RASA_TAG = "rasa-v2"
+RASA_DIR = BASE / "release_assets_rasa_v2"
+RASA_MODEL = RASA_DIR / "vits-rasa-13-piper-model.onnx"
 # Compact tier (build_compact.py): INT8 decoders, models + configs in their own release.
 COMPACT_TAG = "compact-v1"
 COMPACT_DIR = BASE / "release_assets_compact"
@@ -102,10 +113,10 @@ def main():
             if rasa:
                 tokens = read_tokens(BASE / "vits-rasa-13" / "tokens.txt")
                 blank, model = 0, RASA_MODEL
-                model_path = f"{CONFIG_TAG}/{RASA_MODEL.name}"
+                model_path = f"{RASA_TAG}/{RASA_MODEL.name}"
             else:
                 tokens = read_tokens(BASE / v["id"] / "tokens.txt")
-                model = BASE / "release_assets_fp16" / f"{v['id']}-model.onnx"
+                model = SYSPIN_DIR / f"{v['id']}-model.onnx"
                 meta = {p.key: p.value for p in onnx.load(str(model), load_external_data=False).metadata_props}
                 blank = int(meta["blank_id"])
                 model_path = f"{SYSPIN_TAG}/{model.name}"
@@ -122,7 +133,7 @@ def main():
                              "name_native": native, "name_english": english,
                              "country_english": country},
                 "inference": {"noise_scale": rec["noise_scale"], "length_scale": rec["length_scale"],
-                              "noise_w": rec["noise_scale_w"]},
+                              "noise_w": rec["noise_scale_w"] if rasa else SYSPIN_NOISE_W},
                 "num_speakers": 1,
                 "default_speaker_id": v.get("sid", 0) if rasa else 0,
                 "hop_length": 256,
@@ -147,15 +158,16 @@ def main():
             catalog[key] = entry
 
             # Its Compact version: same config but the quality, INT8-decoder model.
-            compact_model = COMPACT_DIR / ("vits-rasa-13-compact.onnx" if rasa else f"{v['id']}-compact.onnx")
+            compact_model = (RASA_DIR / "vits-rasa-13-compact.onnx" if rasa
+                             else SYSPIN_DIR / f"{v['id']}-compact.onnx")
             if compact_model.is_file():
                 ckey = key.replace("-medium", "-compact")
-                ccfg = COMPACT_CONFIGS / f"{ckey}.onnx.json"
+                ccfg = OUT / f"{ckey}.onnx.json"
                 config["audio"]["quality"] = "compact"
                 ccfg.write_text(json.dumps(config, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
                 catalog[ckey] = dict(entry, key=ckey, quality="compact", files={
-                    f"{COMPACT_TAG}/{compact_model.name}": file_entry(compact_model),
-                    f"{COMPACT_TAG}/{ccfg.name}": file_entry(ccfg)})
+                    f"{RASA_TAG if rasa else SYSPIN_TAG}/{compact_model.name}": file_entry(compact_model),
+                    f"{CONFIG_TAG}/{ccfg.name}": file_entry(ccfg)})
     add_piper_compact(catalog)
     write_npu_list(catalog)
     (OUT / "catalog.json").write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
