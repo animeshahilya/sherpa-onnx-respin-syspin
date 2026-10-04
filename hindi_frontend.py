@@ -149,7 +149,27 @@ def ak_ends_bare_consonant(ak: str) -> bool:
     return not any(c in VOWEL_SIGNS or c in NASALS or c == VISARGA for c in ak[1:])
 
 
-def delete_schwa_word(word: str) -> str:
+# ---------------- language modes ----------------
+# Hindi schwa-deletion rules do NOT transfer verbatim: Marathi and the
+# Eastern langs (Bhojpuri/Maithili/Magahi) delete medial schwas far less
+# than Hindi (e.g. Marathi /karto/ keeps what Hindi /karna/ drops), while
+# Chhattisgarhi patterns with Hindi. The models also learned implicit
+# deletion from ~50h of raw-text training data each, so the safe direction
+# is conservative: final-schwa deletion everywhere, medial rules Hindi-only.
+# 'final-only' langs need native-speaker review for medial contexts --
+# see schwa_review_list() below, which emits the words where the modes
+# disagree for exactly that review.
+SCHWA_MODE = {
+    "hi": "full",    # moraic-weight rules in delete_schwa_word
+    "hne": "full",   # Chhattisgarhi ~ Hindi schwa (assumption: validate)
+    "mr": "final-only",   # Marathi: final deletion applies; medial retained
+    "bho": "final-only",  # Bhojpuri (Eastern): medial deletion restricted
+    "mai": "final-only",  # Maithili: final applies, medial + exceptions TBD
+    "mag": "final-only",  # Magahi (Eastern): as Bhojpuri pending review
+}
+
+
+def delete_schwa_word(word: str, lang: str = "hi") -> str:
     aks = split_aksharas(word)
     if not aks:
         return word
@@ -178,37 +198,39 @@ def delete_schwa_word(word: str) -> str:
             delete[last] = True
 
     # --- medial schwas, right to left, never the first akshara ---
-    first_cak = next(i for i, c in enumerate(is_cak) if c)
-    for i in range(len(aks) - 2, -1, -1):
-        if not is_cak[i] or i == first_cak:
-            continue
-        if not ak_ends_bare_consonant(aks[i]):
-            continue
-        nxt = aks[i + 1]
-        if not ak_starts_consonant(nxt):
-            continue
-        # categorical context only: following akshara must have a full vowel
-        if ak_vowel(nxt) not in ("full", "long"):
-            continue
-        # glide guard: schwa is kept before य/व (रुपये, दवा, कवि)
-        if nxt[0] in ("\u092f", "\u0935"):
-            continue
-        # retroflex guard: no deletion next to ट ठ ड ढ ण ड़ ढ़ ष
-        # (लड़का, सड़क, मटका, पटना, संतरा keep their schwa)
-        c1 = aks[i][0]
-        if c1 in RETROFLEX or nxt[0] in RETROFLEX:
-            continue
-        # (b) avoid CCC: next consonant followed by explicit halant cluster
-        if ak_has_explicit_halant(nxt):
-            continue
-        # (a) preceding rhyme must be light
-        if i - 1 >= 0 and ak_rhyme_heavy(aks[i - 1]):
-            continue
-        # also the schwa's own akshara must be light (bare single consonant)
-        cons_count = sum(1 for ch in aks[i] if is_consonant(ch))
-        if cons_count > 1:
-            continue
-        delete[i] = True
+    # Hindi-only: other langs use final-only mode (see SCHWA_MODE).
+    if SCHWA_MODE.get(lang, "full") != "final-only":
+        first_cak = next(i for i, c in enumerate(is_cak) if c)
+        for i in range(len(aks) - 2, -1, -1):
+            if not is_cak[i] or i == first_cak:
+                continue
+            if not ak_ends_bare_consonant(aks[i]):
+                continue
+            nxt = aks[i + 1]
+            if not ak_starts_consonant(nxt):
+                continue
+            # categorical context only: following akshara must have a full vowel
+            if ak_vowel(nxt) not in ("full", "long"):
+                continue
+            # glide guard: schwa is kept before य/व (रुपये, दवा, कवि)
+            if nxt[0] in ("\u092f", "\u0935"):
+                continue
+            # retroflex guard: no deletion next to ट ठ ड ढ ण ड़ ढ़ ष
+            # (लड़का, सड़क, मटका, पटना, संतरा keep their schwa)
+            c1 = aks[i][0]
+            if c1 in RETROFLEX or nxt[0] in RETROFLEX:
+                continue
+            # (b) avoid CCC: next consonant followed by explicit halant cluster
+            if ak_has_explicit_halant(nxt):
+                continue
+            # (a) preceding rhyme must be light
+            if i - 1 >= 0 and ak_rhyme_heavy(aks[i - 1]):
+                continue
+            # also the schwa's own akshara must be light (bare single consonant)
+            cons_count = sum(1 for ch in aks[i] if is_consonant(ch))
+            if cons_count > 1:
+                continue
+            delete[i] = True
 
     out = []
     for a, d in zip(aks, delete):
@@ -310,13 +332,15 @@ PUNCT_MAP = {
     "{": "",
     "}": "",
 }
-DROP = set("@#$%^&*+=/\\|<>[]~`")
+DROP = set("@#$^&*+=/\\|<>[]~`")  # NOTE: % handled explicitly in normalize
 
 
 def normalize(text: str) -> str:
     text = unicodedata.normalize("NFC", text)
-    text = text.replace("\u200d", "").replace("\u200e", "").replace("\u00a0", " ")
+    text = text.replace("‍", "").replace("‎", "").replace(" ", " ")
     text = expand_numerals(text)
+    text = text.replace("%", " प्रतिशत ")
+    text = text.replace("₹", " रुपये ")
     out = []
     for ch in text:
         if ch in PUNCT_MAP:
@@ -330,15 +354,30 @@ def normalize(text: str) -> str:
     return text
 
 
-def frontend(text: str) -> str:
-    """Full pipeline -> model-ready text (still graphemes)."""
+TRAILING_PUNCT = ".,?!:;,—–'\"()"
+
+
+def _split_trailing_punct(tok: str):
+    """Detach sentence/clause punctuation so schwa rules see the bare word
+    (else 'राम.' never gets final deletion because '.' is the last akshara)."""
+    i = len(tok)
+    while i > 0 and tok[i - 1] in TRAILING_PUNCT:
+        i -= 1
+    return tok[:i], tok[i:]
+
+
+def frontend(text: str, lang: str = "hi") -> str:
+    """Full pipeline -> model-ready text (still graphemes).
+    lang selects schwa-deletion rules (see SCHWA_MODE); default 'hi'
+    preserves the original behavior for existing callers."""
     text = normalize(text)
     words = []
     for tok in text.split(" "):
         if re.fullmatch(r"[A-Za-z]+", tok or ""):
             words.append(tok)  # Latin passthrough (partial ASCII coverage)
         else:
-            words.append(delete_schwa_word(tok))
+            core, tail = _split_trailing_punct(tok)
+            words.append(delete_schwa_word(core, lang) + tail if core else tok)
     return " ".join(w for w in words if w)
 
 
@@ -368,15 +407,67 @@ def load_vocab(tokens_path: str) -> dict:
     return vocab
 
 
+def schwa_review_list(lang: str, words=None):
+    """Words where full Hindi rules and this lang's mode disagree.
+
+    Seed wordlists below are high-frequency words chosen to exercise the
+    medial-deletion contexts (light/heavy rhymes, glides, retroflexes) --
+    they are REVIEW PROMPTS for a native speaker, not ground truth.
+    Returns [(word, hindi_form, lang_form)]."""
+    if words is None:
+        words = REVIEW_WORDS.get(lang, [])
+    rows = []
+    for w in words:
+        a, b = delete_schwa_word(w, "hi"), delete_schwa_word(w, lang)
+        if a != b:
+            rows.append((w, a, b))
+    return rows
+
+
+# Seed review vocabularies (see schwa_review_list docstring).
+REVIEW_WORDS = {
+    "mr": ["राम", "घर", "कमल", "मतलब", "लड़का", "करना", "कमरा", "करतो",
+           "पुस्तक", "शाळा", "मुलगा", "मुलगी", "पाणी", "माणूस", "दिवस",
+           "रात्र", "महाराष्ट्र", "मुंबई", "पुणे", "भाषा", "देश", "प्रेम",
+           "मित्र", "शेतकरी", "पाऊस", "जेवण", "आई", "वडील", "भाऊ",
+           "बहीण", "आनंद", "मोठा", "छोटा", "चांगला", "नवीन"],
+    "bho": ["राम", "घर", "कमल", "मतलब", "लइका", "करे", "पानी", "भोजपुरी",
+            "बिहार", "देश", "प्रेम", "दोस्त", "किसान", "बरसात", "खाना",
+            "माई", "बाबू", "भैया", "बहिन", "खुशी", "दुःख", "बड़", "छोट",
+            "नया", "पुरान", "सकता", "करता"],
+    "mai": ["राम", "घर", "कमल", "मतलब", "करैत", "अछि", "मैथिली", "मिथिला",
+            "पानी", "देश", "प्रेम", "दोस्त", "किसान", "बरखा", "खाना",
+            "माय", "बाबू", "भाय", "बहिन", "खुशी", "दुःख", "छोट", "नव",
+            "पुरान", "सकता", "करता", "भेल"],
+    "mag": ["राम", "घर", "कमल", "मतलब", "करे", "पानी", "मगही", "बिहार",
+            "देश", "प्रेम", "दोस्त", "किसान", "बरसात", "खाना", "माय",
+            "बाबू", "भैया", "बहिन", "खुशी", "दुःख", "बड़", "छोट", "नया",
+            "पुरान", "सकता", "करता"],
+    "hne": ["राम", "घर", "कमल", "मतलब", "लड़का", "करना", "कमरा",
+            "छत्तीसगढ़", "रायपुर", "पानी", "देश", "प्रेम", "मित्र",
+            "किसान", "बरसात", "खाना", "माई", "बाबू", "भैया", "बहिन",
+            "खुशी", "दुःख", "बड़", "छोट", "नया", "पुरान"],
+}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Hindi frontend for SYSPIN VITS voices")
     ap.add_argument("--text", required=True)
+    ap.add_argument("--lang", default="hi",
+                    help="schwa-rule set: hi/hne (full) or mr/bho/mai/mag (final-only)")
     ap.add_argument("--tokens", default=None)
     ap.add_argument("--ids", action="store_true")
+    ap.add_argument("--review-list", action="store_true",
+                    help="print words where full vs lang rules disagree, for native review")
     args = ap.parse_args()
 
+    if args.review_list:
+        for w, a, b in schwa_review_list(args.lang):
+            print("%s | hi:%s | %s:%s" % (w, a, args.lang, b))
+        return 0
+
     print("IN :", args.text)
-    out = frontend(args.text)
+    out = frontend(args.text, args.lang)
     print("OUT:", out)
     if args.tokens:
         vocab = load_vocab(args.tokens)

@@ -1,0 +1,149 @@
+{
+ "vits-syspin-hi-female": {
+  "winner": {
+   "length_scale": 1.05
+  },
+  "wer": 0.2,
+  "proxy_mos": 4.44
+ },
+ "vits-syspin-hi-male": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.3333,
+  "proxy_mos": 4.5
+ },
+ "vits-syspin-en-female": {
+  "winner": {
+   "length_scale": 0.95
+  },
+  "wer": 0.0,
+  "proxy_mos": 4.49
+ },
+ "vits-syspin-en-male": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.0,
+  "proxy_mos": 4.55
+ },
+ "vits-syspin-bn-female": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.1429,
+  "proxy_mos": 4.58
+ },
+ "vits-syspin-bn-male": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.0714,
+  "proxy_mos": 4.56
+ },
+ "vits-syspin-te-female": {
+  "winner": {
+   "length_scale": 0.95
+  },
+  "wer": 0.1538,
+  "proxy_mos": 4.6
+ },
+ "vits-syspin-te-male": {
+  "winner": {
+   "length_scale": 1.05
+  },
+  "wer": 0.3077,
+  "proxy_mos": 4.53
+ },
+ "vits-syspin-kn-female": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.4167,
+  "proxy_mos": 4.69
+ },
+ "vits-syspin-kn-male": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.3333,
+  "proxy_mos": 4.49
+ },
+ "vits-syspin-mr-female": {
+  "winner": {
+   "length_scale": 0.95
+  },
+  "wer": 0.5,
+  "proxy_mos": 4.5
+ },
+ "vits-syspin-mr-male": {
+  "winner": {
+   "length_scale": 1.05
+  },
+  "wer": 0.3571,
+  "proxy_mos": 4.51
+ },
+ "vits-syspin-gu-female": {
+  "winner": {
+   "length_scale": 1.05
+  },
+  "wer": 0.2857,
+  "proxy_mos": 4.68
+ },
+ "vits-syspin-gu-male": {
+  "winner": {
+   "length_scale": 1.1
+  },
+  "wer": 0.5,
+  "proxy_mos": 4.1
+ },
+ "vits-syspin-bho-female": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.0667,
+  "proxy_mos": 4.49
+ },
+ "vits-syspin-bho-male": {
+  "winner": {
+   "length_scale": 0.9
+  },
+  "wer": 0.2,
+  "proxy_mos": 4.5
+ },
+ "vits-syspin-hne-female": {
+  "winner": {
+   "length_scale": 0.95
+  },
+  "wer": 0.1875,
+  "proxy_mos": 4.49
+ },
+ "vits-syspin-hne-male": {
+  "winner": {
+   "length_scale": 0.9
+  },
+  "wer": 0.1875,
+  "proxy_mos": 4.49
+ },
+ "vits-syspin-mai-male": {
+  "winner": {
+   "length_scale": 0.9
+  },
+  "wer": 0.4,
+  "proxy_mos": 4.38
+ },
+ "vits-syspin-mag-female": {
+  "winner": {
+   "length_scale": 1.1
+  },
+  "wer": 0.2,
+  "proxy_mos": 4.52
+ },
+ "vits-syspin-mag-male": {
+  "winner": {
+   "length_scale": 1.05
+  },
+  "wer": 0.6,
+  "proxy_mos": 4.44
+ }
+}

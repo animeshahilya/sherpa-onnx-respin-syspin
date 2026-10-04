@@ -1,0 +1,150 @@
+{
+ "voice": "vits-syspin-bn-female",
+ "lang": "bn",
+ "rows": [
+  {
+   "wer_runs": [
+    0.1429
+   ],
+   "wer": 0.1429,
+   "proxy_mos": 4.58,
+   "chars_per_sec": 10.74,
+   "clip_frac": 0.0,
+   "length_scale": 1.0,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "apocope": true
+  },
+  {
+   "wer_runs": [
+    0.1429
+   ],
+   "wer": 0.1429,
+   "proxy_mos": 4.48,
+   "chars_per_sec": 11.53,
+   "clip_frac": 0.0,
+   "length_scale": 0.9,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "apocope": true
+  },
+  {
+   "wer_runs": [
+    0.1429
+   ],
+   "wer": 0.1429,
+   "proxy_mos": 4.4,
+   "chars_per_sec": 11.24,
+   "clip_frac": 0.0,
+   "length_scale": 0.9,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "apocope": false
+  },
+  {
+   "wer_runs": [
+    0.1429
+   ],
+   "wer": 0.1429,
+   "proxy_mos": 4.53,
+   "chars_per_sec": 10.02,
+   "clip_frac": 0.0,
+   "length_scale": 1.1,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "apocope": true
+  },
+  {
+   "wer_runs": [
+    0.2857
+   ],
+   "wer": 0.2857,
+   "proxy_mos": 4.52,
+   "chars_per_sec": 10.28,
+   "clip_frac": 0.0,
+   "length_scale": 1.05,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "apocope": true
+  },
+  {
+   "wer_runs": [
+    0.2857
+   ],
+   "wer": 0.2857,
+   "proxy_mos": 4.47,
+   "chars_per_sec": 10.89,
+   "clip_frac": 0.0,
+   "length_scale": 0.95,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "apocope": true
+  },
+  {
+   "wer_runs": [
+    0.3571
+   ],
+   "wer": 0.3571,
+   "proxy_mos": 4.48,
+   "chars_per_sec": 10.55,
+   "clip_frac": 0.0,
+   "length_scale": 1.0,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "apocope": false
+  },
+  {
+   "wer_runs": [
+    0.3571
+   ],
+   "wer": 0.3571,
+   "proxy_mos": 4.49,
+   "chars_per_sec": 9.97,
+   "clip_frac": 0.0,
+   "length_scale": 1.1,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "apocope": false
+  },
+  {
+   "wer_runs": [
+    0.4286
+   ],
+   "wer": 0.4286,
+   "proxy_mos": 4.52,
+   "chars_per_sec": 10.22,
+   "clip_frac": 0.0,
+   "length_scale": 1.05,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "apocope": false
+  },
+  {
+   "wer_runs": [
+    0.4286
+   ],
+   "wer": 0.4286,
+   "proxy_mos": 4.36,
+   "chars_per_sec": 10.48,
+   "clip_frac": 0.0,
+   "length_scale": 0.95,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "apocope": false
+  }
+ ],
+ "winner": {
+  "wer_runs": [
+   0.1429
+  ],
+  "wer": 0.1429,
+  "proxy_mos": 4.58,
+  "chars_per_sec": 10.74,
+  "clip_frac": 0.0,
+  "length_scale": 1.0,
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8,
+  "apocope": true
+ },
+ "asr": "faster-whisper large-v3 (int8, beam 1); bho/hne/mai/mag decoded as hi"
+}

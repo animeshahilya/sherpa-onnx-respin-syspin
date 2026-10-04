@@ -1,0 +1,508 @@
+{
+ "hi": {
+  "vocab_size": 116,
+  "native_digits": {
+   "have": 10,
+   "total": 10,
+   "missing": []
+  },
+  "danda": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "halant": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "nukta": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "anusvara": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "visarga": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "ascii_digits": {
+   "have": 10,
+   "total": 10
+  },
+  "punct": {
+   "?": true,
+   "!": true,
+   ",": true,
+   ".": true,
+   ":": true,
+   "'": true,
+   "\"": true,
+   "(": true,
+   ")": true,
+   "-": true,
+   ";": true
+  },
+  "space": true
+ },
+ "bn": {
+  "vocab_size": 81,
+  "native_digits": {
+   "have": 0,
+   "total": 10,
+   "missing": [
+    "0x9e6",
+    "0x9e7",
+    "0x9e8",
+    "0x9e9",
+    "0x9ea",
+    "0x9eb",
+    "0x9ec",
+    "0x9ed",
+    "0x9ee",
+    "0x9ef"
+   ]
+  },
+  "danda": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "hasanta": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "nukta": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "anusvara": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "visarga": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "khanda_ta": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "ascii_digits": {
+   "have": 0,
+   "total": 10
+  },
+  "punct": {
+   "?": true,
+   "!": true,
+   ",": true,
+   ".": true,
+   ":": true,
+   "'": true,
+   "\"": true,
+   "(": true,
+   ")": true,
+   "-": true,
+   ";": true
+  },
+  "space": true
+ },
+ "te": {
+  "vocab_size": 116,
+  "native_digits": {
+   "have": 2,
+   "total": 10,
+   "missing": [
+    "0xc67",
+    "0xc68",
+    "0xc6a",
+    "0xc6b",
+    "0xc6c",
+    "0xc6d",
+    "0xc6e",
+    "0xc6f"
+   ]
+  },
+  "danda": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "halant": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "anusvara": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "visarga": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "ascii_digits": {
+   "have": 10,
+   "total": 10
+  },
+  "punct": {
+   "?": true,
+   "!": true,
+   ",": true,
+   ".": true,
+   ":": true,
+   "'": true,
+   "\"": true,
+   "(": true,
+   ")": true,
+   "-": true,
+   ";": true
+  },
+  "space": true
+ },
+ "kn": {
+  "vocab_size": 76,
+  "native_digits": {
+   "have": 0,
+   "total": 10,
+   "missing": [
+    "0xce6",
+    "0xce7",
+    "0xce8",
+    "0xce9",
+    "0xcea",
+    "0xceb",
+    "0xcec",
+    "0xced",
+    "0xcee",
+    "0xcef"
+   ]
+  },
+  "danda": {
+   "have": 0,
+   "total": 1,
+   "missing": [
+    "0x964"
+   ]
+  },
+  "halant": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "anusvara": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "visarga": {
+   "have": 0,
+   "total": 1,
+   "missing": [
+    "0xc83"
+   ]
+  },
+  "ascii_digits": {
+   "have": 0,
+   "total": 10
+  },
+  "punct": {
+   "?": true,
+   "!": true,
+   ",": true,
+   ".": true,
+   ":": true,
+   "'": true,
+   "\"": true,
+   "(": true,
+   ")": true,
+   "-": true,
+   ";": true
+  },
+  "space": true
+ },
+ "mr": {
+  "vocab_size": 134,
+  "native_digits": {
+   "have": 10,
+   "total": 10,
+   "missing": []
+  },
+  "danda": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "halant": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "ascii_digits": {
+   "have": 10,
+   "total": 10
+  },
+  "punct": {
+   "?": true,
+   "!": true,
+   ",": true,
+   ".": true,
+   ":": true,
+   "'": true,
+   "\"": true,
+   "(": true,
+   ")": true,
+   "-": true,
+   ";": true
+  },
+  "space": true
+ },
+ "gu": {
+  "vocab_size": 110,
+  "native_digits": {
+   "have": 10,
+   "total": 10,
+   "missing": []
+  },
+  "danda": {
+   "have": 0,
+   "total": 1,
+   "missing": [
+    "0x964"
+   ]
+  },
+  "halant": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "anusvara": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "visarga": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "ascii_digits": {
+   "have": 10,
+   "total": 10
+  },
+  "punct": {
+   "?": true,
+   "!": true,
+   ",": true,
+   ".": true,
+   ":": true,
+   "'": true,
+   "\"": true,
+   "(": true,
+   ")": true,
+   "-": true,
+   ";": true
+  },
+  "space": true
+ },
+ "bho": {
+  "vocab_size": 87,
+  "native_digits": {
+   "have": 0,
+   "total": 10,
+   "missing": [
+    "0x966",
+    "0x967",
+    "0x968",
+    "0x969",
+    "0x96a",
+    "0x96b",
+    "0x96c",
+    "0x96d",
+    "0x96e",
+    "0x96f"
+   ]
+  },
+  "danda": {
+   "have": 0,
+   "total": 1,
+   "missing": [
+    "0x964"
+   ]
+  },
+  "halant": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "ascii_digits": {
+   "have": 0,
+   "total": 10
+  },
+  "punct": {
+   "?": true,
+   "!": true,
+   ",": true,
+   ".": true,
+   ":": true,
+   "'": true,
+   "\"": false,
+   "(": true,
+   ")": true,
+   "-": true,
+   ";": true
+  },
+  "space": true
+ },
+ "hne": {
+  "vocab_size": 103,
+  "native_digits": {
+   "have": 3,
+   "total": 10,
+   "missing": [
+    "0x967",
+    "0x968",
+    "0x96b",
+    "0x96c",
+    "0x96d",
+    "0x96e",
+    "0x96f"
+   ]
+  },
+  "danda": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "halant": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "ascii_digits": {
+   "have": 0,
+   "total": 10
+  },
+  "punct": {
+   "?": true,
+   "!": true,
+   ",": true,
+   ".": true,
+   ":": true,
+   "'": true,
+   "\"": true,
+   "(": true,
+   ")": true,
+   "-": true,
+   ";": true
+  },
+  "space": true
+ },
+ "mai": {
+  "vocab_size": 128,
+  "native_digits": {
+   "have": 10,
+   "total": 10,
+   "missing": []
+  },
+  "danda": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "halant": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "ascii_digits": {
+   "have": 4,
+   "total": 10
+  },
+  "punct": {
+   "?": true,
+   "!": true,
+   ",": true,
+   ".": true,
+   ":": true,
+   "'": true,
+   "\"": true,
+   "(": true,
+   ")": true,
+   "-": true,
+   ";": true
+  },
+  "space": true
+ },
+ "mag": {
+  "vocab_size": 116,
+  "native_digits": {
+   "have": 9,
+   "total": 10,
+   "missing": [
+    "0x96f"
+   ]
+  },
+  "danda": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "halant": {
+   "have": 1,
+   "total": 1,
+   "missing": []
+  },
+  "ascii_digits": {
+   "have": 10,
+   "total": 10
+  },
+  "punct": {
+   "?": true,
+   "!": true,
+   ",": true,
+   ".": true,
+   ":": true,
+   "'": true,
+   "\"": true,
+   "(": true,
+   ")": true,
+   "-": true,
+   ";": true
+  },
+  "space": true
+ },
+ "en": {
+  "vocab_size": 94,
+  "ascii_digits": {
+   "have": 6,
+   "total": 10
+  },
+  "punct": {
+   "?": true,
+   "!": true,
+   ",": true,
+   ".": true,
+   ":": true,
+   "'": true,
+   "\"": true,
+   "(": true,
+   ")": true,
+   "-": true,
+   ";": true
+  },
+  "space": true
+ }
+}

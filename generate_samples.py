@@ -7,6 +7,14 @@ from build_dashboard import VOICES_DATA
 from tts_synth import synthesize_voice
 
 samples = {v["id"]: v["text"] for v in VOICES_DATA}
+rec_len = {}
+try:
+    import json as _json
+    for _e in _json.load(open(os.path.join(os.path.dirname(__file__), "voices.json"), encoding="utf-8")):
+        for _v in _e["voices"]:
+            rec_len[_v["id"]] = float(_v.get("recommended", {}).get("length_scale", 1.0))
+except (OSError, ValueError, KeyError):
+    pass
 
 base_dir = os.path.join(os.path.dirname(__file__), "release_assets_fp16")
 out_dir = os.path.join(os.path.dirname(__file__), "samples")
@@ -38,6 +46,7 @@ for lang in langs:
             urllib.request.urlretrieve(tok_url, t_path)
 
         t0 = time.time()
+        ls = rec_len.get(m_name, 1.0)
         config = sherpa_onnx.OfflineTtsConfig(
             model=sherpa_onnx.OfflineTtsModelConfig(
                 vits=sherpa_onnx.OfflineTtsVitsModelConfig(
@@ -47,9 +56,10 @@ for lang in langs:
             )
         )
         tts = sherpa_onnx.OfflineTts(config)
-        # No-retrain pipeline: frontend + per-sentence chunking + trim + norm
+        # No-retrain pipeline: frontend + per-sentence chunking + trim + norm.
+        # Pace comes from voices.json tuned length_scale (speed=1/length).
         audio = synthesize_voice(tts, sid=0, text=samples[lang], lang=lang,
-                                 length_scale=1.0, sample_rate=tts.sample_rate)
+                                 length_scale=ls, sample_rate=tts.sample_rate)
         sf.write(wav_path, audio, tts.sample_rate)
         # Convert to lightweight MP3 (64kbps mono)
         subprocess.run(["ffmpeg", "-y", "-i", wav_path, "-b:a", "64k", mp3_path], capture_output=True)

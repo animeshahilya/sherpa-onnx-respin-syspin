@@ -1,0 +1,98 @@
+{
+ "voice": "vits-syspin-bn-male",
+ "lang": "bn",
+ "tuned": {
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8,
+  "length_scale": 1.0
+ },
+ "wer": 0.0714,
+ "wer_recheck": 0.1429,
+ "proxy_mos": 4.56,
+ "chars_per_sec": 11.79,
+ "clip_frac": 0.0,
+ "duration_s": 6.14,
+ "sweep": [
+  {
+   "length_scale": 1.0,
+   "apocope": false,
+   "wer": 0.0714,
+   "proxy_mos": 4.56,
+   "chars_per_sec": 11.79,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 1.0,
+   "apocope": true,
+   "wer": 0.1429,
+   "proxy_mos": 4.56,
+   "chars_per_sec": 11.72,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 1.05,
+   "apocope": false,
+   "wer": 0.2143,
+   "proxy_mos": 4.57,
+   "chars_per_sec": 11.62,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 0.95,
+   "apocope": true,
+   "wer": 0.2143,
+   "proxy_mos": 4.49,
+   "chars_per_sec": 12.34,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 1.1,
+   "apocope": true,
+   "wer": 0.2143,
+   "proxy_mos": 4.58,
+   "chars_per_sec": 11.18,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 1.1,
+   "apocope": false,
+   "wer": 0.2143,
+   "proxy_mos": 4.58,
+   "chars_per_sec": 11.2,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 1.05,
+   "apocope": true,
+   "wer": 0.2857,
+   "proxy_mos": 4.57,
+   "chars_per_sec": 11.48,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 0.95,
+   "apocope": false,
+   "wer": 0.2857,
+   "proxy_mos": 4.49,
+   "chars_per_sec": 11.89,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 0.9,
+   "apocope": true,
+   "wer": 0.2857,
+   "proxy_mos": 4.44,
+   "chars_per_sec": 12.38,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 0.9,
+   "apocope": false,
+   "wer": 0.3571,
+   "proxy_mos": 4.49,
+   "chars_per_sec": 12.44,
+   "clip_frac": 0.0
+  }
+ ],
+ "asr": "faster-whisper large-v3 (int8, beam 1); bho/hne/mai/mag decoded as hi"
+}

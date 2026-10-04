@@ -1,0 +1,79 @@
+{
+ "voice": "vits-syspin-mr-female",
+ "lang": "mr",
+ "rows": [
+  {
+   "wer_runs": [
+    0.5
+   ],
+   "wer": 0.5,
+   "proxy_mos": 4.5,
+   "chars_per_sec": 9.76,
+   "clip_frac": 0.0,
+   "length_scale": 0.95,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8
+  },
+  {
+   "wer_runs": [
+    0.5
+   ],
+   "wer": 0.5,
+   "proxy_mos": 4.5,
+   "chars_per_sec": 9.17,
+   "clip_frac": 0.0,
+   "length_scale": 1.05,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8
+  },
+  {
+   "wer_runs": [
+    0.5
+   ],
+   "wer": 0.5,
+   "proxy_mos": 4.48,
+   "chars_per_sec": 10.23,
+   "clip_frac": 0.0,
+   "length_scale": 0.9,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8
+  },
+  {
+   "wer_runs": [
+    0.5714
+   ],
+   "wer": 0.5714,
+   "proxy_mos": 4.5,
+   "chars_per_sec": 9.5,
+   "clip_frac": 0.0,
+   "length_scale": 1.0,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8
+  },
+  {
+   "wer_runs": [
+    0.5714
+   ],
+   "wer": 0.5714,
+   "proxy_mos": 4.48,
+   "chars_per_sec": 8.81,
+   "clip_frac": 0.0,
+   "length_scale": 1.1,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8
+  }
+ ],
+ "winner": {
+  "wer_runs": [
+   0.5
+  ],
+  "wer": 0.5,
+  "proxy_mos": 4.5,
+  "chars_per_sec": 9.76,
+  "clip_frac": 0.0,
+  "length_scale": 0.95,
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8
+ },
+ "asr": "faster-whisper large-v3 (int8, beam 1); bho/hne/mai/mag decoded as hi"
+}

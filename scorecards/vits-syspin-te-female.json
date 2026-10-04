@@ -1,0 +1,58 @@
+{
+ "voice": "vits-syspin-te-female",
+ "lang": "te",
+ "tuned": {
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8,
+  "length_scale": 0.95
+ },
+ "wer": 0.1538,
+ "wer_recheck": 0.1538,
+ "proxy_mos": 4.6,
+ "chars_per_sec": 11.67,
+ "clip_frac": 0.0,
+ "duration_s": 7.02,
+ "sweep": [
+  {
+   "length_scale": 0.95,
+   "apocope": null,
+   "wer": 0.1538,
+   "proxy_mos": 4.6,
+   "chars_per_sec": 11.67,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 1.05,
+   "apocope": null,
+   "wer": 0.1538,
+   "proxy_mos": 4.6,
+   "chars_per_sec": 10.98,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 0.9,
+   "apocope": null,
+   "wer": 0.1538,
+   "proxy_mos": 4.56,
+   "chars_per_sec": 12.17,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 1.1,
+   "apocope": null,
+   "wer": 0.1538,
+   "proxy_mos": 4.64,
+   "chars_per_sec": 10.61,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 1.0,
+   "apocope": null,
+   "wer": 0.2308,
+   "proxy_mos": 4.61,
+   "chars_per_sec": 11.28,
+   "clip_frac": 0.0
+  }
+ ],
+ "asr": "faster-whisper large-v3 (int8, beam 1); bho/hne/mai/mag decoded as hi"
+}

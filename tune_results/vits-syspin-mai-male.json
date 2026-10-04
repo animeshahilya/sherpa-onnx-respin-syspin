@@ -1,0 +1,79 @@
+{
+ "voice": "vits-syspin-mai-male",
+ "lang": "mai",
+ "rows": [
+  {
+   "wer_runs": [
+    0.4
+   ],
+   "wer": 0.4,
+   "proxy_mos": 4.38,
+   "chars_per_sec": 7.73,
+   "clip_frac": 0.0,
+   "length_scale": 0.9,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8
+  },
+  {
+   "wer_runs": [
+    0.4667
+   ],
+   "wer": 0.4667,
+   "proxy_mos": 4.48,
+   "chars_per_sec": 7.32,
+   "clip_frac": 0.0,
+   "length_scale": 1.0,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8
+  },
+  {
+   "wer_runs": [
+    0.4667
+   ],
+   "wer": 0.4667,
+   "proxy_mos": 4.48,
+   "chars_per_sec": 7.14,
+   "clip_frac": 0.0,
+   "length_scale": 1.05,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8
+  },
+  {
+   "wer_runs": [
+    0.4667
+   ],
+   "wer": 0.4667,
+   "proxy_mos": 4.41,
+   "chars_per_sec": 7.6,
+   "clip_frac": 0.0,
+   "length_scale": 0.95,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8
+  },
+  {
+   "wer_runs": [
+    0.5333
+   ],
+   "wer": 0.5333,
+   "proxy_mos": 4.38,
+   "chars_per_sec": 6.69,
+   "clip_frac": 0.0,
+   "length_scale": 1.1,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8
+  }
+ ],
+ "winner": {
+  "wer_runs": [
+   0.4
+  ],
+  "wer": 0.4,
+  "proxy_mos": 4.38,
+  "chars_per_sec": 7.73,
+  "clip_frac": 0.0,
+  "length_scale": 0.9,
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8
+ },
+ "asr": "faster-whisper large-v3 (int8, beam 1); bho/hne/mai/mag decoded as hi"
+}

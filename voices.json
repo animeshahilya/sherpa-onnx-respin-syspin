@@ -18,7 +18,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 1.05,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-hi-female.mp3",
@@ -162,7 +162,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 0.95,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-te-female.mp3",
@@ -182,7 +182,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 1.05,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-te-male.mp3",
@@ -328,7 +328,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 0.95,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-mr-female.mp3",
@@ -348,7 +348,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 1.05,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-mr-male.mp3",
@@ -422,7 +422,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 1.05,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-gu-female.mp3",
@@ -442,7 +442,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 1.1,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-gu-male.mp3",
@@ -492,7 +492,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 0.9,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-bho-male.mp3",
@@ -522,7 +522,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 0.95,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-hne-female.mp3",
@@ -542,7 +542,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 0.9,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-hne-male.mp3",
@@ -592,7 +592,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 0.9,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-mai-male.mp3",
@@ -644,7 +644,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 1.1,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-mag-female.mp3",
@@ -664,7 +664,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 1.05,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-mag-male.mp3",
@@ -694,7 +694,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.0,
+          "length_scale": 0.95,
           "speed": 1.0
         },
         "sample": "samples/vits-syspin-en-female.mp3",
