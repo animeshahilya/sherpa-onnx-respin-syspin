@@ -1,0 +1,19 @@
+{
+ "voice": "vits-rasa-bn-male-alt",
+ "lang": "bn",
+ "sid": 3,
+ "tuned": {
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8,
+  "length_scale": 1.0
+ },
+ "wer": null,
+ "wer_recheck": null,
+ "proxy_mos": null,
+ "chars_per_sec": null,
+ "clip_frac": null,
+ "duration_s": 0.0,
+ "note": "judge-fail (control WER=0.8113 CER=0.5818); kept default 1.0",
+ "sweep": [],
+ "asr": ""
+}

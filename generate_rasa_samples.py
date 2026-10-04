@@ -22,6 +22,13 @@ import numpy as np
 import sherpa_onnx
 import soundfile as sf
 
+try:
+    import tts_synth as _ts
+    _SHARED = True
+except ImportError:
+    _ts = None
+    _SHARED = False
+
 BASE = Path(__file__).parent
 MODEL_PATH = BASE / "release_assets_rasa" / "vits-rasa-13-model.onnx"
 if not MODEL_PATH.exists():
@@ -204,7 +211,12 @@ def load_vocab(tokens_file: Path):
     return vocab
 
 
-def synthesize_voice(tts, sid, text, length_scale=1.0, sample_rate=24000):
+def synthesize_voice(tts, sid, text, length_scale=1.0, sample_rate=24000, lang=""):
+    # Shared pipeline (tts_synth) when available: per-lang frontend
+    # (numerals/punct/schwa), clause pauses, trim, -16 LUFS. Falls back to
+    # the original local implementation otherwise.
+    if _SHARED:
+        return _ts.synthesize_voice(tts, sid, text, lang, length_scale, sample_rate)
     # Split text into natural sentences
     sents = [s.strip() for s in re.split(r"[.।\n]+", text) if s.strip()]
     pause_samples = int(sample_rate * 0.35)  # 350 ms breathing silence
@@ -258,10 +270,27 @@ def main():
 
     total_t0 = time.time()
     results = []
+    # Tuned per-sid pace from voices.json (tune_inference.py --apply);
+    # judge-fail sids keep the trained default 1.0.
+    tuned_pace = {}
+    try:
+        import json as _json
+        for _e in _json.load(open(BASE / "voices.json", encoding="utf-8")):
+            for _v in _e["voices"]:
+                if _v.get("engine") == "rasa":
+                    tuned_pace[_v.get("sid")] = float(
+                        _v.get("recommended", {}).get("length_scale", 1.0))
+    except (OSError, ValueError, KeyError):
+        pass
     for sid, mp3_id, name, lang_key, gender, ls in RASA_VOICE_CONFIGS:
         t0 = time.time()
         text = RASA_TEXTS[lang_key]["text"]
-        wav = synthesize_voice(tts, sid, text, length_scale=ls)
+        pace = tuned_pace.get(sid, ls)
+        if _SHARED:
+            wav = synthesize_voice(tts, sid, text, lang=lang_key,
+                                   length_scale=pace, sample_rate=24000)
+        else:
+            wav = synthesize_voice(tts, sid, text, pace)
         dur = len(wav) / 24000.0
 
         wav_path = OUT_DIR / f"{mp3_id}.wav"

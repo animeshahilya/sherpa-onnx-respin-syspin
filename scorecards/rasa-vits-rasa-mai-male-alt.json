@@ -1,0 +1,55 @@
+{
+ "voice": "vits-rasa-mai-male-alt",
+ "lang": "mai",
+ "sid": 10,
+ "tuned": {
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8,
+  "length_scale": 1.0
+ },
+ "wer": 0.0,
+ "wer_recheck": 0.0556,
+ "proxy_mos": 4.72,
+ "chars_per_sec": 11.45,
+ "clip_frac": 0.0,
+ "duration_s": 7.95,
+ "note": "",
+ "sweep": [
+  {
+   "length_scale": 1.0,
+   "wer": 0.0,
+   "proxy_mos": 4.72,
+   "chars_per_sec": 11.45,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 1.05,
+   "wer": 0.0,
+   "proxy_mos": 4.7,
+   "chars_per_sec": 11.34,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 1.1,
+   "wer": 0.0,
+   "proxy_mos": 4.77,
+   "chars_per_sec": 11.16,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 0.95,
+   "wer": 0.1667,
+   "proxy_mos": 4.74,
+   "chars_per_sec": 12.03,
+   "clip_frac": 0.0
+  },
+  {
+   "length_scale": 0.9,
+   "wer": 0.1667,
+   "proxy_mos": 4.83,
+   "chars_per_sec": 13.52,
+   "clip_frac": 0.0
+  }
+ ],
+ "asr": "faster-whisper large-v3 (int8, beam 1); brx/doi/san decoded as hi"
+}

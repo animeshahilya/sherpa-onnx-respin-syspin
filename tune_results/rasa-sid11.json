@@ -1,0 +1,13 @@
+{
+ "voice": "vits-rasa-mal-female",
+ "lang": "mal",
+ "sid": 11,
+ "rows": [],
+ "winner": {
+  "length_scale": 1.0,
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8
+ },
+ "wer": null,
+ "note": "judge-fail (control WER=1.0 CER=0.9167); kept default 1.0"
+}

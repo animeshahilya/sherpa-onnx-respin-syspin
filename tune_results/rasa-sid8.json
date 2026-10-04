@@ -1,0 +1,86 @@
+{
+ "voice": "vits-rasa-kn-female-alt",
+ "lang": "kn",
+ "sid": 8,
+ "rows": [
+  {
+   "wer_runs": [
+    0.0769
+   ],
+   "wer": 0.0769,
+   "proxy_mos": 4.89,
+   "chars_per_sec": 12.59,
+   "clip_frac": 0.0,
+   "length_scale": 1.0,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "sid": 8
+  },
+  {
+   "wer_runs": [
+    0.0769
+   ],
+   "wer": 0.0769,
+   "proxy_mos": 4.9,
+   "chars_per_sec": 12.9,
+   "clip_frac": 0.0,
+   "length_scale": 1.05,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "sid": 8
+  },
+  {
+   "wer_runs": [
+    0.0769
+   ],
+   "wer": 0.0769,
+   "proxy_mos": 4.89,
+   "chars_per_sec": 12.13,
+   "clip_frac": 0.0,
+   "length_scale": 0.95,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "sid": 8
+  },
+  {
+   "wer_runs": [
+    0.0769
+   ],
+   "wer": 0.0769,
+   "proxy_mos": 4.79,
+   "chars_per_sec": 13.28,
+   "clip_frac": 0.0,
+   "length_scale": 0.9,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "sid": 8
+  },
+  {
+   "wer_runs": [
+    0.2308
+   ],
+   "wer": 0.2308,
+   "proxy_mos": 4.82,
+   "chars_per_sec": 11.45,
+   "clip_frac": 0.0,
+   "length_scale": 1.1,
+   "noise_scale": 0.667,
+   "noise_scale_w": 0.8,
+   "sid": 8
+  }
+ ],
+ "winner": {
+  "wer_runs": [
+   0.0769
+  ],
+  "wer": 0.0769,
+  "proxy_mos": 4.89,
+  "chars_per_sec": 12.59,
+  "clip_frac": 0.0,
+  "length_scale": 1.0,
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8,
+  "sid": 8
+ },
+ "asr": "faster-whisper large-v3 (int8, beam 1); brx/doi/san decoded as hi"
+}

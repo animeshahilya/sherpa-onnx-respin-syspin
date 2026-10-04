@@ -1,0 +1,13 @@
+{
+ "voice": "vits-rasa-doi-female",
+ "lang": "doi",
+ "sid": 6,
+ "rows": [],
+ "winner": {
+  "length_scale": 1.0,
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8
+ },
+ "wer": null,
+ "note": "judge-fail (control WER=0.7042 CER=0.4971); kept default 1.0"
+}

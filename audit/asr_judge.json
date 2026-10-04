@@ -1,0 +1,296 @@
+{
+ "syspin/vits-syspin-hi-female": {
+  "whisper_lang": "hi",
+  "wer": 0.449,
+  "cer": 0.1965,
+  "judge_ok": true,
+  "dur_s": 18.3
+ },
+ "syspin/vits-syspin-hi-male": {
+  "whisper_lang": "hi",
+  "wer": 0.2857,
+  "cer": 0.1485,
+  "judge_ok": true,
+  "dur_s": 19.6
+ },
+ "syspin/vits-syspin-en-female": {
+  "whisper_lang": "en",
+  "wer": 0.0,
+  "cer": 0.0,
+  "judge_ok": true,
+  "dur_s": 23.3
+ },
+ "syspin/vits-syspin-en-male": {
+  "whisper_lang": "en",
+  "wer": 0.0698,
+  "cer": 0.0631,
+  "judge_ok": true,
+  "dur_s": 19.7
+ },
+ "syspin/vits-syspin-bn-female": {
+  "whisper_lang": "bn",
+  "wer": 0.7419,
+  "cer": 0.3969,
+  "judge_ok": true,
+  "dur_s": 14.4
+ },
+ "syspin/vits-syspin-bn-male": {
+  "whisper_lang": "bn",
+  "wer": 0.6452,
+  "cer": 0.1598,
+  "judge_ok": true,
+  "dur_s": 12.8
+ },
+ "syspin/vits-syspin-te-female": {
+  "whisper_lang": "te",
+  "wer": 0.6429,
+  "cer": 0.2153,
+  "judge_ok": true,
+  "dur_s": 16.2
+ },
+ "syspin/vits-syspin-te-male": {
+  "whisper_lang": "te",
+  "wer": 0.5714,
+  "cer": 0.2105,
+  "judge_ok": true,
+  "dur_s": 17.0
+ },
+ "syspin/vits-syspin-kn-female": {
+  "whisper_lang": "kn",
+  "wer": 0.5517,
+  "cer": 0.1345,
+  "judge_ok": true,
+  "dur_s": 19.0
+ },
+ "syspin/vits-syspin-kn-male": {
+  "whisper_lang": "kn",
+  "wer": 0.5517,
+  "cer": 0.13,
+  "judge_ok": true,
+  "dur_s": 16.8
+ },
+ "syspin/vits-syspin-mr-female": {
+  "whisper_lang": "mr",
+  "wer": 0.575,
+  "cer": 0.276,
+  "judge_ok": true,
+  "dur_s": 19.2
+ },
+ "syspin/vits-syspin-mr-male": {
+  "whisper_lang": "mr",
+  "wer": 0.5,
+  "cer": 0.132,
+  "judge_ok": true,
+  "dur_s": 19.1
+ },
+ "syspin/vits-syspin-gu-female": {
+  "whisper_lang": "gu",
+  "wer": 0.3333,
+  "cer": 0.1117,
+  "judge_ok": true,
+  "dur_s": 28.6
+ },
+ "syspin/vits-syspin-gu-male": {
+  "whisper_lang": "gu",
+  "wer": 0.4242,
+  "cer": 0.1649,
+  "judge_ok": true,
+  "dur_s": 21.8
+ },
+ "syspin/vits-syspin-bho-female": {
+  "whisper_lang": "hi",
+  "wer": 0.3077,
+  "cer": 0.0842,
+  "judge_ok": true,
+  "dur_s": 17.2
+ },
+ "syspin/vits-syspin-bho-male": {
+  "whisper_lang": "hi",
+  "wer": 0.3846,
+  "cer": 0.1211,
+  "judge_ok": true,
+  "dur_s": 13.9
+ },
+ "syspin/vits-syspin-hne-female": {
+  "whisper_lang": "hi",
+  "wer": 0.7381,
+  "cer": 0.1929,
+  "judge_ok": true,
+  "dur_s": 14.4
+ },
+ "syspin/vits-syspin-hne-male": {
+  "whisper_lang": "hi",
+  "wer": 0.7857,
+  "cer": 0.2538,
+  "judge_ok": true,
+  "dur_s": 15.5
+ },
+ "syspin/vits-syspin-mai-female": {
+  "whisper_lang": "hi",
+  "wer": 0.6154,
+  "cer": 0.2451,
+  "judge_ok": true,
+  "dur_s": 16.5
+ },
+ "syspin/vits-syspin-mai-male": {
+  "whisper_lang": "hi",
+  "wer": 0.7436,
+  "cer": 0.3088,
+  "judge_ok": true,
+  "dur_s": 16.5
+ },
+ "syspin/vits-syspin-mag-female": {
+  "whisper_lang": "hi",
+  "wer": 0.4167,
+  "cer": 0.1182,
+  "judge_ok": true,
+  "dur_s": 16.9
+ },
+ "syspin/vits-syspin-mag-male": {
+  "whisper_lang": "hi",
+  "wer": 0.4792,
+  "cer": 0.1379,
+  "judge_ok": true,
+  "dur_s": 17.8
+ },
+ "rasa-sid0/asm": {
+  "whisper_lang": "as",
+  "wer": 1.0196,
+  "cer": 0.8571,
+  "judge_ok": false,
+  "dur_s": 23.2
+ },
+ "rasa-sid1/asm": {
+  "whisper_lang": "as",
+  "wer": 1.0,
+  "cer": 0.9286,
+  "judge_ok": false,
+  "dur_s": 22.9
+ },
+ "rasa-sid2/bn": {
+  "whisper_lang": "bn",
+  "wer": 0.5849,
+  "cer": 0.197,
+  "judge_ok": true,
+  "dur_s": 25.4
+ },
+ "rasa-sid3/bn": {
+  "whisper_lang": "bn",
+  "wer": 0.8113,
+  "cer": 0.5818,
+  "judge_ok": false,
+  "dur_s": 27.0
+ },
+ "rasa-sid4/brx": {
+  "whisper_lang": "hi",
+  "wer": 1.3617,
+  "cer": 0.4394,
+  "judge_ok": false,
+  "dur_s": 25.7
+ },
+ "rasa-sid5/brx": {
+  "whisper_lang": "hi",
+  "wer": 1.383,
+  "cer": 0.4545,
+  "judge_ok": false,
+  "dur_s": 24.0
+ },
+ "rasa-sid6/doi": {
+  "whisper_lang": "hi",
+  "wer": 0.7042,
+  "cer": 0.4971,
+  "judge_ok": false,
+  "dur_s": 22.7
+ },
+ "rasa-sid7/doi": {
+  "whisper_lang": "hi",
+  "wer": 0.5352,
+  "cer": 0.1879,
+  "judge_ok": true,
+  "dur_s": 26.2
+ },
+ "rasa-sid8/kn": {
+  "whisper_lang": "kn",
+  "wer": 0.4103,
+  "cer": 0.259,
+  "judge_ok": true,
+  "dur_s": 25.1
+ },
+ "rasa-sid9/kn": {
+  "whisper_lang": "kn",
+  "wer": 0.4872,
+  "cer": 0.2721,
+  "judge_ok": true,
+  "dur_s": 21.8
+ },
+ "rasa-sid10/mai": {
+  "whisper_lang": "hi",
+  "wer": 0.6271,
+  "cer": 0.2074,
+  "judge_ok": true,
+  "dur_s": 25.1
+ },
+ "rasa-sid11/mal": {
+  "whisper_lang": "ml",
+  "wer": 1.0,
+  "cer": 0.9167,
+  "judge_ok": false,
+  "dur_s": 17.5
+ },
+ "rasa-sid12/mr": {
+  "whisper_lang": "mr",
+  "wer": 0.6364,
+  "cer": 0.273,
+  "judge_ok": true,
+  "dur_s": 26.3
+ },
+ "rasa-sid13/mr": {
+  "whisper_lang": "mr",
+  "wer": 0.8545,
+  "cer": 0.5459,
+  "judge_ok": false,
+  "dur_s": 25.1
+ },
+ "rasa-sid14/ne": {
+  "whisper_lang": "ne",
+  "wer": 0.9189,
+  "cer": 0.1883,
+  "judge_ok": true,
+  "dur_s": 20.8
+ },
+ "rasa-sid15/pan": {
+  "whisper_lang": "pa",
+  "wer": 0.7206,
+  "cer": 0.4845,
+  "judge_ok": false,
+  "dur_s": 26.7
+ },
+ "rasa-sid16/pan": {
+  "whisper_lang": "pa",
+  "wer": 0.5882,
+  "cer": 0.2298,
+  "judge_ok": true,
+  "dur_s": 21.8
+ },
+ "rasa-sid17/san": {
+  "whisper_lang": "sa",
+  "wer": 0.8529,
+  "cer": 0.315,
+  "judge_ok": true,
+  "dur_s": 24.5
+ },
+ "rasa-sid18/tam": {
+  "whisper_lang": "ta",
+  "wer": 0.5122,
+  "cer": 0.1688,
+  "judge_ok": true,
+  "dur_s": 23.2
+ },
+ "rasa-sid19/te": {
+  "whisper_lang": "te",
+  "wer": 0.6061,
+  "cer": 0.4015,
+  "judge_ok": false,
+  "dur_s": 18.4
+ }
+}

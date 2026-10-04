@@ -25,17 +25,15 @@ except ImportError:  # pragma: no cover - helper import
     def hindi_frontend_fn(text: str, lang: str = "hi") -> str:
         return text
 
-try:
-    from indic_frontend import frontend as indic_frontend_fn
-except ImportError:  # pragma: no cover - helper import
-    def indic_frontend_fn(text: str, lang: str = "bn") -> str:
-        return text
-
-# Devanagari-script lang codes with Hindi-tuned schwa rules. mr/bho/mai/mag
-# use final-only mode (see hindi_frontend.SCHWA_MODE); hne follows Hindi.
+# Devanagari-script lang codes with Hindi-tuned schwa rules. mr/bho/mai/mag/
+# brx/doi/ne use final-only mode, san disables deletion entirely (classical
+# pronunciation keeps all schwas); hne follows Hindi. See SCHWA_MODE.
 DEVANAGARI_LANGS = {"hi", "mr", "bho", "hne", "mai", "mag", "ne", "san", "brx", "doi"}
-# Langs with dedicated numeral/punctuation frontends (indic_frontend.py).
-INDIC_FRONTEND_LANGS = {"bn", "te", "kn", "gu", "en"}
+# Langs with dedicated numeral/punctuation normalization (indic_frontend.py).
+# NOTE: san appears in BOTH sets on purpose -- indic handles its numerals,
+# hindi handles (skips) its schwa. brx/doi/ne numerals fall back to Hindi
+# words (documented approximation; native tables pending).
+INDIC_FRONTEND_LANGS = {"bn", "te", "kn", "gu", "en", "asm", "pan", "tam", "mal", "san"}
 
 PAUSE_SECONDS = 0.35
 CLAUSE_PAUSE_SECONDS = 0.18
@@ -47,20 +45,43 @@ PEAK_CEILING = 0.95
 
 
 def frontend_for_lang(text: str, lang: str, apocope: bool = True) -> str:
-    """Per-language frontend: Hindi schwa rules (lang-parameterized) for
-    Devanagari langs, numeral/punctuation frontends for bn/te/kn/gu/en,
-    passthrough otherwise. apocope toggles Bengali final-ô deletion
-    (tune_inference.py --ablate-frontend validates it)."""
+    """Two-stage frontend: (1) numeral/punctuation normalization -- indic
+    tables where available, else Hindi normalize (Devanagari digits share
+    the script); (2) schwa handling -- Hindi rules lang-parameterized
+    (san: none), Bengali apocope if enabled. Passthrough otherwise."""
+    if lang in INDIC_FRONTEND_LANGS:
+        try:
+            from indic_frontend import normalize as indic_normalize
+            text = indic_normalize(text, lang)
+        except (ImportError, KeyError):
+            pass
+    elif lang in DEVANAGARI_LANGS:
+        try:
+            from hindi_frontend import normalize as hindi_normalize
+            text = hindi_normalize(text)
+        except ImportError:
+            pass
     if lang in DEVANAGARI_LANGS:
         try:
             return hindi_frontend_fn(text, lang)
         except TypeError:  # older single-arg frontend
             return hindi_frontend_fn(text)
-    if lang in INDIC_FRONTEND_LANGS:
+    if lang == "bn" and apocope:
         try:
-            return indic_frontend_fn(text, lang, apocope=apocope)
-        except TypeError:
-            return indic_frontend_fn(text, lang)
+            from indic_frontend import delete_schwa_bn
+            words = []
+            for tok in text.split(" "):
+                if re.fullmatch(r"[A-Za-z]+", tok or ""):
+                    words.append(tok)
+                else:
+                    i = len(tok)
+                    while i > 0 and tok[i - 1] in ".,?!:;,—–'\"()":
+                        i -= 1
+                    core, tail = tok[:i], tok[i:]
+                    words.append(delete_schwa_bn(core) + tail if core else tok)
+            return " ".join(w for w in words if w)
+        except ImportError:
+            return text
     return text
 
 

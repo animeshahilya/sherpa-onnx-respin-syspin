@@ -1,0 +1,13 @@
+{
+ "voice": "vits-rasa-pan-female",
+ "lang": "pan",
+ "sid": 15,
+ "rows": [],
+ "winner": {
+  "length_scale": 1.0,
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8
+ },
+ "wer": null,
+ "note": "judge-fail (control WER=0.7206 CER=0.4845); kept default 1.0"
+}

@@ -166,10 +166,16 @@ SCHWA_MODE = {
     "bho": "final-only",  # Bhojpuri (Eastern): medial deletion restricted
     "mai": "final-only",  # Maithili: final applies, medial + exceptions TBD
     "mag": "final-only",  # Magahi (Eastern): as Bhojpuri pending review
+    "brx": "final-only",  # Bodo (Devanagari orthography): conservative
+    "doi": "final-only",  # Dogri: final applies; medial patterns unvalidated
+    "ne": "final-only",   # Nepali: final applies; medial limited vs Hindi
+    "san": "none",   # Sanskrit: NO schwa deletion in classical pronunciation
 }
 
 
 def delete_schwa_word(word: str, lang: str = "hi") -> str:
+    if SCHWA_MODE.get(lang, "full") == "none":
+        return word
     aks = split_aksharas(word)
     if not aks:
         return word

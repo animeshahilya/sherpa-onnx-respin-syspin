@@ -1,0 +1,19 @@
+{
+ "voice": "vits-rasa-pan-female",
+ "lang": "pan",
+ "sid": 15,
+ "tuned": {
+  "noise_scale": 0.667,
+  "noise_scale_w": 0.8,
+  "length_scale": 1.0
+ },
+ "wer": null,
+ "wer_recheck": null,
+ "proxy_mos": null,
+ "chars_per_sec": null,
+ "clip_frac": null,
+ "duration_s": 0.0,
+ "note": "judge-fail (control WER=0.7206 CER=0.4845); kept default 1.0",
+ "sweep": [],
+ "asr": ""
+}

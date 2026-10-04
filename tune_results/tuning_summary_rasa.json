@@ -1,0 +1,152 @@
+{
+ "vits-rasa-bn-female-alt": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.0625,
+  "proxy_mos": 4.77
+ },
+ "vits-rasa-doi-male": {
+  "winner": {
+   "length_scale": 1.05
+  },
+  "wer": 0.0435,
+  "proxy_mos": 4.86
+ },
+ "vits-rasa-kn-female-alt": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.0769,
+  "proxy_mos": 4.89
+ },
+ "vits-rasa-kn-male-alt": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.0769,
+  "proxy_mos": 4.93
+ },
+ "vits-rasa-mai-male-alt": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.0,
+  "proxy_mos": 4.72
+ },
+ "vits-rasa-mr-female-alt": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.0625,
+  "proxy_mos": 4.98
+ },
+ "vits-rasa-ne-female": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.0833,
+  "proxy_mos": 4.85
+ },
+ "vits-rasa-pan-male": {
+  "winner": {
+   "length_scale": 1.05
+  },
+  "wer": 0.0,
+  "proxy_mos": 4.85
+ },
+ "vits-rasa-san-male": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.0,
+  "proxy_mos": 4.83
+ },
+ "vits-rasa-tam-female": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": 0.0,
+  "proxy_mos": 4.93
+ },
+ "vits-rasa-asm-female": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": null,
+  "proxy_mos": null,
+  "note": "judge-fail (control WER=1.0196 CER=0.8571); kept default 1.0"
+ },
+ "vits-rasa-asm-male": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": null,
+  "proxy_mos": null,
+  "note": "judge-fail (control WER=1.0 CER=0.9286); kept default 1.0"
+ },
+ "vits-rasa-bn-male-alt": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": null,
+  "proxy_mos": null,
+  "note": "judge-fail (control WER=0.8113 CER=0.5818); kept default 1.0"
+ },
+ "vits-rasa-brx-female": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": null,
+  "proxy_mos": null,
+  "note": "judge-fail (control WER=1.3617 CER=0.4394); kept default 1.0"
+ },
+ "vits-rasa-brx-male": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": null,
+  "proxy_mos": null,
+  "note": "judge-fail (control WER=1.383 CER=0.4545); kept default 1.0"
+ },
+ "vits-rasa-doi-female": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": null,
+  "proxy_mos": null,
+  "note": "judge-fail (control WER=0.7042 CER=0.4971); kept default 1.0"
+ },
+ "vits-rasa-mal-female": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": null,
+  "proxy_mos": null,
+  "note": "judge-fail (control WER=1.0 CER=0.9167); kept default 1.0"
+ },
+ "vits-rasa-mr-male-alt": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": null,
+  "proxy_mos": null,
+  "note": "judge-fail (control WER=0.8545 CER=0.5459); kept default 1.0"
+ },
+ "vits-rasa-pan-female": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": null,
+  "proxy_mos": null,
+  "note": "judge-fail (control WER=0.7206 CER=0.4845); kept default 1.0"
+ },
+ "vits-rasa-te-female-alt": {
+  "winner": {
+   "length_scale": 1.0
+  },
+  "wer": null,
+  "proxy_mos": null,
+  "note": "judge-fail (control WER=0.6061 CER=0.4015); kept default 1.0"
+ }
+}

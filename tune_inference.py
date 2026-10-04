@@ -105,6 +105,45 @@ def load_tts(voice_id, noise_scale, noise_scale_w, length_scale):
     return sherpa_onnx.OfflineTts(cfg)
 
 
+# ---- Rasa engine (shared multi-speaker file, 20 sids) ----
+# (sid, voices.json id, eval-lang key)
+RASA_SIDS = [
+    (0, "vits-rasa-asm-female", "asm"), (1, "vits-rasa-asm-male", "asm"),
+    (2, "vits-rasa-bn-female-alt", "bn"), (3, "vits-rasa-bn-male-alt", "bn"),
+    (4, "vits-rasa-brx-female", "brx"), (5, "vits-rasa-brx-male", "brx"),
+    (6, "vits-rasa-doi-female", "doi"), (7, "vits-rasa-doi-male", "doi"),
+    (8, "vits-rasa-kn-female-alt", "kn"), (9, "vits-rasa-kn-male-alt", "kn"),
+    (10, "vits-rasa-mai-male-alt", "mai"), (11, "vits-rasa-mal-female", "mal"),
+    (12, "vits-rasa-mr-female-alt", "mr"), (13, "vits-rasa-mr-male-alt", "mr"),
+    (14, "vits-rasa-ne-female", "ne"), (15, "vits-rasa-pan-female", "pan"),
+    (16, "vits-rasa-pan-male", "pan"), (17, "vits-rasa-san-male", "san"),
+    (18, "vits-rasa-tam-female", "tam"), (19, "vits-rasa-te-female-alt", "te"),
+]
+RASA_WHISPER = {"asm": "as", "bn": "bn", "brx": "hi", "doi": "hi",
+                "kn": "kn", "mai": "hi", "mal": "ml", "mr": "mr",
+                "ne": "ne", "pan": "pa", "san": "sa", "tam": "ta", "te": "te"}
+RASA_MODEL = os.path.join(BASE, "release_assets_rasa", "vits-rasa-13-model.onnx")
+RASA_TOKENS = os.path.join(BASE, "vits-rasa-13", "tokens.txt")
+
+_rasa_cache = None
+
+
+def load_tts_rasa():
+    """Single shared instance (pace is applied per-call via speed=1/length,
+    exactly like the syspin path, so one object serves all configs/sids)."""
+    global _rasa_cache
+    if _rasa_cache is None:
+        import sherpa_onnx
+        cfg = sherpa_onnx.OfflineTtsConfig(
+            model=sherpa_onnx.OfflineTtsModelConfig(
+                vits=sherpa_onnx.OfflineTtsVitsModelConfig(
+                    model=RASA_MODEL, tokens=RASA_TOKENS,
+                    noise_scale=0.667, noise_scale_w=0.8, length_scale=1.0),
+                provider="cpu", num_threads=4))
+        _rasa_cache = sherpa_onnx.OfflineTts(cfg)
+    return _rasa_cache
+
+
 def proxy_mos(wav, sr):
     """No-reference quality proxy 1..5 (NOT a listening test).
 
@@ -135,21 +174,21 @@ def proxy_mos(wav, sr):
     return round(max(1.0, min(5.0, score)), 2)
 
 
-def transcribe(wav16k, lang, prompt=None):
-    """faster-whisper base. Two gotchas handled:
+def transcribe(wav16k, lang, prompt=None, whisper_map=None):
+    """faster-whisper large-v3. Two gotchas handled:
     1. Short clips hallucinate -> callers use paragraph-level audio.
     2. Hindi sometimes decodes in Urdu script despite language='hi'
        (verified) -> Devanagari initial_prompt usually steers it right;
        residual Arabic-block output is flagged unreliable (None) so a
        script flip can't win a tuning comparison.
     Returns (hyp, reliable)."""
-    kwargs = dict(language=WHISPER_LANG[lang], beam_size=1)
+    wmap = whisper_map or WHISPER_LANG
+    kwargs = dict(language=wmap.get(lang, "hi"), beam_size=1)
     if prompt:
         kwargs["initial_prompt"] = prompt
     segs, _ = get_asr().transcribe(wav16k, **kwargs)
     hyp = " ".join(s.text for s in segs).strip()
-    if lang in ("hi", "bho", "hne", "mai", "mag", "mr", "bn") and re.search(
-            r"[\u0600-\u06FF]", hyp):
+    if re.search(r"[\u0600-\u06FF]", hyp):
         return hyp, False
     return hyp, True
 
@@ -164,7 +203,8 @@ def resample16k(wav, sr):
     return resample_poly(x, 16000 // g, sr // g).astype(np.float32)
 
 
-def score_config(tts, voice_id, lang, cfg, texts, repeats=1, apocope=True):
+def score_config(tts, voice_id, lang, cfg, texts, repeats=1, apocope=True, sid=0,
+                 whisper_map=None):
     """One paragraph-level synthesis per repeat (the real chunking path):
     short clips truncate/hallucinate in whisper, ~5s+ passages transcribe
     reliably (verified: 1.4s clip -> truncated hyp, 5.4s concat -> full)."""
@@ -173,10 +213,11 @@ def score_config(tts, voice_id, lang, cfg, texts, repeats=1, apocope=True):
     ref = norm_text(passage)
     wer_runs, mos, rates, clips = [], [], [], []
     for rep in range(repeats):
-        w = synthesize_voice(tts, sid=0, text=passage, lang=lang,
+        w = synthesize_voice(tts, sid=sid, text=passage, lang=lang,
                              length_scale=cfg["length_scale"],
                              sample_rate=tts.sample_rate, apocope=apocope)
-        hyp, reliable = transcribe(resample16k(w, tts.sample_rate), lang, prompt=texts[0])
+        hyp, reliable = transcribe(resample16k(w, tts.sample_rate), lang, prompt=texts[0],
+                                   whisper_map=whisper_map)
         if reliable:
             try:
                 wer_runs.append(wer(ref, norm_text(hyp)))
@@ -250,6 +291,37 @@ def tune_voice(voice_id, grid, repeats=1, ablation=None, shortlist_extra=0):
             "asr": "faster-whisper large-v3 (int8, beam 1); bho/hne/mai/mag decoded as hi"}
 
 
+def tune_rasa_sid(sid, voice_id, lang, eval_text, grid, repeats=1):
+    """Tune one Rasa speaker: shared model (loaded once), pace via speed.
+    Eval text is the passage's first sentence (vetted, in-language). Only
+    sids whose judge validated (audit/asr_judge.json) reach here; the rest
+    keep length_scale 1.0 (see report)."""
+    tts = load_tts_rasa()
+    rows = []
+    keys = list(grid.keys())
+    for vals in itertools.product(*(grid[k] for k in keys)):
+        cfg = dict(zip(keys, vals))
+        cfg.setdefault("noise_scale", 0.667)
+        cfg.setdefault("noise_scale_w", 0.8)
+        s = score_config(tts, voice_id, lang, cfg, [eval_text], repeats,
+                         sid=sid, whisper_map=RASA_WHISPER)
+        s.update(cfg)
+        s["sid"] = sid
+        rows.append(s)
+        print("  %s -> WER %s mos %s cps %s" % (
+            {k: cfg[k] for k in keys}, s["wer"], s["proxy_mos"],
+            s["chars_per_sec"]), flush=True)
+
+    def keyfn(r):
+        return (r["wer"] if r["wer"] is not None else 9.0,
+                abs(r["length_scale"] - 1.0) * 2.0,
+                -r["proxy_mos"])
+    rows.sort(key=keyfn)
+    return {"voice": voice_id, "lang": lang, "sid": sid, "rows": rows,
+            "winner": rows[0],
+            "asr": "faster-whisper large-v3 (int8, beam 1); brx/doi/san decoded as hi"}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--voices", nargs="*", default=None)
@@ -263,6 +335,8 @@ def main():
     ap.add_argument("--probe-variance", action="store_true")
     ap.add_argument("--ablate-frontend", action="store_true")
     ap.add_argument("--apply", action="store_true")
+    ap.add_argument("--engine", choices=("syspin", "rasa"), default="syspin",
+                    help="syspin: 22 single-speaker files; rasa: 20 sids, one shared file")
     args = ap.parse_args()
 
     if args.apply:
@@ -272,7 +346,7 @@ def main():
         shutil.copy2(vpath, vpath + ".bak")
         data = json.load(open(vpath, encoding="utf-8"))
         for f in sorted(os.listdir(RES)):
-            if not f.endswith(".json") or f == "tuning_summary.json":
+            if not f.endswith(".json") or f.startswith("tuning_summary"):
                 continue
             r = json.load(open(os.path.join(RES, f), encoding="utf-8"))
             w = r["winner"]
@@ -289,7 +363,26 @@ def main():
         return
 
     grid = GRID_QUICK if args.quick else GRID_FULL
-    if args.voices:
+    summary_name = ("tuning_summary_rasa.json" if args.engine == "rasa"
+                    else "tuning_summary.json")
+    if args.engine == "rasa":
+        from generate_rasa_samples import RASA_TEXTS
+        targets = [(sid, vid, lang, RASA_TEXTS[lang]["text"].split(".")[0].strip())
+                   for sid, vid, lang in RASA_SIDS]
+        if args.voices:
+            keep = set(args.voices)
+            targets = [t for t in targets if t[1] in keep or str(t[0]) in keep]
+        if args.probe_variance and targets:
+            sid, vid, lang, text = targets[0]
+            tts = load_tts_rasa()
+            cfg = {"noise_scale": 0.667, "noise_scale_w": 0.8, "length_scale": 1.0}
+            ws = [score_config(tts, vid, lang, cfg, [text], sid=sid,
+                               whisper_map=RASA_WHISPER)["wer"] for _ in range(3)]
+            ws = [w for w in ws if w is not None]
+            print("rasa variance probe sid %d WERs=%s spread=%s"
+                  % (sid, ws, round(max(ws) - min(ws), 3) if ws else None))
+            return
+    elif args.voices:
         voices = args.voices
     else:
         allv = []
@@ -313,9 +406,39 @@ def main():
 
     summary = {}
     try:
-        summary = json.load(open(os.path.join(RES, "tuning_summary.json"), encoding="utf-8"))
+        summary = json.load(open(os.path.join(RES, summary_name), encoding="utf-8"))
     except (FileNotFoundError, ValueError):
         pass
+    if args.engine == "rasa":
+        import soundfile as sf
+        for sid, vid, lang, text in targets:
+            out_json = os.path.join(RES, "rasa-sid%d.json" % sid)
+            if not args.redo and os.path.exists(out_json):
+                print("tuning %s (sid %d) ... exists, skipping (--redo to redo)" % (vid, sid),
+                      flush=True)
+                r = json.load(open(out_json, encoding="utf-8"))
+                summary[vid] = {"winner": {k: r["winner"][k] for k in grid},
+                                "wer": r["winner"]["wer"], "proxy_mos": r["winner"]["proxy_mos"]}
+                continue
+            print("tuning %s (sid %d) ..." % (vid, sid), flush=True)
+            t0 = time.time()
+            r = tune_rasa_sid(sid, vid, lang, text, grid, args.repeats)
+            json.dump(r, open(out_json, "w", encoding="utf-8"),
+                      ensure_ascii=False, indent=1)
+            tts = load_tts_rasa()
+            w = synthesize_voice(tts, sid=sid, text=text, lang=lang,
+                                 length_scale=r["winner"]["length_scale"],
+                                 sample_rate=tts.sample_rate)
+            sf.write(os.path.join(WAVS, "rasa-sid%d_eval.wav" % sid), w, tts.sample_rate)
+            print("%s winner=%s WER=%s (%.0fs)" % (
+                vid, {k: r["winner"][k] for k in grid}, r["winner"]["wer"],
+                time.time() - t0), flush=True)
+            summary[vid] = {"winner": {k: r["winner"][k] for k in grid},
+                            "wer": r["winner"]["wer"], "proxy_mos": r["winner"]["proxy_mos"]}
+        json.dump(summary, open(os.path.join(RES, summary_name), "w", encoding="utf-8"),
+                  ensure_ascii=False, indent=1)
+        print("summary -> tune_results/%s" % summary_name)
+        return
     for v in voices:
         if not args.redo and os.path.exists(os.path.join(RES, v + ".json")):
             print("tuning %s ... exists, skipping (--redo to redo)" % v, flush=True)
