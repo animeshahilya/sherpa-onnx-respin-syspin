@@ -1,0 +1,48 @@
+{
+ "voice": "vits-rasa-ne-female",
+ "sid": 14,
+ "lang": "ne",
+ "rows": [
+  {
+   "cfg": {
+    "length_scale": 1.0
+   },
+   "wer_runs": [
+    0.4167,
+    0.9167
+   ],
+   "wer": 0.6667
+  },
+  {
+   "cfg": {
+    "length_scale": 0.95
+   },
+   "wer_runs": [
+    0.8333,
+    0.75
+   ],
+   "wer": 0.7917
+  },
+  {
+   "cfg": {
+    "length_scale": 1.05
+   },
+   "wer_runs": [
+    0.9167,
+    0.9167
+   ],
+   "wer": 0.9167
+  }
+ ],
+ "winner": {
+  "cfg": {
+   "length_scale": 1.0
+  },
+  "wer_runs": [
+   0.4167,
+   0.9167
+  ],
+  "wer": 0.6667
+ },
+ "model": "vits-rasa-13-styles-model.onnx (local build from v2.0.0 + upstream style table)"
+}

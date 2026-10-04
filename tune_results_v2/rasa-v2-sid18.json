@@ -1,0 +1,48 @@
+{
+ "voice": "vits-rasa-tam-female",
+ "sid": 18,
+ "lang": "tam",
+ "rows": [
+  {
+   "cfg": {
+    "length_scale": 0.95
+   },
+   "wer_runs": [
+    0.3636,
+    0.3636
+   ],
+   "wer": 0.3636
+  },
+  {
+   "cfg": {
+    "length_scale": 1.05
+   },
+   "wer_runs": [
+    0.5455,
+    0.1818
+   ],
+   "wer": 0.3636
+  },
+  {
+   "cfg": {
+    "length_scale": 1.0
+   },
+   "wer_runs": [
+    1.0,
+    1.0
+   ],
+   "wer": 1.0
+  }
+ ],
+ "winner": {
+  "cfg": {
+   "length_scale": 0.95
+  },
+  "wer_runs": [
+   0.3636,
+   0.3636
+  ],
+  "wer": 0.3636
+ },
+ "model": "vits-rasa-13-styles-model.onnx (local build from v2.0.0 + upstream style table)"
+}

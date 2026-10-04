@@ -1,0 +1,173 @@
+{
+ "voice": "hi-female",
+ "rows": [
+  {
+   "cfg": {
+    "noise_scale": 0.5,
+    "noise_w": 0.6,
+    "length_scale": 1.0
+   },
+   "wer_runs": [
+    0.6,
+    0.6
+   ],
+   "wer": 0.6
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.8,
+    "noise_w": 0.6,
+    "length_scale": 1.0
+   },
+   "wer_runs": [
+    0.6,
+    0.6
+   ],
+   "wer": 0.6
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.5,
+    "noise_w": 0.6,
+    "length_scale": 0.95
+   },
+   "wer_runs": [
+    0.6,
+    0.6
+   ],
+   "wer": 0.6
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.5,
+    "noise_w": 0.6,
+    "length_scale": 1.05
+   },
+   "wer_runs": [
+    0.6667,
+    0.6
+   ],
+   "wer": 0.6333
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.8,
+    "noise_w": 0.6,
+    "length_scale": 1.05
+   },
+   "wer_runs": [
+    0.6,
+    0.6667
+   ],
+   "wer": 0.6333
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.8,
+    "noise_w": 1.0,
+    "length_scale": 1.05
+   },
+   "wer_runs": [
+    0.6,
+    0.6667
+   ],
+   "wer": 0.6333
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.5,
+    "noise_w": 1.0,
+    "length_scale": 1.0
+   },
+   "wer_runs": [
+    0.6667,
+    0.6667
+   ],
+   "wer": 0.6667
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.8,
+    "noise_w": 1.0,
+    "length_scale": 1.0
+   },
+   "wer_runs": [
+    0.6667,
+    0.6667
+   ],
+   "wer": 0.6667
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.667,
+    "noise_w": 1.0,
+    "length_scale": 1.0
+   },
+   "wer_runs": [
+    0.6667,
+    0.6667
+   ],
+   "wer": 0.6667
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.5,
+    "noise_w": 1.0,
+    "length_scale": 1.05
+   },
+   "wer_runs": [
+    0.6667,
+    0.6667
+   ],
+   "wer": 0.6667
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.8,
+    "noise_w": 0.6,
+    "length_scale": 0.95
+   },
+   "wer_runs": [
+    0.6667,
+    0.6667
+   ],
+   "wer": 0.6667
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.8,
+    "noise_w": 1.0,
+    "length_scale": 0.95
+   },
+   "wer_runs": [
+    0.6667,
+    0.7333
+   ],
+   "wer": 0.7
+  },
+  {
+   "cfg": {
+    "noise_scale": 0.5,
+    "noise_w": 1.0,
+    "length_scale": 0.95
+   },
+   "wer_runs": [
+    0.6667,
+    0.8
+   ],
+   "wer": 0.7333
+  }
+ ],
+ "winner": {
+  "cfg": {
+   "noise_scale": 0.5,
+   "noise_w": 0.6,
+   "length_scale": 1.0
+  },
+  "wer_runs": [
+   0.6,
+   0.6
+  ],
+  "wer": 0.6
+ }
+}

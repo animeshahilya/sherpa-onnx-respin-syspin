@@ -878,7 +878,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.05,
+          "length_scale": 1.0,
           "speed": 1.0
         },
         "sample": "samples/vits-rasa-doi-male.mp3",
@@ -996,7 +996,7 @@
         "recommended": {
           "noise_scale": 0.667,
           "noise_scale_w": 0.8,
-          "length_scale": 1.05,
+          "length_scale": 1.0,
           "speed": 1.0
         },
         "sample": "samples/vits-rasa-pan-male.mp3",

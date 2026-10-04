@@ -1,0 +1,48 @@
+{
+ "voice": "vits-rasa-mr-female-alt",
+ "sid": 12,
+ "lang": "mr",
+ "rows": [
+  {
+   "cfg": {
+    "length_scale": 1.05
+   },
+   "wer_runs": [
+    0.5625,
+    0.625
+   ],
+   "wer": 0.5938
+  },
+  {
+   "cfg": {
+    "length_scale": 1.0
+   },
+   "wer_runs": [
+    0.625,
+    0.6875
+   ],
+   "wer": 0.6562
+  },
+  {
+   "cfg": {
+    "length_scale": 0.95
+   },
+   "wer_runs": [
+    0.75,
+    0.5625
+   ],
+   "wer": 0.6562
+  }
+ ],
+ "winner": {
+  "cfg": {
+   "length_scale": 1.05
+  },
+  "wer_runs": [
+   0.5625,
+   0.625
+  ],
+  "wer": 0.5938
+ },
+ "model": "vits-rasa-13-styles-model.onnx (local build from v2.0.0 + upstream style table)"
+}
