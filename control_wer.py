@@ -40,6 +40,20 @@ def to_wav(mp3, wav):
                    capture_output=True, check=True)
 
 
+def dominant_block(s):
+    """Dominant Unicode script block of alphabetic chars, e.g. 'MALAYALAM'."""
+    import unicodedata
+    from collections import Counter
+    c = Counter()
+    for ch in s:
+        if ch.isalpha():
+            try:
+                c[unicodedata.name(ch).split()[0]] += 1
+            except ValueError:
+                pass
+    return c.most_common(1)[0][0] if c else None
+
+
 def main():
     from jiwer import wer, cer
     from generate_rasa_samples import RASA_TEXTS
@@ -72,9 +86,15 @@ def main():
             wv, cv = round(float(wer(ref, hyp)), 4), round(float(cer(ref, hyp)), 4)
         except ValueError:
             wv, cv = 1.0, 1.0
-        ok = (wv is not None and wv < 0.6) or (cv is not None and cv < 0.4)
+        # Script confusion (verified: whisper-ml decoded Malayalam audio as
+        # Gurmukhi) invalidates the judge regardless of scores.
+        script_ok = dominant_block(hyp) == dominant_block(ref)
+        ok = script_ok and ((wv is not None and wv < 0.6) or (cv is not None and cv < 0.4))
         out[key] = {"whisper_lang": wlang, "wer": wv, "cer": cv,
                     "judge_ok": bool(ok), "dur_s": round(len(w) / sr, 1)}
+        if not script_ok:
+            out[key]["note"] = "script confusion: hyp=%s ref=%s" % (
+                dominant_block(hyp), dominant_block(ref))
         print("%-22s [%s] WER=%s CER=%s %s" % (
             key, wlang, wv, cv, "OK" if ok else "JUDGE-FAIL"), flush=True)
     json.dump(out, open(os.path.join(BASE, "audit", "asr_judge.json"),

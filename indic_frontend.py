@@ -344,7 +344,112 @@ EN_TENS = {20: "twenty", 30: "thirty", 40: "forty", 50: "fifty",
            60: "sixty", 70: "seventy", 80: "eighty", 90: "ninety"}
 
 
-# English numeral system (Western scales)
+# ---------------------------------------------------------------- English (India)
+
+EN_ABBREV = {  # case-insensitive, optional trailing period
+    "mr": "mister", "mrs": "missus", "ms": "miss", "dr": "doctor",
+    "st": "saint", "no": "number", "rs": "rupees", "vs": "versus",
+    "etc": "etcetera", "eg": "for example", "ie": "that is",
+    "jr": "junior", "sr": "senior", "dept": "department",
+    "govt": "government", "univ": "university",
+}
+EN_ORD_EXC = {1: "first", 2: "second", 3: "third", 5: "fifth", 8: "eighth",
+              9: "ninth", 12: "twelfth"}
+
+
+def _ord_word(w: str) -> str:
+    """Ordinalize a single number word: one->first, twenty->twentieth."""
+    if w in ("one", "two", "three", "five", "eight", "nine", "twelve"):
+        return EN_ORD_EXC[EN_ONES.index(w)]
+    if w.endswith("y"):
+        return w[:-1] + "ieth"
+    return w + "th"
+
+
+def en_ordinal(n: int) -> str:
+    if n in EN_ORD_EXC:
+        return EN_ORD_EXC[n]
+    base = en_number(n)
+    if "-" in base:  # twenty-one -> twenty-first
+        head, tail = base.rsplit("-", 1)
+        return head + "-" + _ord_word(tail)
+    head, tail = base.rsplit(" ", 1) if " " in base else ("", base)
+    tail = _ord_word(tail)
+    return (head + " " + tail).strip()  # one hundred one -> one hundred first
+
+
+def en_number_indian(n: int) -> str:
+    """Indian grouping: thousand <1L, lakh <1Cr, crore <100Cr, arab beyond."""
+    if n < 0:
+        return "minus " + en_number_indian(-n)
+    if n < 1000:
+        return en_number(n)
+    if n < 100000:
+        q, r = divmod(n, 1000)
+        out = en_number(q) + " thousand"
+        return out if r == 0 else out + " " + en_number_indian(r)
+    if n < 10000000:
+        q, r = divmod(n, 100000)
+        out = en_number(q) + " lakh"
+        return out if r == 0 else out + " " + en_number_indian(r)
+    if n < 1000000000:
+        q, r = divmod(n, 10000000)
+        out = en_number(q) + " crore"
+        return out if r == 0 else out + " " + en_number_indian(r)
+    q, r = divmod(n, 1000000000)
+    out = en_number(q) + " arab"
+    return out if r == 0 else out + " " + en_number_indian(r)
+
+
+def en_preprocess(text: str) -> str:
+    """en-IN specifics, before the generic numeral passes (order matters:
+    time/ordinals/abbreviations contain digits+punct the later passes
+    would otherwise shred)."""
+    def repl_time(m):
+        h, mm = int(m.group(1)), int(m.group(2))
+        if h > 23 or mm > 59:
+            return m.group(0)
+        out = en_number(h)
+        if mm == 0:
+            return out + " o'clock"
+        if mm < 10:
+            return out + " oh " + en_number(mm)
+        return out + " " + en_number(mm)
+    text = re.sub(r"\b(\d{1,2}):(\d{2})\b", repl_time, text)
+
+    def repl_ord(m):
+        try:
+            return en_ordinal(int(m.group(1)))
+        except ValueError:
+            return m.group(0)
+    text = re.sub(r"\b(\d+)(st|nd|rd|th)\b", repl_ord, text, flags=re.IGNORECASE)
+    for abbr, word in EN_ABBREV.items():
+        # Short forms (<=2 letters) require the period: bare "no"/"st"
+        # are ordinary words ("no one", "St"reet needs care anyway).
+        pat = r"\b%s\." % abbr if len(abbr) <= 2 else r"\b%s\.?\b" % abbr
+        text = re.sub(pat, " " + word + " ", text, flags=re.IGNORECASE)
+    text = text.replace("&", " and ").replace("@", " at ")
+    return text
+
+
+def _indian_grouped(text: str) -> str:
+    """1,00,000-style runs -> Indian words; 1,000,000-style -> Western.
+    Runs first so the generic passes never see grouped digits."""
+    def repl(m):
+        tok = m.group(0)
+        groups = tok.split(",")
+        try:
+            n = int("".join(groups))
+        except ValueError:
+            return tok
+        # Indian grouping: last group is 3 digits, middle groups are 2
+        # (1,00,000). Western (1,000,000) has 3-digit middle groups.
+        # Below one lakh both systems agree, so misfires there are harmless.
+        indian = (len(groups) > 1 and len(groups[-1]) == 3
+                  and all(len(g) == 2 for g in groups[1:-1]))
+        words = en_number_indian(n) if indian else en_number(n)
+        return " " + words + " "
+    return re.sub(r"\d{1,3}(?:,\d+)+", repl, text)
 
 
 def en_under100(n: int) -> str:
@@ -613,6 +718,8 @@ def expand_numerals(text: str, lang: str) -> str:
     """Native + ASCII digit runs -> words. Handles Indian/Western commas,
     decimals (digit-by-digit fraction) and % / currency suffixes."""
     cfg = LANG[lang]
+    if lang == "en":
+        text = _indian_grouped(en_preprocess(text))
     dc = _digit_class(cfg)
 
     def parse_int(tok: str) -> int:
@@ -627,7 +734,8 @@ def expand_numerals(text: str, lang: str) -> str:
     def repl_dec(m):
         ip, fp = m.group(1), m.group(2)
         try:
-            return cfg["number"](parse_int(ip)) + " " + cfg["point"] + " " + digit_words(fp)
+            return (" " + cfg["number"](parse_int(ip)) + " " + cfg["point"] + " "
+                    + digit_words(fp) + " ")
         except (ValueError, KeyError):
             return m.group(0)
     text = re.sub("(" + dc + r"+)\.(" + dc + r"+)", repl_dec, text)
@@ -635,7 +743,8 @@ def expand_numerals(text: str, lang: str) -> str:
     def repl_int(m):
         tok = m.group(0)
         try:
-            return cfg["number"](parse_int(tok))
+            # padded: digit runs often glue to Latin ("abc123")
+            return " " + cfg["number"](parse_int(tok)) + " "
         except (ValueError, KeyError):
             return tok
     text = re.sub(dc + r"+(?:," + dc + r"+)*", repl_int, text)

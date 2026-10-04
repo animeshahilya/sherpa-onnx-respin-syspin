@@ -307,7 +307,8 @@ def expand_numerals(text: str) -> str:
     def repl(m):
         tok = m.group(0)
         try:
-            return number_to_hindi(dev_to_int(tok))
+            # padded: digit runs often glue to Latin ("xyz123")
+            return " " + number_to_hindi(dev_to_int(tok)) + " "
         except (ValueError, KeyError):
             return tok
 
@@ -360,7 +361,107 @@ def normalize(text: str) -> str:
     return text
 
 
+# ---------------- Hinglish (Latin-script Hindi in Hindi text) ----------------
 TRAILING_PUNCT = ".,?!:;,—–'\"()"
+
+# Raw WX transliteration is UNSAFE here (verified 2026-10-04): English
+# spellings are not WX notation, so loanwords garble ("Khushi"->kh-sh-hi
+# fragments, "station"/"computer" gain trailing halants that swallow the
+# final vowel). Instead: a curated lexicon of high-frequency Hinglish words
+# with hand-verified Devanagari forms. Anything not in the map passes through
+# unchanged (status quo). Case-insensitive; all values must be fully covered
+# by the hi vocab (checked in audit_frontend.py).
+HINGLISH = {
+    # greetings / pronouns / auxiliaries
+    "namaste": "नमस्ते", "namaskar": "नमस्कार", "main": "मैं", "tum": "तुम",
+    "aap": "आप", "hum": "हम", "mera": "मेरा", "meri": "मेरी", "mere": "मेरे",
+    "tera": "तेरा", "teri": "तेरी", "tere": "तेरे", "uska": "उसका",
+    "uski": "उसकी", "uske": "उसके", "hamara": "हमारा", "hamari": "हमारी",
+    "hai": "है", "ho": "हो", "hun": "हूँ", "hoon": "हूँ", "tha": "था",
+    "thi": "थी", "the": "थे", "hoga": "होगा", "hogi": "होगी",
+    "hain": "हैं", "nahi": "नहीं", "nahin": "नहीं", "mat": "मत",
+    # question words
+    "kya": "क्या", "kaise": "कैसे", "kab": "कब", "kahan": "कहाँ",
+    "kaha": "कहाँ", "kaun": "कौन", "kyon": "क्यों", "kyun": "क्यों",
+    "kitna": "कितना", "kitne": "कितने", "kaunsa": "कौनसा",
+    # verbs / common predicates
+    "karo": "करो", "karte": "करते", "karta": "करता", "kiya": "किया",
+    "kiye": "किए", "jao": "जाओ", "jata": "जाता", "aao": "आओ",
+    "aaya": "आया", "gaya": "गया", "gayi": "गयी", "lena": "लेना",
+    "dena": "देना", "khana": "खाना", "peena": "पीना", "sona": "सोना",
+    "chalna": "चलना", "rukna": "रुकना", "dekhna": "देखना", "sunna": "सुनना",
+    "bolna": "बोलना", "padhna": "पढ़ना", "likhna": "लिखना", "samajhna": "समझना",
+    # nouns / adjectives / adverbs
+    "pyaar": "प्यार", "dost": "दोस्त", "dosti": "दोस्ती", "ghar": "घर",
+    "paani": "पानी", "khana": "खाना", "paisa": "पैसा", "paise": "पैसे",
+    "rupay": "रुपए", "bhai": "भाई", "behen": "बहन", "didi": "दीदी",
+    "maa": "माँ", "papa": "पापा", "beta": "बेटा", "beti": "बेटी",
+    "bachcha": "बच्चा", "bachche": "बच्चे", "ladka": "लड़का",
+    "ladki": "लड़की", "aadmi": "आदमी", "aurat": "औरत", "desh": "देश",
+    "duniya": "दुनिया", "samay": "समय", "waqt": "वक़्त", "din": "दिन",
+    "raat": "रात", "subah": "सुबह", "shaam": "शाम", "mausam": "मौसम",
+    "sarkar": "सरकार", "kaam": "काम", "daftar": "दफ़्तर", "dukaan": "दुकान",
+    "bazaar": "बाज़ार", "sadak": "सड़क", "sheher": "शहर", "gaon": "गाँव",
+    "khushi": "खुशी", "dukh": "दुःख", "mohabbat": "मोहब्बत",
+    "achcha": "अच्छा", "achche": "अच्छे", "bura": "बुरा", "bada": "बड़ा",
+    "chhota": "छोटा", "naya": "नया", "purana": "पुराना", "bahut": "बहुत",
+    "thoda": "थोड़ा", "zyada": "ज़्यादा", "sab": "सब", "sabse": "सबसे",
+    "yahan": "यहाँ", "wahan": "वहाँ", "idhar": "इधर", "udhar": "उधर",
+    "abhi": "अभी", "kal": "कल", "aaj": "आज", "roz": "रोज़",
+    # cities / names
+    "dilli": "दिल्ली", "mumbai": "मुंबई", "bharat": "भारत",
+    "hindustan": "हिंदुस्तान",
+    # loanwords with standard spellings
+    "railway": "रेलवे", "station": "स्टेशन", "computer": "कंप्यूटर",
+    "mobile": "मोबाइल", "phone": "फ़ोन", "school": "स्कूल",
+    "college": "कॉलेज", "doctor": "डॉक्टर", "hospital": "हॉस्पिटल",
+    "police": "पुलिस", "train": "ट्रेन", "bus": "बस", "car": "कार",
+    "ticket": "टिकट", "office": "ऑफिस", "bank": "बैंक", "film": "फ़िल्म",
+    "model": "मॉडल",
+    # high-frequency verbs/adverbs/conjunctions
+    "naam": "नाम", "rehta": "रहता", "rehte": "रहते", "rehti": "रहती",
+    "par": "पर", "aur": "और", "milega": "मिलेगा", "milegi": "मिलेगी",
+    "chahiye": "चाहिए", "sakta": "सकता", "sakte": "सकते", "sakti": "सकती",
+    "wala": "वाला", "wali": "वाली", "wale": "वाले",
+    "liye": "लिए", "saath": "साथ", "baad": "बाद", "pehle": "पहले",
+    "phir": "फिर", "lekin": "लेकिन", "agar": "अगर", "kyunki": "क्योंकि",
+    "jab": "जब", "tab": "तब", "vaha": "वहाँ", "vahan": "वहाँ",
+    "yaha": "यहाँ", "yahan": "यहाँ", "kaisa": "कैसा", "kaisi": "कैसी",
+    "achhi": "अच्छी", "bure": "बुरे", "kar": "कर", "hona": "होना",
+    "raha": "रहा", "rahi": "रही", "rahe": "रहे",
+    "hua": "हुआ", "hui": "हुई", "hue": "हुए",
+    "bana": "बना", "banao": "बनाओ", "khaya": "खाया", "piya": "पिया",
+    "aana": "आना", "jaana": "जाना", "dekh": "देख", "deko": "देखो",
+    "suno": "सुनो", "bolo": "बोलो",
+    # common nouns / adjectives
+    "log": "लोग", "baat": "बात", "baatein": "बातें", "cheez": "चीज़",
+    "jagah": "जगह", "tareeka": "तरीका", "sawal": "सवाल", "jawab": "जवाब",
+    "madad": "मदद", "shaadi": "शादी", "bachpan": "बचपन",
+    "dushman": "दुश्मन", "gussa": "गुस्सा", "fikar": "फ़िक्र",
+    "parwah": "परवाह", "koshish": "कोशिश", "shuru": "शुरू",
+    "band": "बंद", "khula": "खुला", "sahi": "सही", "galat": "ग़लत",
+    "mushkil": "मुश्किल", "aasaan": "आसान", "tez": "तेज़", "dheere": "धीरे",
+    "jaldi": "जल्दी", "der": "देर", "hamesha": "हमेशा", "kabhi": "कभी",
+    "aksar": "अक्सर", "shayad": "शायद", "zaroor": "ज़रूर", "bilkul": "बिल्कुल",
+    "sach": "सच", "jhooth": "झूठ", "ameer": "अमीर", "gareeb": "गरीब",
+    "mazboot": "मज़बूत", "kamzor": "कमज़ोर", "garam": "गरम",
+    "thanda": "ठंडा", "meetha": "मीठा", "namkeen": "नमकीन",
+    "laal": "लाल", "neela": "नीला", "hara": "हरा", "kaala": "काला",
+    "safed": "सफ़ेद", "peela": "पीला", "lamba": "लंबा",
+    "uncha": "ऊंचा", "gehara": "गहरा", "halka": "हल्का", "bhari": "भारी",
+    "naram": "नरम", "sakht": "सख़्त", "agla": "अगला", "pichhla": "पिछला",
+    "pehla": "पहला", "aakhri": "आख़िरी", "aadha": "आधा", "poora": "पूरा",
+    "khaali": "ख़ाली", "bhara": "भरा", "geela": "गीला", "sookha": "सूखा",
+    "saaf": "साफ", "ganda": "गंदा", "mehanga": "महंगा", "sasta": "सस्ता",
+    "muft": "मुफ्त", "taiyaar": "तैयार", "naraaz": "नाराज़",
+    "pareshan": "परेशान", "hairan": "हैरान",
+}
+
+
+def hinglish_word(tok: str):
+    """Map a Latin token to Devanagari via the lexicon (case-insensitive).
+    Returns None when unknown (caller keeps passthrough)."""
+    return HINGLISH.get(tok.lower())
 
 
 def _split_trailing_punct(tok: str):
@@ -375,14 +476,19 @@ def _split_trailing_punct(tok: str):
 def frontend(text: str, lang: str = "hi") -> str:
     """Full pipeline -> model-ready text (still graphemes).
     lang selects schwa-deletion rules (see SCHWA_MODE); default 'hi'
-    preserves the original behavior for existing callers."""
+    preserves the original behavior for existing callers. For lang='hi'
+    only, Latin tokens in HINGLISH map to Devanagari (punct detached
+    first so 'station.' still matches); unknown Latin passes through."""
     text = normalize(text)
     words = []
     for tok in text.split(" "):
-        if re.fullmatch(r"[A-Za-z]+", tok or ""):
+        core, tail = _split_trailing_punct(tok)
+        if lang == "hi" and re.fullmatch(r"[A-Za-z]+", core or ""):
+            dev = hinglish_word(core)
+            words.append((delete_schwa_word(dev, lang) + tail) if dev else tok)
+        elif re.fullmatch(r"[A-Za-z]+", tok or ""):
             words.append(tok)  # Latin passthrough (partial ASCII coverage)
         else:
-            core, tail = _split_trailing_punct(tok)
             words.append(delete_schwa_word(core, lang) + tail if core else tok)
     return " ".join(w for w in words if w)
 
