@@ -43,6 +43,12 @@ RASA_MODEL = RASA_DIR / "vits-rasa-13-piper-model.onnx"
 COMPACT_TAG = "compact-v1"
 COMPACT_DIR = BASE / "release_assets_compact"
 COMPACT_CONFIGS = COMPACT_DIR / "configs"
+# Every kept voice with INT8 weights (build_small.py), under its own file
+# name: Standard and Compact alike. syspin-v2, rasa-v2 and compact-v1 keep
+# the float files for apps that pinned them.
+INT8_TAG = "int8-v1"
+INT8_DIR = BASE / "release_assets_int8"
+APP_ASSETS = BASE.parent / "espeak-ng" / "android" / "assets" / "piper"
 PIPER_SRC = BASE / "piper_src"
 # Piper "high" voices given a Compact version: licence from each MODEL_CARD.
 # Not here: en_US-lessac (Blizzard 2013 licence, no redistribution),
@@ -55,6 +61,36 @@ PIPER_COMPACT = {
     "kk_KZ-issai-high": "CC-BY-4.0", "pl_PL-bass-high": "Apache-2.0",
     "uk_UA-mykyta-high": "Apache-2.0", "uk_UA-oleksa-high": "Apache-2.0",
     "uk_UA-tetiana-high": "Apache-2.0",
+}
+
+# The kept rhasspy voices' licences, from each MODEL_CARD (2026-10-08).
+# Unclear ones are re-hosted like the rest (user's decision 2026-10-08).
+SEE_CARD = "see the voice's MODEL_CARD in rhasspy/piper-voices"
+IITM = "IIT Madras Indic TTS licence"
+LICENCES = {
+    "ar_JO-kareem-medium": SEE_CARD, "bg_BG-dimitar-medium": "CC0", "ca_ES-upc_ona-medium": "CC-BY-SA-3.0-ES",
+    "cs_CZ-kasandra-medium": "CC-BY-4.0", "cs_CZ-jirka-medium": "CC0", "cy_GB-gwryw_gogleddol-medium": SEE_CARD,
+    "cy_GB-bu_tts-medium": "CC-BY", "da_DK-talesyntese-medium": "CC0", "de_DE-thorsten_emotional-medium": "CC0",
+    "el_GR-joy-medium": "CC-BY-NC-4.0", "el_GR-rapunzelina-medium": "CC0",
+    "en_US-hfc_female-medium": "CC-BY-NC-SA-4.0", "en_US-amy-medium": SEE_CARD, "es_MX-claude-high": "Apache-2.0",
+    "es_ES-sharvard-medium": "CC-BY-3.0", "et_EE-news-medium": "CC-BY", "eu_ES-maider-medium": "CC-BY-4.0",
+    "eu_ES-antton-medium": "CC-BY-4.0", "fa_IR-ganji_adabi-medium": "CC0", "fa_IR-ganji-medium": "CC0",
+    "fi_FI-harri-medium": "CC0", "fr_FR-tom-medium": "AGPL-3.0", "fr_FR-siwis-medium": "CC-BY-4.0",
+    "hi_IN-rohan-medium": IITM, "hi_IN-priyamvada-medium": "CC-BY-NC-SA-4.0", "hu_HU-imre-medium": "CC0",
+    "hu_HU-anna-medium": "CC0", "hy_AM-gor-medium": "GPL-2.0", "id_ID-news_tts-medium": SEE_CARD,
+    "is_IS-salka-medium": SEE_CARD, "is_IS-ugla-medium": SEE_CARD, "it_IT-serena-medium": "CC-BY-4.0",
+    "it_IT-paola-medium": SEE_CARD, "ka_GE-natia-medium": SEE_CARD, "ko_KR-kss-medium": "CC-BY-NC-SA-4.0",
+    "lb_LU-marylux-medium": "CC-BY-NC-SA-4.0", "lv_LV-aivars-medium": "CC0", "ml_IN-arjun-medium": SEE_CARD,
+    "ml_IN-meera-medium": SEE_CARD, "ne_NP-chitwan-medium": "CC0", "nl_BE-nathalie-medium": "CC0",
+    "nl_NL-pim-medium": "CC0", "no_NO-talesyntese-medium": "CC0", "pl_PL-mc_speech-medium": "CC0",
+    "pl_PL-gosia-medium": "CC0", "pt_BR-faber-medium": "CC0", "pt_BR-cadu-medium": "CC0", "ro_RO-mihai-medium": "CC0",
+    "ru_RU-irina-medium": SEE_CARD, "ru_RU-ruslan-medium": "CC-BY-NC-SA-4.0", "sk_SK-lili-medium": "CC0",
+    "sl_SI-artur-medium": "CC-BY-4.0", "sq_AL-edon-medium": "CC0", "sr_RS-serbski_institut-medium": "CC-BY-NC-SA-4.0",
+    "sv_SE-nst-medium": "CC0", "sv_SE-lisa-medium": SEE_CARD, "sw_CD-lanfrica-medium": SEE_CARD,
+    "te_IN-padmavathi-medium": "CC-BY-4.0", "te_IN-maya-medium": IITM, "tr_TR-dfki-medium": "CC-BY-NC-SA-4.0",
+    "ur_PK-aegis_female-medium": "MIT", "ur_PK-fasih-medium": "MIT", "vi_VN-vais1000-medium": "CC-BY-4.0",
+    "zh_CN-huayan-medium": SEE_CARD, "de_DE-thorsten-high": "CC0", "kk_KZ-issai-high": "CC-BY-4.0",
+    "uk_UA-oleksa-high": "Apache-2.0", "uk_UA-mykyta-high": "Apache-2.0",
 }
 
 # voices.json langCode -> (family, region, native name, English name, country)
@@ -120,6 +156,9 @@ def main():
                 meta = {p.key: p.value for p in onnx.load(str(model), load_external_data=False).metadata_props}
                 blank = int(meta["blank_id"])
                 model_path = f"{SYSPIN_TAG}/{model.name}"
+            if (INT8_DIR / model.name).is_file():  # the same voice, INT8 weights
+                model = INT8_DIR / model.name
+                model_path = f"{INT8_TAG}/{model.name}"
             id_map = {s: [i] for s, i in tokens.items() if not s.startswith("<")}
             for special in ("_", "^", "$"):
                 id_map[special] = [blank]
@@ -158,17 +197,17 @@ def main():
             catalog[key] = entry
 
             # Its Compact version: same config but the quality, INT8-decoder model.
-            compact_model = (RASA_DIR / "vits-rasa-13-compact.onnx" if rasa
-                             else SYSPIN_DIR / f"{v['id']}-compact.onnx")
+            compact_model = INT8_DIR / ("vits-rasa-13-compact.onnx" if rasa else f"{v['id']}-compact.onnx")
             if compact_model.is_file():
                 ckey = key.replace("-medium", "-compact")
                 ccfg = OUT / f"{ckey}.onnx.json"
                 config["audio"]["quality"] = "compact"
                 ccfg.write_text(json.dumps(config, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
                 catalog[ckey] = dict(entry, key=ckey, quality="compact", files={
-                    f"{RASA_TAG if rasa else SYSPIN_TAG}/{compact_model.name}": file_entry(compact_model),
+                    f"{INT8_TAG}/{compact_model.name}": file_entry(compact_model),
                     f"{CONFIG_TAG}/{ccfg.name}": file_entry(ccfg)})
     add_piper_compact(catalog)
+    add_piper_int8(catalog)
     write_npu_list(catalog)
     (OUT / "catalog.json").write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
     print(f"{len(catalog)} configs -> {OUT}")
@@ -182,6 +221,8 @@ def add_piper_compact(catalog):
         "https://huggingface.co/rhasspy/piper-voices/resolve/main/voices.json", timeout=60).read())
     for high, licence in PIPER_COMPACT.items():
         model = COMPACT_DIR / f"{high[:-len('-high')]}-compact.onnx"
+        tag = INT8_TAG if (INT8_DIR / model.name).is_file() else COMPACT_TAG
+        model = INT8_DIR / model.name if tag == INT8_TAG else model
         if not model.is_file():
             print(f"  skip {high}: no {model.name}")
             continue
@@ -197,8 +238,37 @@ def add_piper_compact(catalog):
             "base_url": RELEASES,
             "source": "rhasspy/piper-voices (Compact: animeshahilya)",
             "license": licence,
-            "files": {f"{COMPACT_TAG}/{model.name}": file_entry(model),
+            "files": {f"{tag}/{model.name}": file_entry(model),
                       f"{COMPACT_TAG}/{cfg.name}": file_entry(cfg)},
+        }
+
+
+def add_piper_int8(catalog):
+    """The kept Piper and community voices themselves, INT8 weights
+    (build_small.py) under their own keys: same voice, a quarter of the
+    space, same speed, so the app offers only these. Model and the voice's
+    own config (unchanged) in INT8_TAG."""
+    import urllib.request
+    import build_small
+    rhasspy = json.loads(urllib.request.urlopen(
+        "https://huggingface.co/rhasspy/piper-voices/resolve/main/voices.json", timeout=60).read())
+    extras = json.loads((APP_ASSETS / "extra_voices.json").read_text(encoding="utf-8"))
+    for key in build_small.piper_sources(APP_ASSETS):
+        model, cfg = INT8_DIR / f"{key}.onnx", INT8_DIR / f"{key}.onnx.json"
+        if not model.is_file():
+            print(f"  skip {key}: no {model.name}")
+            continue
+        src = rhasspy.get(key) or extras[key]
+        community = key not in rhasspy
+        catalog[key] = {
+            "key": key, "name": src["name"], "language": src["language"],
+            "quality": src["quality"], "num_speakers": src["num_speakers"],
+            "base_url": RELEASES,
+            "source": (src["source"].split(" (INT8")[0] if community else "rhasspy/piper-voices")
+                      + " (INT8: animeshahilya)",
+            "license": src["license"] if community else LICENCES[key],
+            "files": {f"{INT8_TAG}/{model.name}": file_entry(model),
+                      f"{INT8_TAG}/{cfg.name}": file_entry(cfg)},
         }
 
 

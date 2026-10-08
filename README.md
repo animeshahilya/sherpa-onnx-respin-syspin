@@ -77,6 +77,21 @@ Not offered for Piper's own Standard (medium) voices: their decoder is ~7x light
 
 `build_compact.py MODEL CONFIG OUT` converts one voice and verifies it against the original decoder (SNR, spectral distance, CPU speed). Not converted: en_US-lessac (Blizzard licence) and en_US-ryan (CC BY-NC-SA); es_MX-claude and en_US-libritts (older exports with unnamed nodes, so the decoder can't be found). Piper Compact voices keep their original licences (see each entry in the catalog).
 
+## INT8 weights (`int8-v1`)
+
+`build_small.py` stores every voice the espeak-ng app keeps (its `kept_voices.json`) with INT8 weights: per output channel, the clip with the least squared error, widened back to float by a `DequantizeLinear` in front of its consumer. Compute stays float, so only weight rounding changes the sound (no activation clipping, no noise floor), and ONNX Runtime keeps those nodes when it optimizes, so an app's optimized copy stays small too. Heavy Standard voices also run their HiFi-GAN decoder in fp16 (conv_pre stays float, so the latent the app splits at is unchanged).
+
+| | Before | `int8-v1` | Speed (Pixel 8 CPU, decoder) |
+|---|---|---|---|
+| Piper medium / community voices | 63 MB | 17 MB | unchanged (17-18x) |
+| Piper high Standard (fp16 decoder) | 114-128 MB | 43-47 MB | faster |
+| SYSPIN Standard (fp16 decoder) | 58 MB | 43 MB | 2.0x -> 2.4-2.7x |
+| Rasa Standard (fp16 decoder, 20 voices) | 62 MB | 48.5 MB | faster |
+| SYSPIN Compact (INT8 decoder) | 44 MB | 30 MB | 4.0-4.6x |
+| Rasa Compact | 49 MB | 34 MB | |
+
+Log-mel distance to the original with the noise scales at 0: 0.74-1.15 dB over 11 voices and 10 languages (es_MX-claude 1.64), against 1.43 for the first Compact; ASR error rates unchanged within run-to-run noise; fp16 decoders 62-78 dB SNR against float32. INT4 (block-wise) measured 4.3 dB for barely any size gain. `python build_small.py IN.onnx OUT.onnx` converts one model; `--all ESPEAK_NG/android/assets/piper` builds the release.
+
 ## Quickstart
 
 ```bash
@@ -151,6 +166,7 @@ If a voice sounds wrong, check in order: (1) `tokens.txt` paired with the right 
 | `hindi_frontend.py` | Optional Hindi schwa/numeral/punctuation normalizer |
 | `build_rasa_stock.py` | Rasa pipeline: download ungated export → freeze emotion + metadata fix → FP16 → sherpa-onnx verify |
 | `build_compact.py` | Compact tier: INT8 decoder only, last stage float, self-verifying |
+| `build_small.py` | `int8-v1`: INT8 weights (float compute) for every kept voice, fp16 decoders for heavy Standard voices |
 | `build_piper_configs.py` | Piper `.onnx.json` configs (`phoneme_type: text`) for all 42 voices + catalog entries, released as `piper-v1` for the [espeak-ng Android fork](https://github.com/animeshahilya/espeak-ng) |
 | `export_rasa_to_onnx.py` | From-scratch Rasa exporter (needs gated HF access; normally not needed) |
 | `samples/` | 42 × `.mp3` (22 SYSPIN + 20 Rasa) + `all_22_voices_showcase.mp3` (SYSPIN showcase) |

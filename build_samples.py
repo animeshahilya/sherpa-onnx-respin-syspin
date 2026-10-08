@@ -28,7 +28,8 @@ BASE = Path(__file__).parent
 OUT = BASE / "release_assets_samples"
 CACHE = BASE / "sample_models"
 LOCAL = {"syspin-v2": BASE / "release_assets_syspin_v2", "rasa-v2": BASE / "release_assets_rasa_v2",
-         "piper-v2": BASE / "release_assets_piper", "compact-v1": BASE / "release_assets_compact"}
+         "piper-v2": BASE / "release_assets_piper", "compact-v1": BASE / "release_assets_compact",
+         "int8-v1": BASE / "release_assets_int8"}
 # Mirrors PiperVoiceConfig.HISSY and PiperAudio (TrebleCut, quiet start).
 HISSY = {"gu_IN-hetal-medium", "gu_IN-hetal-compact", "en_IN-priya-medium", "en_IN-priya-compact",
          "en_US-ljspeech-high", "en_US-ljspeech-compact"}
