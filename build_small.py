@@ -160,8 +160,56 @@ def _half_decoder(model):
     g.node.extend(nodes)
 
 
+def _name_decoder(model):
+    """Older Piper exports name nodes "Conv_5814": no "/dec/" for the app's
+    PiperSplit to find, so those voices ran whole - no streaming, no NPU
+    decoder (11 kept voices, Hindi Rohan among them). The decoder is
+    everything downstream of conv_pre's input (the latent) that leads to the
+    audio output; conv_pre is the Conv feeding the first ConvTranspose.
+    Renames only: same graph, same audio."""
+    g = model.graph
+    if any(n.name.startswith(DECODER_PREFIXES) for n in g.node):
+        return False
+    produced = {o: n for n in g.node for o in n.output}
+    ups = next((n for n in g.node if n.op_type == "ConvTranspose"), None)
+    if ups is None:
+        return False
+    conv_pre, x = None, ups.input[0]
+    for _ in range(8):
+        n = produced.get(x)
+        if n is None:
+            break
+        if n.op_type == "Conv":
+            conv_pre = n
+            break
+        x = n.input[0]
+    if conv_pre is None:
+        return False
+    users = {}
+    for n in g.node:
+        for i in n.input:
+            users.setdefault(i, []).append(n)
+    down, todo = set(), [conv_pre.input[0]]
+    while todo:
+        for n in users.get(todo.pop(), []):
+            if id(n) not in down:
+                down.add(id(n))
+                todo.extend(n.output)
+    up, todo = set(), [o.name for o in g.output]
+    while todo:
+        n = produced.get(todo.pop())
+        if n is not None and id(n) not in up:
+            up.add(id(n))
+            todo.extend(n.input)
+    for n in g.node:
+        if id(n) in down and id(n) in up:
+            n.name = "/dec/conv_pre/Conv" if n is conv_pre else "/dec/" + (n.name or n.op_type)
+    return True
+
+
 def quantize(src, dst, half_decoder=False):
     model = onnx.load(str(src))
+    _name_decoder(model)
     if half_decoder:
         _fold_upcasts(model)
         _half_decoder(model)
