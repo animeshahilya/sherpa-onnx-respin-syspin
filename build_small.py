@@ -277,7 +277,7 @@ def piper_sources(app_assets):
     rhasspy = json.loads(urllib.request.urlopen(RHASSPY + "voices.json", timeout=60).read())
     out = {}
     for key in sorted(kept):
-        if extras.get(key, {}).get("heavy"):
+        if extras.get(key, {}).get("source", "").startswith(("SYSPIN", "AI4Bharat")):
             continue  # SYSPIN/Rasa: shrunk from their own releases below
         if key in rhasspy:
             base, files = RHASSPY, rhasspy[key]["files"]

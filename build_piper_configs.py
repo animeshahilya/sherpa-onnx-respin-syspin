@@ -25,8 +25,9 @@ from pathlib import Path
 BASE = Path(__file__).parent
 OUT = BASE / "release_assets_piper"
 RELEASES = "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/"
-# Configs for SYSPIN + Rasa, Standard and Compact. piper-v1 keeps the older
-# ones for apps that pinned their checksums.
+# Configs for SYSPIN + Rasa (one per voice; its -compact twins stay in the
+# release for apps up to 2.9). piper-v1 keeps the older ones for apps that
+# pinned their checksums.
 CONFIG_TAG = "piper-v2"
 # SYSPIN that reads noise_scale/noise_w from `scales` (build_syspin_scales.py),
 # Standard and Compact; v1.1.0-fp16/compact-v1 keep the older exports.
@@ -181,13 +182,20 @@ def main():
             cfg_file = OUT / f"{key}.onnx.json"
             cfg_file.write_text(json.dumps(config, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
 
+            # One version per voice (2026-10-11): the Compact model (INT8
+            # decoder, build_compact.py) under the Standard key - smaller and
+            # about twice as fast as the old Standard, and users heard no
+            # difference. The app moves installed Compact copies to this key
+            # (PiperDownloads.mergeCompactTwins); piper-v2 keeps the old
+            # -compact configs for app versions that pinned them.
+            compact_model = INT8_DIR / ("vits-rasa-13-compact.onnx" if rasa else f"{v['id']}-compact.onnx")
+            if compact_model.is_file():
+                model, model_path = compact_model, f"{INT8_TAG}/{compact_model.name}"
             entry = {
                 "key": key, "name": slug,
                 "language": {"code": code, "family": family, "region": region,
                              "name_native": native, "name_english": english, "country_english": country},
                 "quality": "medium", "num_speakers": 1,
-                # Enhanced-class compute at Standard size: the app labels it by device.
-                "heavy": True,
                 "base_url": RELEASES,
                 "source": "AI4Bharat Rasa" if rasa else "SYSPIN (IISc SPIRE Lab)",
                 "license": "CC-BY-4.0" if rasa else "MIT",
@@ -195,17 +203,6 @@ def main():
                           f"{CONFIG_TAG}/{cfg_file.name}": file_entry(cfg_file)},
             }
             catalog[key] = entry
-
-            # Its Compact version: same config but the quality, INT8-decoder model.
-            compact_model = INT8_DIR / ("vits-rasa-13-compact.onnx" if rasa else f"{v['id']}-compact.onnx")
-            if compact_model.is_file():
-                ckey = key.replace("-medium", "-compact")
-                ccfg = OUT / f"{ckey}.onnx.json"
-                config["audio"]["quality"] = "compact"
-                ccfg.write_text(json.dumps(config, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
-                catalog[ckey] = dict(entry, key=ckey, quality="compact", files={
-                    f"{INT8_TAG}/{compact_model.name}": file_entry(compact_model),
-                    f"{CONFIG_TAG}/{ccfg.name}": file_entry(ccfg)})
     add_piper_compact(catalog)
     add_piper_int8(catalog)
     write_npu_list(catalog)
@@ -278,8 +275,9 @@ NPU_DIR = BASE / "release_assets_npu"
 
 def write_npu_list(catalog):
     """npu_decoders.json for the espeak-ng app's Snapdragon build: voice key ->
-    its INT8 NPU decoder (build_npu.py). Standard keys only: the decoder reads
-    the Standard encoder's tensors (a Compact encoder hands over different ones)."""
+    its INT8 NPU decoder (build_npu.py). The decoder reads the Standard
+    tensor names; the app's PiperSplit cuts Compact models at the same names
+    (their latent's quantize pair goes with the decoder)."""
     voices = {}
     for key, entry in catalog.items():
         if entry["quality"] != "medium":
@@ -287,7 +285,7 @@ def write_npu_list(catalog):
         model = next(p for p in entry["files"] if p.endswith(".onnx"))
         name = model.split("/")[-1]
         npu = NPU_DIR / ("vits-rasa-13-npu.onnx" if name.startswith("vits-rasa-13")
-                         else name.replace("-model.onnx", "-npu.onnx"))
+                         else name.replace("-model.onnx", "-npu.onnx").replace("-compact.onnx", "-npu.onnx"))
         if npu.is_file():
             voices[key] = dict(file_entry(npu), path=f"{NPU_TAG}/{npu.name}")
     for high in PIPER_COMPACT:
