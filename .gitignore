@@ -18,3 +18,6 @@ release_assets_compact/
 piper_src/
 release_assets_npu/
 *.log
+supertonic_src/
+release_assets_supertonic/
+supertonic_listen/
