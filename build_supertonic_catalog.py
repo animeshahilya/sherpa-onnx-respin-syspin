@@ -101,6 +101,10 @@ def build(app):
                 "num_speakers": 1, "base_url": RELEASES, "source": "Supertone Supertonic 3",
                 "license": "OpenRAIL-M",
                 "files": {**files_entry(MODEL), **files_entry(cfg_name)},
+                # The companion files the config names, for the app's download size
+                # (most are shared: only the first Supertonic voice downloads them).
+                "extra_files": {n: {"size_bytes": f["size_bytes"], "md5_digest": f["md5_digest"]}
+                                for n, f in cfg["supertonic"]["files"].items()},
             }
     dst = Path(app) / "assets" / "piper" / "supertonic_voices.json"
     dst.write_text(json.dumps(catalog, ensure_ascii=False, indent=1), encoding="utf-8")
