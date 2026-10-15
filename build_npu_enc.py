@@ -23,8 +23,14 @@ so the files are small; the app loads them with session.disable_quant_qdq.
 The chain is checked against the whole model with the noise off (padding
 included): the latent and the durations must match.
 
-  python build_npu_enc.py MODEL.onnx OUT_PREFIX [--ids 256] [--frames 512]
-writes OUT_PREFIX-enc<ids>.onnx, OUT_PREFIX-mid.onnx, OUT_PREFIX-flow<frames>.onnx
+The flow hands out the decoder's inputs by their float names (the Compact
+models' quantize pair stays with the decoder, as the app's split keeps it).
+With --decoder, also the decoder with its latent fixed to 80 frames, for the
+voices with no INT8 NPU decoder (build_npu.py): the app no longer cuts
+decoders on the phone.
+
+  python build_npu_enc.py MODEL.onnx OUT_PREFIX [--ids 256] [--frames 512] [--decoder]
+writes OUT_PREFIX-enc<ids>.onnx, -mid.onnx, -flow<frames>.onnx (and -dec80.onnx)
 """
 
 import argparse
@@ -120,7 +126,19 @@ def session(path):
     return ort.InferenceSession(str(path), so, providers=["CPUExecutionProvider"])
 
 
-def build(model, prefix, ids_bucket, frames_bucket):
+def standard(g, t):
+    """The float tensor behind a QuantizeLinear/DequantizeLinear pair (the Compact
+    models quantize the latent and Rasa's speaker vector): the app's split hands
+    the decoder these float names (PiperSplit keeps the pair with the decoder)."""
+    p = g.prod.get(t)
+    if p is not None and p.op_type == "DequantizeLinear":
+        q = g.prod.get(p.input[0])
+        if q is not None and q.op_type == "QuantizeLinear":
+            return q.input[0]
+    return t
+
+
+def build(model, prefix, ids_bucket, frames_bucket, decoder=False, window=80):
     m = onnx.load(str(model))
     g = Graph(m)
     _, enc_out = g.edges(ENC)
@@ -130,29 +148,45 @@ def build(model, prefix, ids_bucket, frames_bucket):
     enc_in = [i for i in ("input", "input_lengths") if i in graph_inputs]
     cond = [i for i in ("scales", "sid") if i in graph_inputs]
     durations = g.ceil()
-    # The decoder's inputs the flow does not make (Rasa's speaker vector) come from mid.
-    passthrough = [t for t in dec_in if t in flow_in]
-    flow_out = [t for t in dec_in if t not in flow_in]
-    print("  enc out", enc_out, "\n  flow in", flow_in, "\n  dec in", dec_in, "\n  durations", durations)
+    if not enc_out or not flow_in:
+        # Older exports name only their weights (plain Conv_123 nodes elsewhere):
+        # no encoder cut, but the decoder (named /dec/) still gets its window.
+        if not decoder or not dec_in:
+            raise ValueError("no encoder or flow block found")
+        return decoder_only(m, g, prefix, dec_in, window)
+    # The decoder's inputs by their float names: the latent (made by the flow)
+    # and, for Rasa, the speaker vector (made before it, handed on by mid).
+    boundary = [standard(g, t) for t in dec_in]
+    latent = [b for t, b in zip(dec_in, boundary) if t not in flow_in]
+    assert len(latent) == 1, (dec_in, flow_in)
+    latent = latent[0]
+    speaker = [b for b in boundary if b != latent]
+    mid_out = flow_in + [s for s in speaker if s not in flow_in] + [durations]
+    print("  enc out", enc_out, "\n  flow in", flow_in, "\n  boundary", boundary, "\n  durations", durations)
 
     enc_p = Path(f"{prefix}-enc{ids_bucket}.onnx")
     mid_p = Path(f"{prefix}-mid.onnx")
     flow_p = Path(f"{prefix}-flow{frames_bucket}.onnx")
+    dec_p = Path(f"{prefix}-dec{window}.onnx")
     # Extractor, not extract_model: its checker rejects these exports' shapeless
     # value_info. It needs a type for every cut tensor: all of them are float.
     typed = onnx.shape_inference.infer_shapes(m)
     known = {v.name for v in list(typed.graph.value_info) + list(typed.graph.input) + list(typed.graph.output)}
-    for t in enc_out + flow_in + dec_in + [durations]:
+    for t in enc_out + flow_in + dec_in + boundary + [durations]:
         if t not in known:
             typed.graph.value_info.append(onnx.helper.make_tensor_value_info(t, onnx.TensorProto.FLOAT, None))
+            known.add(t)
     ex = onnx.utils.Extractor(typed)
     onnx.save(ex.extract_model(enc_in, enc_out), str(enc_p))
-    onnx.save(ex.extract_model(enc_in + enc_out + cond, flow_in + [durations]), str(mid_p))
-    onnx.save(ex.extract_model(flow_in, flow_out), str(flow_p))
+    onnx.save(ex.extract_model(enc_in + enc_out + cond, mid_out), str(mid_p))
+    onnx.save(ex.extract_model(flow_in, [latent]), str(flow_p))
+    audio_out = m.graph.output[0].name
+    if decoder:
+        onnx.save(ex.extract_model(boundary, [audio_out]), str(dec_p))
 
-    # Shapes of the boundary tensors, from a real run, to fix the NPU graphs' inputs.
+    # Shapes and values of the boundary tensors, from a real run with the noise off.
     probe = onnx.load(str(model))
-    for t in enc_out + flow_in + dec_in + [durations]:
+    for t in dict.fromkeys(enc_out + flow_in + boundary + [durations]):
         probe.graph.output.append(onnx.helper.make_empty_tensor_value_info(t))
     probe_p = Path(f"{prefix}-probe.onnx")
     onnx.save(probe, str(probe_p))
@@ -164,17 +198,17 @@ def build(model, prefix, ids_bucket, frames_bucket):
     feed = {"input": ids, "input_lengths": np.array([n], np.int64),
             "scales": np.array([0.0, 1.0, 0.0], np.float32)}
     if "sid" in graph_inputs:
-        feed["sid"] = np.array([3], np.int64)
+        feed["sid"] = np.array([0], np.int64)
     r = dict(zip(names, whole.run(None, feed)))
     probe_p.unlink()
 
     fix_inputs(enc_p, {"input": [1, ids_bucket], "input_lengths": [1]})
-    frame_shapes = {}
     probe_frames = max(r[t].shape[-1] for t in flow_in)  # Rasa's speaker vector has 1
-    for t in flow_in:
-        s = list(r[t].shape)
-        frame_shapes[t] = s[:-1] + [frames_bucket] if s[-1] == probe_frames else s
-    fix_inputs(flow_p, frame_shapes)
+    fix_inputs(flow_p, {t: list(r[t].shape[:-1]) + [frames_bucket] if r[t].shape[-1] == probe_frames
+                        else list(r[t].shape) for t in flow_in})
+    if decoder:
+        fix_inputs(dec_p, {b: list(r[b].shape[:-1]) + [window] if b == latent else list(r[b].shape)
+                           for b in boundary})
 
     # The chain, padded, against the whole model.
     enc, mid, flow = session(enc_p), session(mid_p), session(flow_p)
@@ -184,12 +218,11 @@ def build(model, prefix, ids_bucket, frames_bucket):
     e = [x[..., :n] if x.shape[-1] == ids_bucket else
          (x[:, :n] if x.ndim > 1 and x.shape[1] == ids_bucket else x) for x in e]
     mfeed = dict(zip(enc_out, e))
-    mfeed.update({"input": ids, "input_lengths": feed["input_lengths"]})
-    mfeed = {k: v for k, v in mfeed.items() if k in {i.name for i in mid.get_inputs()}}
-    mfeed["scales"] = feed["scales"]
+    mfeed.update({"input": ids, "input_lengths": feed["input_lengths"], "scales": feed["scales"]})
     if "sid" in cond:
         mfeed["sid"] = feed["sid"]
-    mo = dict(zip(flow_in + [durations], mid.run(None, mfeed)))
+    mfeed = {k: v for k, v in mfeed.items() if k in {i.name for i in mid.get_inputs()}}
+    mo = dict(zip(mid_out, mid.run(None, mfeed)))
     frames = max(mo[t].shape[-1] for t in flow_in)
     ffeed = {}
     for t in flow_in:
@@ -199,16 +232,77 @@ def build(model, prefix, ids_bucket, frames_bucket):
             pad[..., :frames] = x
             x = pad
         ffeed[t] = x
-    latent = flow.run(None, ffeed)[0][..., :frames]
-    ref = r[flow_out[0]]
-    err = float(np.abs(latent - ref).max())
+    lat = flow.run(None, ffeed)[0][..., :frames]
+    ref = r[latent]
+    err = float(np.abs(lat - ref).max())
     derr = float(np.abs(mo[durations] - r[durations]).max())
     scale = float(np.abs(ref).max())
-    print(f"  ids {n} frames {frames}: latent max err {err:.2e} (of {scale:.2f}), durations err {derr}")
-    assert derr == 0 and err < 1e-3 * max(1.0, scale), "chain does not match the model"
-    for p in (enc_p, mid_p, flow_p):
+    serr = max((float(np.abs(mo[s] - r[s]).max()) for s in speaker), default=0.0)
+    print(f"  ids {n} frames {frames}: latent max err {err:.2e} (of {scale:.2f}), durations err {derr}, "
+          f"speaker err {serr:.1e}")
+    assert derr == 0 and serr < 1e-5 and err < 1e-3 * max(1.0, scale), "chain does not match the model"
+    if decoder:
+        # The fixed window, fed the model's own latent, against the whole model's audio.
+        dec = session(dec_p)
+        w = min(window, frames)
+        dfeed = {b: r[b] for b in speaker}
+        win = np.zeros(ref.shape[:-1] + (window,), np.float32)
+        win[..., :w] = ref[..., :w]
+        dfeed[latent] = win
+        audio = dec.run(None, dfeed)[0].reshape(-1)
+        full = r[audio_out].reshape(-1)
+        hop = audio.size // window
+        keep = (w - 12) * hop  # the window's right edge lacks context; the app crops it
+        aerr = float(np.abs(audio[:keep] - full[:keep]).max())
+        print(f"  decoder window: audio max err {aerr:.2e} over {keep} samples")
+        assert aerr < 1e-3, f"decoder window does not match the model ({aerr:.2e})"
+    for p in (enc_p, mid_p, flow_p) + ((dec_p,) if decoder else ()):
         print(f"  {p.name}: {p.stat().st_size / 1e6:.1f} MB")
-    return passthrough
+    return {"enc": enc_p, "mid": mid_p, "flow": flow_p, "dec": dec_p if decoder else None,
+            "frames": frames_bucket, "ids": ids_bucket}
+
+
+def decoder_only(m, g, prefix, dec_in, window):
+    """The fixed-window decoder alone, checked against the whole model."""
+    boundary = [standard(g, t) for t in dec_in]
+    dec_p = Path(f"{prefix}-dec{window}.onnx")
+    typed = onnx.shape_inference.infer_shapes(m)
+    known = {v.name for v in list(typed.graph.value_info) + list(typed.graph.input) + list(typed.graph.output)}
+    for t in boundary:
+        if t not in known:
+            typed.graph.value_info.append(onnx.helper.make_tensor_value_info(t, onnx.TensorProto.FLOAT, None))
+    audio_out = m.graph.output[0].name
+    onnx.save(onnx.utils.Extractor(typed).extract_model(boundary, [audio_out]), str(dec_p))
+    probe = onnx.ModelProto()
+    probe.CopyFrom(m)
+    for t in boundary:
+        probe.graph.output.append(onnx.helper.make_empty_tensor_value_info(t))
+    probe_p = Path(f"{prefix}-probe.onnx")
+    onnx.save(probe, str(probe_p))
+    whole = session(probe_p)
+    names = [o.name for o in whole.get_outputs()]
+    feed = {"input": np.random.default_rng(1).integers(1, 40, size=(1, 61)).astype(np.int64),
+            "input_lengths": np.array([61], np.int64), "scales": np.array([0.0, 1.0, 0.0], np.float32)}
+    if "sid" in [i.name for i in m.graph.input]:
+        feed["sid"] = np.array([0], np.int64)
+    r = dict(zip(names, whole.run(None, feed)))
+    probe_p.unlink()
+    latent = max(boundary, key=lambda b: r[b].shape[-1])
+    fix_inputs(dec_p, {b: list(r[b].shape[:-1]) + [window] if b == latent else list(r[b].shape) for b in boundary})
+    dec = session(dec_p)
+    ref = r[latent]
+    w = min(window, ref.shape[-1])
+    dfeed = {b: r[b] for b in boundary if b != latent}
+    win = np.zeros(ref.shape[:-1] + (window,), np.float32)
+    win[..., :w] = ref[..., :w]
+    dfeed[latent] = win
+    audio = dec.run(None, dfeed)[0].reshape(-1)
+    full = r[audio_out].reshape(-1)
+    keep = (w - 12) * (audio.size // window)
+    aerr = float(np.abs(audio[:keep] - full[:keep]).max())
+    print(f"  decoder only (no encoder cut): window audio max err {aerr:.2e}; {dec_p.stat().st_size / 1e6:.1f} MB")
+    assert aerr < 1e-3, f"decoder window does not match the model ({aerr:.2e})"
+    return {"dec": dec_p}
 
 
 def main():
@@ -217,8 +311,9 @@ def main():
     a.add_argument("prefix")
     a.add_argument("--ids", type=int, default=256)
     a.add_argument("--frames", type=int, default=512)
+    a.add_argument("--decoder", action="store_true", help="also a fixed 80-frame decoder (fp16 on the NPU)")
     args = a.parse_args()
-    build(args.model, args.prefix, args.ids, args.frames)
+    build(args.model, args.prefix, args.ids, args.frames, args.decoder)
 
 
 if __name__ == "__main__":
