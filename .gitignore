@@ -22,3 +22,6 @@ supertonic_src/
 release_assets_supertonic/
 supertonic_listen/
 release_assets_npu2/
+release_assets_npu_ctx/
+release_assets_npu_ctx_st/
+upload/
