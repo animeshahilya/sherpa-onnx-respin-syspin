@@ -15,6 +15,7 @@ Release assets are named <source md5>-<name> for the graphs (names repeat
 across voices) and <name> for Supertonic (already unique). Hard links of
 every file under those names go to upload/<release>/ for `gh release upload`.
 """
+import hashlib
 import json
 import os
 import sys
@@ -22,6 +23,14 @@ import sys
 BASE_URL = "https://github.com/animeshahilya/sherpa-onnx-respin-syspin/releases/download/"
 SOC_TARGET = {"57": "SM8650", "69": "SM8750", "87": "SM8850"}
 RELEASE = "npu-ctx-v1-{}"
+
+
+def file_md5(path):
+    h = hashlib.md5()
+    with open(path, "rb") as f:
+        for b in iter(lambda: f.read(1 << 20), b""):
+            h.update(b)
+    return h.hexdigest()
 
 
 def link(src, dst):
@@ -56,6 +65,15 @@ def main():
                                              for f in st[soc]["files"]]}
             for f in st[soc]["files"]:
                 link(os.path.join(st_dir, soc, "supertonic", f["dir"], f["name"]), os.path.join(up, f["name"]))
+        # Phonon's compiled model for the chip (build_phonon_catalog.py), from Gradium's bundle.
+        phonon_dir = os.path.join("release_assets_phonon_ctx", soc)
+        if os.path.isdir(phonon_dir):
+            entry["phonon"] = {"files": []}
+            for name in sorted(os.listdir(phonon_dir)):
+                p = os.path.join(phonon_dir, name)
+                entry["phonon"]["files"].append({"name": name, "size_bytes": os.path.getsize(p),
+                                                 "md5_digest": file_md5(p)})
+                link(p, os.path.join(up, name))
         targets[target] = entry
         n = len(os.listdir(up))
         size = sum(os.path.getsize(os.path.join(up, f)) for f in os.listdir(up))

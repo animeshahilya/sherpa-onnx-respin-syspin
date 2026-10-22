@@ -25,3 +25,5 @@ release_assets_npu2/
 release_assets_npu_ctx/
 release_assets_npu_ctx_st/
 upload/
+release_assets_phonon/
+release_assets_phonon_ctx/
