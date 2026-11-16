@@ -8,8 +8,9 @@ accuracy, faster loads, no first-use compile.
 
     python build_npu_ctx.py <npu_files.json> <npu_decoders.json> <out dir> [soc ...]
 
-Sources come from release_assets_npu2 (npu-v2: enc/flow/dec) and
-release_assets_npu (npu-v1: INT8 decoders), found by their path's file name.
+Sources come from release_assets_npu3 / _npu2 (npu-v3, npu-v2: enc/flow/dec) and
+release_assets_npu (npu-v1: INT8 decoders), found by their path's release tag
+and checked by MD5.
 Options mirror the app's NpuFiles.npuSession exactly:
   fp16 parts: enable_htp_fp16_precision, session.disable_quant_qdq
   INT8 decoders: offload_graph_io_quantization (QDQ kept, no fp16)
@@ -36,7 +37,11 @@ import time
 SOCS = {"57": "75", "69": "79", "87": "81"}  # soc_model -> HTP arch: 8 Gen 3, 8 Elite, 8 Elite Gen 5
 ORT_VERSION = "1.30.0"  # the app's ONNX Runtime: part of the names it looks for
 HERE = os.path.dirname(os.path.abspath(__file__))
-SOURCES = [os.path.join(HERE, "release_assets_npu2"), os.path.join(HERE, "release_assets_npu")]
+# Release tag -> local folder. npu-v3 (2026-11-16: voices rhasspy retrained) reuses
+# npu-v2's file names, so a source is found by its tag, not its name alone.
+SOURCES = {"npu-v3": os.path.join(HERE, "release_assets_npu3"),
+           "npu-v2": os.path.join(HERE, "release_assets_npu2"),
+           "npu-v1": os.path.join(HERE, "release_assets_npu")}
 PART_STEM = {"enc": "npuenc", "flow": "npuflow", "dec": "npudec"}
 
 
@@ -49,24 +54,26 @@ def md5(path):
 
 
 def graphs(npu_files, npu_decoders):
-    """Distinct source graphs: md5 -> (kind, file name, size)."""
+    """Distinct source graphs: md5 -> (kind, release path "<tag>/<file>", size)."""
     out = {}
     for entry in json.load(open(npu_files))["voices"].values():
         for part in ("enc", "flow", "dec"):
             if part in entry:
                 f = entry[part]
-                out[f["md5_digest"]] = (part, os.path.basename(f["path"]), f["size_bytes"])
+                out[f["md5_digest"]] = (part, f["path"], f["size_bytes"])
     for f in json.load(open(npu_decoders))["voices"].values():
-        out[f["md5_digest"]] = ("int8", os.path.basename(f["path"]), f["size_bytes"])
+        out[f["md5_digest"]] = ("int8", f["path"], f["size_bytes"])
     return out
 
 
-def source(name):
-    for d in SOURCES:
-        p = os.path.join(d, name)
-        if os.path.isfile(p):
-            return p
-    raise FileNotFoundError(name)
+def source(path, digest):
+    tag, name = path.split("/", 1)
+    p = os.path.join(SOURCES[tag], name)
+    if not os.path.isfile(p):
+        raise FileNotFoundError(path)
+    if md5(p) != digest:
+        raise ValueError(f"{p} is not the listed file (md5)")
+    return p
 
 
 def names(kind, size):
@@ -117,8 +124,9 @@ def main():
     manifest = json.load(open(manifest_path)) if os.path.isfile(manifest_path) else {}
     n = 0
     for soc in socs:
-        for digest, (kind, name, size) in sorted(todo.items(), key=lambda kv: kv[1][1]):
+        for digest, (kind, path, size) in sorted(todo.items(), key=lambda kv: kv[1][1]):
             n += 1
+            name = os.path.basename(path)
             ctx_name, bin_name = names(kind, size)
             d = os.path.join(out, soc, digest)
             ctx, binf = os.path.join(d, ctx_name), os.path.join(d, bin_name)
@@ -126,7 +134,7 @@ def main():
                 continue
             os.makedirs(d, exist_ok=True)
             t = time.time()
-            r = subprocess.run([python, "-I", "-c", COMPILE, source(name), ctx, soc, SOCS[soc], kind],
+            r = subprocess.run([python, "-I", "-c", COMPILE, source(path, digest), ctx, soc, SOCS[soc], kind],
                                capture_output=True, text=True)
             if r.returncode != 0 or not os.path.isfile(binf):
                 print(f"FAILED soc {soc} {name}: {r.stderr.strip().splitlines()[-1:]}", flush=True)
