@@ -27,3 +27,8 @@ release_assets_npu_ctx_st/
 upload/
 release_assets_phonon/
 release_assets_phonon_ctx/
+release_assets_int8_v2/
+release_assets_int8_v3/
+release_assets_npu3/
+release_assets_npu4/
+release_assets_tinyvoca/

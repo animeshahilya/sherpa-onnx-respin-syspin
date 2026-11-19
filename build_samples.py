@@ -29,7 +29,8 @@ OUT = BASE / "release_assets_samples"
 CACHE = BASE / "sample_models"
 LOCAL = {"syspin-v2": BASE / "release_assets_syspin_v2", "rasa-v2": BASE / "release_assets_rasa_v2",
          "piper-v2": BASE / "release_assets_piper", "compact-v1": BASE / "release_assets_compact",
-         "int8-v1": BASE / "release_assets_int8"}
+         "int8-v1": BASE / "release_assets_int8", "int8-v3": BASE / "release_assets_int8_v3",
+         "tinyvoca-v1": BASE / "release_assets_tinyvoca"}
 # Mirrors PiperVoiceConfig.HISSY and PiperAudio (TrebleCut, quiet start).
 HISSY = {"gu_IN-hetal-medium", "gu_IN-hetal-compact", "en_IN-priya-medium", "en_IN-priya-compact",
          "en_US-ljspeech-high", "en_US-ljspeech-compact"}
@@ -121,14 +122,22 @@ def main():
         lang = v["language"]
         text = sample_text(app, lang["family"], lang.get("name_native"))
         is_text = cfg.get("phoneme_type") == "text"
-        x = ids(cfg, text if is_text else ipa(espeak, cfg["espeak"]["voice"], text), is_text)
         sess = ort.InferenceSession(str(model), providers=["CPUExecutionProvider"])
         inf = cfg.get("inference", {})
-        feed = {"input": np.array([x], np.int64), "input_lengths": np.array([len(x)], np.int64),
-                "scales": np.array([inf.get("noise_scale", 0.667), inf.get("length_scale", 1.0),
-                                    inf.get("noise_w", 0.8)], np.float32)}
-        if "sid" in [i.name for i in sess.get_inputs()]:
-            feed["sid"] = np.array([cfg.get("default_speaker_id", 0)], np.int64)
+        if cfg.get("phoneme_type") == "tiny_voca":
+            import build_tinyvoca
+            tok, st = build_tinyvoca.tokenize(ipa(espeak, cfg["espeak"]["voice"], text), cfg["phoneme_id_map"])
+            one = lambda v: np.array([v], np.float32)
+            feed = {"tokens": np.array([tok], np.int64), "stress": np.array([st], np.int64),
+                    "voice": np.array([cfg["default_speaker_id"]], np.int64), "speed": one(1.0),
+                    "pitch_shift": one(0.0), "pitch_range": one(1.0)}
+        else:
+            x = ids(cfg, text if is_text else ipa(espeak, cfg["espeak"]["voice"], text), is_text)
+            feed = {"input": np.array([x], np.int64), "input_lengths": np.array([len(x)], np.int64),
+                    "scales": np.array([inf.get("noise_scale", 0.667), inf.get("length_scale", 1.0),
+                                        inf.get("noise_w", 0.8)], np.float32)}
+            if "sid" in [i.name for i in sess.get_inputs()]:
+                feed["sid"] = np.array([cfg.get("default_speaker_id", 0)], np.int64)
         y = sess.run(None, feed)[0].squeeze().astype(np.float64)
         sr = cfg["audio"]["sample_rate"]
         if key in HISSY:

@@ -8,7 +8,7 @@ accuracy, faster loads, no first-use compile.
 
     python build_npu_ctx.py <npu_files.json> <npu_decoders.json> <out dir> [soc ...]
 
-Sources come from release_assets_npu3 / _npu2 (npu-v3, npu-v2: enc/flow/dec) and
+Sources come from release_assets_npu4 / _npu3 / _npu2 (npu-v4, npu-v3, npu-v2: enc/flow/dec) and
 release_assets_npu (npu-v1: INT8 decoders), found by their path's release tag
 and checked by MD5.
 Options mirror the app's NpuFiles.npuSession exactly:
@@ -39,7 +39,8 @@ ORT_VERSION = "1.30.0"  # the app's ONNX Runtime: part of the names it looks for
 HERE = os.path.dirname(os.path.abspath(__file__))
 # Release tag -> local folder. npu-v3 (2026-11-16: voices rhasspy retrained) reuses
 # npu-v2's file names, so a source is found by its tag, not its name alone.
-SOURCES = {"npu-v3": os.path.join(HERE, "release_assets_npu3"),
+SOURCES = {"npu-v4": os.path.join(HERE, "release_assets_npu4"),
+           "npu-v3": os.path.join(HERE, "release_assets_npu3"),
            "npu-v2": os.path.join(HERE, "release_assets_npu2"),
            "npu-v1": os.path.join(HERE, "release_assets_npu")}
 PART_STEM = {"enc": "npuenc", "flow": "npuflow", "dec": "npudec"}

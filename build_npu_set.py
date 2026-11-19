@@ -9,7 +9,10 @@ npu_decoders.json), a fixed 80-frame decoder. Writes OUT/<stem>-*.onnx and
 OUT/npu_files.json (voice key -> files with size and MD5, base_url, tag), the
 list the app bundles. Resumable: a model whose files exist is skipped.
 
-  python build_npu_set.py APP_ASSETS_PIPER_DIR OUT [--tag npu-v2]
+  python build_npu_set.py APP_ASSETS_PIPER_DIR OUT [--tag npu-v2] [--from int8-v1 --src DIR]
+
+--from/--src pick the catalog's INT8 release and its local folder, so a later
+INT8 release (int8-v3: release_assets_int8_v3) gets its own NPU tag.
 """
 import argparse
 import hashlib
@@ -35,6 +38,8 @@ def main():
     a.add_argument("assets", type=Path)
     a.add_argument("out", type=Path)
     a.add_argument("--tag", default="npu-v2")
+    a.add_argument("--from", dest="src_tag", default="int8-v1")
+    a.add_argument("--src", type=Path, default=SOURCE)
     args = a.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     catalog = json.load(open(args.assets / "extra_voices.json", encoding="utf-8"))
@@ -44,11 +49,11 @@ def main():
     for key, v in sorted(catalog.items()):
         if "sherpa-onnx-respin-syspin" not in v.get("base_url", ""):
             continue  # not ours to re-host
-        models = [f for f in v.get("files", {}) if f.endswith(".onnx") and f.startswith("int8-v1/")]
+        models = [f for f in v.get("files", {}) if f.endswith(".onnx") and f.startswith(args.src_tag + "/")]
         if len(models) != 1:
             continue
         stem = Path(models[0]).stem
-        src = SOURCE / (stem + ".onnx")
+        src = args.src / (stem + ".onnx")
         if not src.is_file():
             print("missing", src)
             continue
